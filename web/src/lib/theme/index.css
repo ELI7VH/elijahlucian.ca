@@ -10,13 +10,11 @@
 :root {
   --text-color: #fff;
   --text-color-2: #ccc;
-  --brand-1: #801821;
-  --brand-1-dark: #5a0f16;
-  --brand-1-light: #a6212c;
-  --brand-2: #a4830d;
-  --brand-3: #f1faee;
-  --brand-4: #a8dadc;
-  --brand-5: #457b9d;
+  --brand-1: #ff0080;
+  --brand-1-dark: #cc0066;
+  --brand-1-light: #ff33af;
+  --brand-2: #7928ca;
+  --brand-3: #6b9fa5;
   --brand-6: #1d3557;
 
   --gray-0: #ffffff;

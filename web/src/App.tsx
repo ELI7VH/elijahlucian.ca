@@ -8,7 +8,6 @@ import {
   FlexRow,
   Grid,
   H1,
-  P,
   Page,
 } from './lib'
 import { useEffect } from 'react'
