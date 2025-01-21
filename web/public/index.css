@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'wideawake';
+  src: url(wideawake.TTF);
+}
+
+@font-face {
+  font-family: 'wideawake-black';
+  src: url(wideawake-black.ttf);
+}
+
+
+body {
+  background-color: #000;
+  color: #fff;
+}
