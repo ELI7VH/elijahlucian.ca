@@ -19,3 +19,4 @@ export const toHuman = (date: Date | string) =>
   format(new Date(date), 'MMM d, yyyy h:mm:ss a')
 export const to12h = (date: Date | string) =>
   format(new Date(date), 'h:mm:ss a')
+export const to24h = (date: Date | string) => format(new Date(date), 'HH:mm:ss')

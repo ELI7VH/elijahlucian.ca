@@ -1,4 +1,4 @@
-import { now, to12h } from '@/lib/magic'
+import { now, to24h } from '@/lib/magic'
 import { useEffect, useState } from 'react'
 import { Box, P } from '@/lib/components'
 
@@ -14,19 +14,12 @@ export const Clock = () => {
 
   return (
     <Box
-      bg="cool-bg"
-      color="black"
-      height="100%"
-      padding="0.5rem"
-      boxShadow="var(--box-shadow)"
+      col="brand-3"
+      width="7ch"
+      fontFamily="var(--font-mono)"
+      textShadow="1px 1px 0 #000, 2px 2px 0 #000, 3px 3px 0 #000"
     >
-      <P
-        textTransform="lowercase"
-        fontFamily="var(--font-mono)"
-        fontWeight="var(--font-weight-2)"
-      >
-        {to12h(time)}
-      </P>
+      {to24h(time)}
     </Box>
   )
 }

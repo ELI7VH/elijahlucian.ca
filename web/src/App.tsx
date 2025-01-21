@@ -24,10 +24,8 @@ export const App = () => {
 
   return (
     <Grid height="100vh" gridTemplateRows="auto  1fr auto">
-      <FlexRow justifyContent="center" padding="1rem" gap="1rem" opacity={0.3}>
-        <Flex>
-          <Clock />
-        </Flex>
+      <FlexRow justifyContent="center" padding="1rem" gap="1rem">
+        <Clock />
       </FlexRow>
       <Page>
         <FlexCol justifyContent="center" alignItems="center" gap="1rem">
