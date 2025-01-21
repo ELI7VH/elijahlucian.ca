@@ -1,17 +1,42 @@
 import { Link } from 'react-router-dom'
-import { Divider, FlexCol, FlexRow, Grid, H1, P, Page } from './lib'
+import {
+  Box,
+  Clock,
+  Divider,
+  Flex,
+  FlexCol,
+  FlexRow,
+  Grid,
+  H1,
+  P,
+  Page,
+} from './lib'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 export const App = () => {
+  const [started, setStarted] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setStarted(true)
+    }, 1000)
+  }, [])
+
   return (
     <Grid height="100vh" gridTemplateRows="auto  1fr auto">
-      <FlexRow justifyContent="start" padding="1rem" opacity={0.3}>
-        <Link to="https://nextgenart.elijahlucian.ca">▻ pretty things</Link>
+      <FlexRow justifyContent="center" padding="1rem" gap="1rem" opacity={0.3}>
+        <Flex>
+          <Clock />
+        </Flex>
       </FlexRow>
       <Page>
         <FlexCol justifyContent="center" alignItems="center" gap="1rem">
-          <Link to="/">
-            <H1>elijah lucian</H1>
-          </Link>
+          <Box opacity={started ? 1 : 0} transition="all 0.5s ease-in">
+            <Link to="/">
+              <H1>elijah lucian</H1>
+            </Link>
+          </Box>
           <Divider />
           <Divider />
           <Link
@@ -29,6 +54,10 @@ export const App = () => {
         </FlexCol>
       </Page>
       <FlexRow justifyContent="end" padding="1rem" opacity={0.3} gap="1rem">
+        <Flex>
+          <Link to="https://nextgenart.elijahlucian.ca">▻ pretty things</Link>
+        </Flex>
+
         <Link target="_blank" to="https://www.patreon.com/c/elijahlucian">
           ▻ patreon
         </Link>
