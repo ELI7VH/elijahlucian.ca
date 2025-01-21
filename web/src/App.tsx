@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Divider, FlexCol, P, Page } from './lib'
+import { Divider, FlexCol, H1, P, Page } from './lib'
 
 export const App = () => {
   return (
@@ -10,9 +10,8 @@ export const App = () => {
         height="100vh"
         gap="1rem"
       >
-        <P>elijahlucian.ca</P>
+        <H1>elijah lucian</H1>
         <Divider />
-        <P>- under construction - </P>
         <Divider />
         <Link
           target="_blank"

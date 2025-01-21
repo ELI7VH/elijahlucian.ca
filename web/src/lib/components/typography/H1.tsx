@@ -1,10 +1,20 @@
-import { InlineHStyle } from "@/lib/types";
-import { ReactNode } from "react";
+import { InlineHStyle } from '@/lib/types'
+import { ReactNode } from 'react'
 
 type Props = {
-  children: ReactNode;
-} & InlineHStyle;
+  children: ReactNode
+} & InlineHStyle
 
 export const H1 = ({ children, ...style }: Props) => {
-  return <h1 style={style}>{children}</h1>;
-};
+  return (
+    <h1
+      style={{
+        ...style,
+        fontFamily: 'wideawake-black',
+        letterSpacing: '0.05em',
+      }}
+    >
+      {children}
+    </h1>
+  )
+}
