@@ -24,6 +24,7 @@ export const SongPlayer = ({ src, onEnded, ...props }: Props) => {
         style={{
           width: '100%',
           height: '2rem',
+          pointerEvents: 'all',
           // borderRadius: '0.1rem',
           // backgroundColor: 'black',
         }}

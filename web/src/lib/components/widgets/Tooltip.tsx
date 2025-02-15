@@ -12,6 +12,7 @@ export const Tooltip = ({
         style={{
           position: 'relative',
           display: 'inline-block',
+          pointerEvents: 'all',
         }}
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}

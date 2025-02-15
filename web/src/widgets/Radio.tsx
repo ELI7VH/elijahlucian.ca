@@ -17,8 +17,10 @@ export const Radio = () => {
 
   // todo: generate playlist - save seed to local storage
 
+  const selected = songs.data[index.state]
+
   return (
-    <Box padding="1rem" bg="var(--brand-1)" borderRadius="1rem">
+    <Box padding="1rem">
       <Grid>
         <FlexRow
           justifyContent="space-between"
@@ -26,20 +28,19 @@ export const Radio = () => {
           fontSize="0.5rem"
         >
           <Box>{songs.data?.length} songs</Box>
-          <Tooltip text={<Json data={songs.data[index.state]} />}>
+          <Tooltip text={<Json data={selected} />}>
             <Flex gap="1rem">
               <Box>
                 [{index.state}/{songs.data.length}]{' '}
               </Box>
-              <Box>{songs.data?.[index.state]?.originalFilename}</Box>
+              <Box>{selected?.originalFilename || selected?.name}</Box>
             </Flex>
           </Tooltip>
         </FlexRow>
         <SongPlayer
-          src={songs.data[index.state].link}
+          src={selected.link}
           onEnded={() => index.set(index.state + 1)}
         />
-
         <FlexRow gap="1rem" justifyContent="space-between">
           <Button
             onClick={() =>
