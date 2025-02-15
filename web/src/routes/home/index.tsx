@@ -1,4 +1,4 @@
-import { H3, Link, P } from '@/lib'
+import { Link, P } from '@/lib'
 
 import { Page } from '@/lib'
 
@@ -7,14 +7,13 @@ export const Home = () => {
     <Page>
       <P>home - nothing here yet...</P>
       <Link to="/">
-        <div
+        <span
           style={{
             transform: 'scaleX(-1)',
-            display: 'inline-block',
           }}
         >
           ➫
-        </div>{' '}
+        </span>
         back
       </Link>
     </Page>

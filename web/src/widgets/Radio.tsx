@@ -59,7 +59,7 @@ export const Radio = () => {
         <FlexCol
           gap="0.5rem"
           backgroundColor="var(--brand-1)"
-          opacity={0.5}
+          // opacity={0.5}
           transition="all 0.2s ease-in-out"
           overflow={collapsed.state ? 'hidden' : 'visible'}
           width={collapsed.state ? '1px' : 'auto'}
@@ -116,7 +116,7 @@ export const Radio = () => {
                 index.set(Math.floor(Rando.range(0, songs.data.length - 1)))
               }
             >
-              Random
+              <Pre>random</Pre>
             </Button>
             <FlexRow>
               <Button
@@ -126,7 +126,14 @@ export const Radio = () => {
                   )
                 }
               >
-                Prev
+                <span
+                  style={{
+                    transform: 'scaleX(-1)',
+                    display: 'inline-block',
+                  }}
+                >
+                  ➢
+                </span>
               </Button>
               <Button
                 onClick={() =>
@@ -135,7 +142,7 @@ export const Radio = () => {
                   )
                 }
               >
-                Next
+                ➢
               </Button>
             </FlexRow>
           </FlexRow>
