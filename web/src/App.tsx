@@ -12,6 +12,8 @@ import {
 } from './lib'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { Radio } from './widgets/Radio'
+import { WidgetContainer } from './widgets/WidgetContainer'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
@@ -21,6 +23,8 @@ export const App = () => {
       setStarted(true)
     }, 1000)
   }, [])
+
+  // todo: grow the text on the home page
 
   return (
     <Grid height="100vh" gridTemplateRows="auto  1fr auto">
@@ -35,19 +39,22 @@ export const App = () => {
             </Link>
           </Box>
           <Divider />
+          <Link to="/home">- enter -</Link>
           <Divider />
-          <Link
-            target="_blank"
-            to="https://open.spotify.com/artist/3DDcytjYeKW2oDq3tWZPVF"
-          >
-            ▻ spotify
-          </Link>
-          <Link target="_blank" to="https://www.instagram.com/elijahlucian">
-            ▻ instagram
-          </Link>
-          <Link target="_blank" to="https://linktr.ee/eli7vh">
-            ▻ linktree
-          </Link>
+          <FlexRow justifyContent="center" gap="1rem">
+            <Link
+              target="_blank"
+              to="https://open.spotify.com/artist/3DDcytjYeKW2oDq3tWZPVF"
+            >
+              ▻ spotify
+            </Link>
+            <Link target="_blank" to="https://www.instagram.com/elijahlucian">
+              ▻ instagram
+            </Link>
+            <Link target="_blank" to="https://linktr.ee/eli7vh">
+              ▻ linktree
+            </Link>
+          </FlexRow>
         </FlexCol>
       </Page>
       <FlexRow justifyContent="end" padding="1rem" opacity={0.3} gap="1rem">
@@ -62,6 +69,9 @@ export const App = () => {
           ▻ source code
         </Link>
       </FlexRow>
+      <WidgetContainer>
+        <Radio />
+      </WidgetContainer>
     </Grid>
   )
 }

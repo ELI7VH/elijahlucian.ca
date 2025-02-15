@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { connectDb } from './db'
+import routes from './routes'
 
 const main = async () => {
   const app = express()
@@ -35,9 +36,11 @@ const main = async () => {
 
   app.get('/', async (req, res) => {
     res.send({
-      message: 'Ready',
+      message: 'Server is running!',
     })
   })
+
+  app.use(routes())
 
   app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`)

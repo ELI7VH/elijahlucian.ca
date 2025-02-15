@@ -10,6 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dank-inc/banger": "^0.14.1",
+    "@dank-inc/lewps": "^1.0.0",
+    "@dank-inc/numbaz": "^0.7.0",
+    "@dank-inc/sketchy": "^1.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

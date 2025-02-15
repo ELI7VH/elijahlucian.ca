@@ -29,7 +29,17 @@ export const Metadata = mongoose.model(
       statics: {
         isPublic: () => true,
         path: '/prototypes/metadata',
-        routes: [],
+        routes: [
+          {
+            path: '/',
+            method: 'get',
+            handler: async (req: any, res: any) => {
+              const metadata = await Metadata.find({})
+              console.log('metadata', metadata.length)
+              res.json(metadata.map((m) => m.toObject()))
+            },
+          },
+        ],
       },
     },
   ),

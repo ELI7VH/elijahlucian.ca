@@ -1,0 +1,20 @@
+{
+  "name": "vr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "vite": "^6.1.0"
+  },
+  "dependencies": {
+    "@dank-inc/banger": "^0.14.1",
+    "@types/aframe": "^1.2.7",
+    "axios": "^1.7.9"
+  }
+}

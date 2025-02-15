@@ -3,3 +3,5 @@
 .env.prod
 
 node_modules
+
+.archive
