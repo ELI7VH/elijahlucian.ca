@@ -27,7 +27,7 @@ export const Tooltip = ({
             top: '100%',
             left: '100%',
             // transform: 'translateX(-50%)',
-            backgroundColor: 'rgba(0,0,0,0.8)',
+            backgroundColor: 'rgba(0,0,0,0.9)',
             color: 'white',
             borderRadius: '4px',
             fontSize: '14px',

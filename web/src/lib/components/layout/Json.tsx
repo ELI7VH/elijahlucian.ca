@@ -7,6 +7,6 @@ type JsonProps = PropsWithChildren & {
 
 export const Json = ({ data }: JsonProps) => {
   return (
-    <Pre style={{ fontSize: '0.4rem' }}>{JSON.stringify(data, null, 2)}</Pre>
+    <Pre style={{ fontSize: '0.5rem' }}>{JSON.stringify(data, null, 2)}</Pre>
   )
 }

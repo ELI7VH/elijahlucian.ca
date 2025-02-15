@@ -1,4 +1,15 @@
-import { Box, Button, Flex, FlexCol, FlexRow, Grid, H1, Json, P } from '@/lib'
+import {
+  Box,
+  Button,
+  Flex,
+  FlexCol,
+  FlexRow,
+  Grid,
+  H1,
+  Json,
+  P,
+  Pre,
+} from '@/lib'
 import { Tooltip } from '@/lib/components/widgets/Tooltip'
 import { useSongs } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
@@ -46,6 +57,7 @@ export const Radio = () => {
 
       <FlexRow padding="1rem">
         <FlexCol
+          gap="0.5rem"
           backgroundColor="var(--brand-1)"
           opacity={0.5}
           transition="all 0.2s ease-in-out"
@@ -84,13 +96,13 @@ export const Radio = () => {
                 </Grid>
               }
             >
-              <Box>
-                [{index.state}/{songs.data.length}]{' '}
-              </Box>
+              <Pre>
+                [{index.state}/{songs.data.length}]
+              </Pre>
             </Tooltip>
             <Tooltip text={<Json data={selected} />}>
               <Flex gap="1rem" justifyContent="space-between">
-                <Box>{selected?.originalFilename || selected?.name}</Box>
+                <Pre>{selected?.originalFilename || selected?.name}</Pre>
               </Flex>
             </Tooltip>
           </FlexRow>

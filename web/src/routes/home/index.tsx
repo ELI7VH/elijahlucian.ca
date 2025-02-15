@@ -1,11 +1,22 @@
-import { H3, P } from '@/lib'
+import { H3, Link, P } from '@/lib'
 
 import { Page } from '@/lib'
 
 export const Home = () => {
   return (
     <Page>
-      <P>home</P>
+      <P>home - nothing here yet...</P>
+      <Link to="/">
+        <div
+          style={{
+            transform: 'scaleX(-1)',
+            display: 'inline-block',
+          }}
+        >
+          ➫
+        </div>{' '}
+        back
+      </Link>
     </Page>
   )
 }

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import {
   Box,
   Clock,
@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { Radio } from './widgets/Radio'
 import { WidgetContainer } from './widgets/WidgetContainer'
+import { Home } from './routes/home'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
@@ -39,9 +40,18 @@ export const App = () => {
             </Link>
           </Box>
           <Divider />
-          <Link to="/home">- enter -</Link>
+          <Routes>
+            <Route path="/" element={<Link to="/home">➫ enter ➫</Link>} />
+            <Route path="/home" element={<Home />} />
+          </Routes>
           <Divider />
           <FlexRow justifyContent="center" gap="1rem">
+            <Link
+              target="_blank"
+              to="https://music.youtube.com/playlist?list=PLMrGa3-RIUa6vT8mJFYsEHGhsrcnJ3kkM"
+            >
+              ▻ my current "album" (youtube)
+            </Link>
             <Link
               target="_blank"
               to="https://open.spotify.com/artist/3DDcytjYeKW2oDq3tWZPVF"
