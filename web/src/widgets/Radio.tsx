@@ -31,7 +31,8 @@ export const Radio = () => {
   if (!songs.data) return <div>no data?</div>
 
   // todo: generate playlist - save seed to local storage
-  // todo:
+  // todo: https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement
+  // https://stackoverflow.com/a/70638608/2213321
 
   const selected = songs.data[index.state]
 
