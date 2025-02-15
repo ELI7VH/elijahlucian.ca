@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { Metadata, User } from '../db/models'
+import { Metadata } from '../db/models'
 
 export default () => {
   const router = Router()

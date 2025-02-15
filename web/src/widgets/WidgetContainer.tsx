@@ -1,4 +1,4 @@
-import { Grid } from '@/lib'
+import { Flex, FlexCol, Grid } from '@/lib'
 import { PropsWithChildren } from 'react'
 
 export const WidgetContainer = ({ children }: PropsWithChildren) => {
@@ -13,12 +13,13 @@ export const WidgetContainer = ({ children }: PropsWithChildren) => {
       left="0"
       right="0"
       bottom="0"
-      borderColor="var(--brand-1)"
-      borderRadius="1rem"
-      borderWidth="2px"
-      borderStyle="dashed"
+      padding="1rem"
+      // borderColor="var(--brand-1)"
+      // borderRadius="1rem"
+      // borderWidth="2px"
+      // borderStyle="dashed"
     >
-      {children}
+      <FlexCol>{children}</FlexCol>
     </Grid>
   )
 }

@@ -21,12 +21,12 @@ export const Tooltip = ({
         <div
           style={{
             padding: '1rem',
-            maxWidth: '300px',
+            maxWidth: '500px',
             overflowX: 'auto',
             position: 'absolute',
             top: '100%',
-            left: '50%',
-            transform: 'translateX(-50%)',
+            left: '100%',
+            // transform: 'translateX(-50%)',
             backgroundColor: 'rgba(0,0,0,0.8)',
             color: 'white',
             borderRadius: '4px',

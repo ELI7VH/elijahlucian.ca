@@ -22,5 +22,11 @@ export const useLocalState = <T>(key: string, initialValue: T) => {
     setState(initialValue)
   }
 
-  return { state, set, rm }
+  const toggle = () => {
+    const v = Boolean(state)
+
+    set(!v as T)
+  }
+
+  return { state, set, rm, toggle }
 }

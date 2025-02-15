@@ -1,11 +1,16 @@
-import { ReactNode } from "react";
-import { InlineDivStyle } from "@/lib/types";
-import { dankStylez } from "@/lib/magic";
+import { ReactNode } from 'react'
+import { InlineDivStyle } from '@/lib/types'
+import { dankStylez } from '@/lib/magic'
 
 type BoxProps = {
-  children?: ReactNode;
-} & InlineDivStyle;
+  children?: ReactNode
+  onClick?: () => void
+} & InlineDivStyle
 
-export const Box = ({ children, ...style }: BoxProps) => {
-  return <div style={{ ...dankStylez(style) }}>{children}</div>;
-};
+export const Box = ({ children, onClick, ...style }: BoxProps) => {
+  return (
+    <div onClick={onClick} style={{ ...dankStylez(style) }}>
+      {children}
+    </div>
+  )
+}
