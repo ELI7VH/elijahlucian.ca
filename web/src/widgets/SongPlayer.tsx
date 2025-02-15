@@ -1,13 +1,12 @@
 import { Box } from '@/lib'
-import { MediaHTMLAttributes, useRef } from 'react'
+import { MediaHTMLAttributes, RefObject, useEffect, useRef } from 'react'
 
 type Props = MediaHTMLAttributes<HTMLAudioElement> & {
   onEnded?: () => void
+  ref?: RefObject<HTMLAudioElement>
 }
 
-export const SongPlayer = ({ src, onEnded, ...props }: Props) => {
-  const el = useRef<HTMLAudioElement>(null)
-
+export const SongPlayer = ({ src, onEnded, ref, ...props }: Props) => {
   const handleSongEnd = () => {
     console.log('song ended')
     onEnded?.()
@@ -16,7 +15,7 @@ export const SongPlayer = ({ src, onEnded, ...props }: Props) => {
   return (
     <Box>
       <audio
-        ref={el}
+        ref={ref}
         src={src}
         controls
         autoPlay

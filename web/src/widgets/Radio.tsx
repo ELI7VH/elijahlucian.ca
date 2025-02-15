@@ -15,10 +15,13 @@ import { useSongs } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { Rando } from '@dank-inc/numbaz'
 import { SongPlayer } from './SongPlayer'
+import { useRef } from 'react'
 
 export const Radio = () => {
   const songs = useSongs()
   const collapsed = useLocalState('radio-collapsed', false)
+
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   const index = useLocalState('radio-index', 0)
 
@@ -46,6 +49,8 @@ export const Radio = () => {
         cursor="pointer"
         userSelect="none"
         boxShadow="0 0 10px 0 rgba(0, 0, 0, 0.5)"
+        // 78 rpm
+        animation={collapsed.state ? 'spin 1.3s linear infinite' : 'none'}
         _hover={{
           backgroundColor: '#fff',
           color: '#000',
@@ -115,6 +120,7 @@ export const Radio = () => {
             </Tooltip>
           </FlexRow>
           <SongPlayer
+            ref={audioRef}
             src={selected.link}
             onEnded={() => index.set(index.state + 1)}
           />
