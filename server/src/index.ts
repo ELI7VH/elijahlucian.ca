@@ -12,7 +12,11 @@ const main = async () => {
   app.locals.db = db
   app.locals.models = models
   app.use(express.json())
-  app.use(cors())
+  app.use(
+    cors({
+      origin: ['https://elijahlucian.ca'],
+    }),
+  )
 
   app.use((req, res, next) => {
     console.log(
