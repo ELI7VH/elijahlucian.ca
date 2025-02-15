@@ -46,7 +46,11 @@ export const Radio = () => {
         cursor="pointer"
         userSelect="none"
         boxShadow="0 0 10px 0 rgba(0, 0, 0, 0.5)"
-        // opacity={0.5}
+        _hover={{
+          backgroundColor: '#fff',
+          color: '#000',
+          opacity: 1,
+        }}
         onClick={() => collapsed.toggle()}
         zIndex={1000}
       >
@@ -57,9 +61,13 @@ export const Radio = () => {
 
       <FlexRow padding="1rem">
         <FlexCol
+          pointerEvents="all"
           gap="0.5rem"
           backgroundColor="var(--brand-1)"
-          // opacity={0.5}
+          opacity={0.5}
+          _hover={{
+            opacity: 1,
+          }}
           transition="all 0.2s ease-in-out"
           overflow={collapsed.state ? 'hidden' : 'visible'}
           width={collapsed.state ? '1px' : 'auto'}
