@@ -36,6 +36,8 @@ export const Radio = () => {
 
   const selected = songs.data[index.state]
 
+  if (!selected) return <div>no song selected / available</div>
+
   return (
     <Box position="relative">
       <Box
