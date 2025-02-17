@@ -1,4 +1,12 @@
-import { Button, FlexRow, H1, Json, TextArea, useSearchParams } from '@/lib'
+import {
+  Button,
+  Divider,
+  FlexRow,
+  H1,
+  Json,
+  TextArea,
+  useSearchParams,
+} from '@/lib'
 import { useSong } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBody } from './components/WidgetBody'
@@ -49,6 +57,7 @@ export const SongInfo = () => {
             x
           </Button>
         </FlexRow>
+        <Divider />
         <BasicRecord
           data={song.data}
           fields={[
