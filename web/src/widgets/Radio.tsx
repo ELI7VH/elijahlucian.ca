@@ -1,29 +1,25 @@
-import {
-  Box,
-  Button,
-  Flex,
-  FlexCol,
-  FlexRow,
-  Grid,
-  H1,
-  Json,
-  P,
-  Pre,
-} from '@/lib'
+import { Button, Flex, FlexRow, Grid, H1, Json, Link, P, Pre } from '@/lib'
 import { Tooltip } from '@/lib/components/widgets/Tooltip'
 import { useSongs } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { Rando } from '@dank-inc/numbaz'
-import { SongPlayer } from './SongPlayer'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import { WidgetBadge } from './components/WidgetBadge'
+import { WidgetBody } from './components/WidgetBody'
+import { WidgetContainer } from './components/WidgetContainer'
 
 export const Radio = () => {
   const songs = useSongs()
   const collapsed = useLocalState('radio-collapsed', false)
-
   const audioRef = useRef<HTMLAudioElement>(null)
+  const autoplay = useLocalState('autoplay', false)
 
   const index = useLocalState('radio-index', 0)
+
+  useEffect(() => {
+    console.log('autoplay', audioRef.current, autoplay.state)
+    if (autoplay.state) audioRef.current?.play()
+  }, [audioRef.current, autoplay.state])
 
   if (songs.isLoading) return <div>Loading...</div>
   if (songs.error) return <div>Error: {songs.error.message}</div>
@@ -39,132 +35,108 @@ export const Radio = () => {
   if (!selected) return <div>no song selected / available</div>
 
   return (
-    <Box position="relative">
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        height="2rem"
-        width="2rem"
-        pointerEvents="all"
-        borderRadius="100%"
-        backgroundColor="var(--brand-1)"
-        cursor="pointer"
-        userSelect="none"
-        boxShadow="0 0 10px 0 rgba(0, 0, 0, 0.5)"
-        // 78 rpm
-        animation={collapsed.state ? 'spin 1.3s linear infinite' : 'none'}
-        _hover={{
-          backgroundColor: '#fff',
-          color: '#000',
-          opacity: 1,
-        }}
+    <WidgetContainer>
+      <WidgetBadge
+        name={collapsed.state ? 'r' : 'Radio'}
         onClick={() => collapsed.toggle()}
-        zIndex={1000}
-      >
-        <H1 position="absolute" left="7px" top="7px" fontSize="1.8rem">
-          E
-        </H1>
-      </Box>
+      ></WidgetBadge>
 
-      <FlexRow padding="1rem">
-        <FlexCol
-          pointerEvents="all"
-          gap="0.5rem"
-          backgroundColor="var(--brand-1)"
-          opacity={0.5}
-          _hover={{
-            opacity: 1,
+      <WidgetBody collapsed={collapsed.state}>
+        <FlexRow justifyContent="space-between">
+          <Tooltip
+            text={
+              <Grid gap="0.2rem">
+                {songs.data
+                  .slice(index.state - 3, index.state + 4)
+                  .map((s, i) =>
+                    index.state - 3 + i === index.state ? (
+                      <P
+                        textAlign="center"
+                        key={s.originalFilename}
+                        backgroundColor={'var(--brand-2)'}
+                        padding="0.2rem"
+                        borderRadius="0.2rem"
+                      >
+                        {index.state - 5 + i}: {s.originalFilename}
+                      </P>
+                    ) : (
+                      <Button
+                        key={s.originalFilename}
+                        onClick={() => index.set(index.state - 5 + i)}
+                      >
+                        {index.state - 5 + i}: {s.originalFilename}
+                      </Button>
+                    ),
+                  )}
+              </Grid>
+            }
+          >
+            <Pre>
+              [{index.state}/{songs.data.length}]
+            </Pre>
+          </Tooltip>
+          <Link
+            to={{
+              search: `?song-id=${selected.id}`,
+            }}
+          >
+            <Flex gap="1rem" justifyContent="space-between">
+              <Pre>{selected?.originalFilename || selected?.name}</Pre>
+            </Flex>
+          </Link>
+        </FlexRow>
+        <audio
+          ref={audioRef}
+          src={selected.link}
+          controls
+          autoPlay={autoplay.state}
+          onEnded={() => index.set(index.state + 1)}
+          onPlay={() => autoplay.set(true)}
+          style={{
+            width: '100%',
+            height: '2rem',
+            pointerEvents: 'all',
+            // borderRadius: '0.1rem',
+            // backgroundColor: 'black',
           }}
-          transition="all 0.2s ease-in-out"
-          overflow={collapsed.state ? 'hidden' : 'visible'}
-          width={collapsed.state ? '1px' : 'auto'}
-          height={collapsed.state ? '1px' : 'auto'}
-          borderRadius="1rem"
-          padding={collapsed.state ? '0' : '1rem'}
-        >
-          <FlexRow justifyContent="space-between">
-            <Tooltip
-              text={
-                <Grid gap="0.2rem">
-                  {songs.data
-                    .slice(index.state - 3, index.state + 4)
-                    .map((s, i) =>
-                      index.state - 3 + i === index.state ? (
-                        <P
-                          textAlign="center"
-                          key={s.originalFilename}
-                          backgroundColor={'var(--brand-2)'}
-                          padding="0.2rem"
-                          borderRadius="0.2rem"
-                        >
-                          {index.state - 5 + i}: {s.originalFilename}
-                        </P>
-                      ) : (
-                        <Button
-                          key={s.originalFilename}
-                          onClick={() => index.set(index.state - 5 + i)}
-                        >
-                          {index.state - 5 + i}: {s.originalFilename}
-                        </Button>
-                      ),
-                    )}
-                </Grid>
-              }
-            >
-              <Pre>
-                [{index.state}/{songs.data.length}]
-              </Pre>
-            </Tooltip>
-            <Tooltip text={<Json data={selected} />}>
-              <Flex gap="1rem" justifyContent="space-between">
-                <Pre>{selected?.originalFilename || selected?.name}</Pre>
-              </Flex>
-            </Tooltip>
-          </FlexRow>
-          <SongPlayer
-            ref={audioRef}
-            src={selected.link}
-            onEnded={() => index.set(index.state + 1)}
-          />
-          <FlexRow gap="1rem" justifyContent="space-between">
+        />
+        <FlexRow gap="1rem" justifyContent="space-between">
+          <Button
+            onClick={() =>
+              index.set(Math.floor(Rando.range(0, songs.data.length - 1)))
+            }
+          >
+            <Pre>random</Pre>
+          </Button>
+          <FlexRow>
             <Button
               onClick={() =>
-                index.set(Math.floor(Rando.range(0, songs.data.length - 1)))
+                index.set(
+                  index.state === 0 ? songs.data.length - 1 : index.state - 1,
+                )
               }
             >
-              <Pre>random</Pre>
-            </Button>
-            <FlexRow>
-              <Button
-                onClick={() =>
-                  index.set(
-                    index.state === 0 ? songs.data.length - 1 : index.state - 1,
-                  )
-                }
-              >
-                <span
-                  style={{
-                    transform: 'scaleX(-1)',
-                    display: 'inline-block',
-                  }}
-                >
-                  ➢
-                </span>
-              </Button>
-              <Button
-                onClick={() =>
-                  index.set(
-                    index.state === songs.data.length - 1 ? 0 : index.state + 1,
-                  )
-                }
+              <span
+                style={{
+                  transform: 'scaleX(-1)',
+                  display: 'inline-block',
+                }}
               >
                 ➢
-              </Button>
-            </FlexRow>
+              </span>
+            </Button>
+            <Button
+              onClick={() =>
+                index.set(
+                  index.state === songs.data.length - 1 ? 0 : index.state + 1,
+                )
+              }
+            >
+              ➢
+            </Button>
           </FlexRow>
-        </FlexCol>
-      </FlexRow>
-    </Box>
+        </FlexRow>
+      </WidgetBody>
+    </WidgetContainer>
   )
 }

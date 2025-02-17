@@ -1,7 +1,7 @@
-import { Flex, FlexCol, Grid } from '@/lib'
+import { FlexCol, Grid } from '@/lib'
 import { PropsWithChildren } from 'react'
 
-export const WidgetContainer = ({ children }: PropsWithChildren) => {
+export const DesktopContainer = ({ children }: PropsWithChildren) => {
   // user can place shit in the container
   // load user widgets from local storage
 
@@ -14,12 +14,12 @@ export const WidgetContainer = ({ children }: PropsWithChildren) => {
       right="0"
       bottom="0"
       padding="1rem"
-      // borderColor="var(--brand-1)"
-      // borderRadius="1rem"
-      // borderWidth="2px"
-      // borderStyle="dashed"
+      borderColor="var(--brand-1)"
+      borderRadius="1rem"
+      borderWidth="2px"
+      borderStyle="dashed"
     >
-      <FlexCol>{children}</FlexCol>
+      <FlexCol height="100%">{children}</FlexCol>
     </Grid>
   )
 }

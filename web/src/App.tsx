@@ -13,8 +13,10 @@ import {
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Radio } from './widgets/Radio'
-import { WidgetContainer } from './widgets/WidgetContainer'
+import { DesktopContainer } from './widgets/components/DesktopContainer'
 import { Home } from './routes/home'
+import { AdminPanel } from './widgets/AdminPanel'
+import { SongInfo } from './widgets/SongInfo'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
@@ -79,9 +81,11 @@ export const App = () => {
           ▻ source code
         </Link>
       </FlexRow>
-      <WidgetContainer>
+      <DesktopContainer>
         <Radio />
-      </WidgetContainer>
+        <AdminPanel />
+        <SongInfo />
+      </DesktopContainer>
     </Grid>
   )
 }

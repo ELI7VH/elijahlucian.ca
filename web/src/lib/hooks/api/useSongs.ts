@@ -26,3 +26,8 @@ export const useSongs = () => {
 
   return { ...query, index }
 }
+
+export const useSong = (id?: string | null) => {
+  const { index } = useSongs()
+  return id ? index[id] : undefined
+}

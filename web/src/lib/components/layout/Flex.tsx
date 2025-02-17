@@ -4,7 +4,7 @@ import { InlineDivStyle } from '@/lib/types'
 import { dankStylez } from '@/lib/magic'
 import { useDisclosure } from '@/lib/hooks'
 
-type FlexProps = {
+export type FlexProps = {
   children?: ReactNode
   _hover?: InlineDivStyle
 } & InlineDivStyle
