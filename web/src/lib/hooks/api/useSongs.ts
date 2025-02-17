@@ -1,5 +1,5 @@
 import { useApiContext } from '@/lib/providers'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { keyBy } from 'lodash'
 import { useForm } from '../useForm'
 import { useQueryFns } from '../useQuery'
@@ -31,18 +31,16 @@ export const useSongs = () => {
 }
 
 export const useSong = (id?: string | null) => {
-  const { index } = useSongs()
+  const songs = useSongs()
+  const api = useApiContext()
 
-  // const query = useQuery({
-  //   queryKey: ['songs', id],
-  //   queryFn: () => api.get<Song>(`/songs/${id}`),
-  // })
-  const song = id ? index[id] : undefined
+  const song = id ? songs.index[id] : undefined
 
-  const fns = useQueryFns<Song>({
-    path: '/songs',
-    queryKey: ['songs'],
-    id,
+  const update = useMutation({
+    mutationFn: (data: Partial<Song>) => api.patch(`/songs/${id}`, data),
+    onSuccess: () => {
+      songs.refetch()
+    },
   })
 
   const form = useForm({
@@ -54,5 +52,5 @@ export const useSong = (id?: string | null) => {
     },
   })
 
-  return { data: song, form, fns }
+  return { data: song, form, update }
 }

@@ -50,6 +50,7 @@ export const WidgetBadge = ({
           position="absolute"
           left="7px"
           top="6px"
+          fontSize="1.5rem"
           textShadow={
             hovering.isOpen
               ? '2px 2px 0px #000, 3px 3px 0px #fff, 4px 4px 0px #fff, 5px 5px 0px #fff'

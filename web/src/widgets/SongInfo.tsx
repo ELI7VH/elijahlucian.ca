@@ -36,7 +36,7 @@ export const SongInfo = () => {
         color="black"
       >
         <FlexRow justifyContent="space-between">
-          <H1>{song.data?.name}</H1>
+          <H1 fontSize="1rem">{song.data?.name}</H1>
           <Button
             size="small"
             onClick={() => {
@@ -62,10 +62,10 @@ export const SongInfo = () => {
 
         <TextArea
           value={song.data?.notes}
-          onBlur={async () => {
-            await song.fns.update.mutate({
+          onBlur={async (notes) => {
+            await song.update.mutateAsync({
               id: song.data?.id,
-              notes: song.data?.notes,
+              notes,
             })
           }}
         />

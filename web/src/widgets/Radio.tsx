@@ -12,6 +12,8 @@ export const Radio = () => {
   const songs = useSongs()
   const collapsed = useLocalState('radio-collapsed', true)
 
+  const songPosition = useLocalState('radio-song-position', 0)
+
   const audioRef = useRef<HTMLAudioElement>(null)
   const autoplay = useLocalState('autoplay', false)
 

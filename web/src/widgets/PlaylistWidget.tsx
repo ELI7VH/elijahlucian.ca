@@ -36,7 +36,7 @@ export const PlaylistWidget = () => {
         color="black"
       >
         <FlexRow justifyContent="space-between">
-          <H1>songs ({songs.data.length})</H1>
+          <H1 fontSize="1rem">songs ({songs.data.length})</H1>
           <Button size="small">add</Button>
         </FlexRow>
         <Table
