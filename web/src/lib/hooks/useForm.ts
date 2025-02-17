@@ -29,11 +29,11 @@ export function useForm<T, R = T>(props: FormProps<T>) {
 
   const [updatedValues, setUpdatedValues] = useState<Partial<T>>(values)
 
-  useEffect(() => {
-    if (!props.values) return
+  // useEffect(() => {
+  //   if (!props.values) return
 
-    setValues(props.values)
-  }, [props.values])
+  //   setValues(props.values)
+  // }, [props.values])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedValues({ ...updatedValues, [e.target.name]: e.target.value })

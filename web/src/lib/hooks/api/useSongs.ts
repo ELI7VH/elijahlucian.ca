@@ -39,7 +39,7 @@ export const useSong = (id?: string | null) => {
   // })
   const song = id ? index[id] : undefined
 
-  const fns = useQueryFns({
+  const fns = useQueryFns<Song>({
     path: '/songs',
     queryKey: ['songs'],
     id,
@@ -54,5 +54,5 @@ export const useSong = (id?: string | null) => {
     },
   })
 
-  return { ...song, form, fns }
+  return { data: song, form, fns }
 }

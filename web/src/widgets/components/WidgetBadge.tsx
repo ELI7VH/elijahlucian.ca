@@ -22,6 +22,8 @@ export const WidgetBadge = ({
 }: Props) => {
   const hovering = useDisclosure()
 
+  console.log('collapsed', collapsed)
+
   return (
     <Box
       onMouseEnter={hovering.open}

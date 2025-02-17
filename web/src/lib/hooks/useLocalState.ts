@@ -6,6 +6,7 @@ export const useLocalState = <T>(key: string, initialValue: T) => {
   const [state, setState] = useState<T>(initialValue)
 
   useEffect(() => {
+    console.log('useLocalState', key)
     const value = localStorage.getItem(key)
     if (value) {
       setState(JSON.parse(value))

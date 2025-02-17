@@ -6,7 +6,6 @@ type Props = {
 } & InlineHStyle
 
 export const H1 = ({ children, ...style }: Props) => {
-  console.log('h1', style)
   return (
     <h1
       style={{

@@ -4,8 +4,8 @@ import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBody } from './components/WidgetBody'
 import { WidgetContainer } from './components/WidgetContainer'
 import { WidgetBadge } from './components/WidgetBadge'
+import { BasicRecord } from '@/lib/components/layout/BasicRecord'
 import { useEffect } from 'react'
-
 export const SongInfo = () => {
   const sp = useSearchParams()
   const songId = sp.get('song-id')
@@ -14,11 +14,12 @@ export const SongInfo = () => {
 
   const collapsed = useLocalState('song-info-collapsed', false)
 
-  useEffect(() => {
-    if (songId) {
-      collapsed.set(false)
-    }
-  }, [songId])
+  // useEffect(() => {
+  //   console.log('songId effect', songId)
+  //   if (songId) {
+  //     collapsed.set(false)
+  //   }
+  // }, [songId])
 
   return (
     <WidgetContainer>
@@ -35,12 +36,9 @@ export const SongInfo = () => {
         color="black"
       >
         <FlexRow justifyContent="space-between">
-          <H1>{song?.name}</H1>
+          <H1>{song.data?.name}</H1>
           <Button
-            sx={{
-              padding: '0.25rem 0.5rem',
-              fontSize: '0.5rem',
-            }}
+            size="small"
             onClick={() => {
               sp.set('song-id')
               collapsed.set(true)
@@ -49,27 +47,28 @@ export const SongInfo = () => {
             x
           </Button>
         </FlexRow>
+        {/* <BasicRecord data={song.data} /> */}
         <Json
           data={{
-            id: song?.id || 'no song selected',
-            name: song?.name,
-            link: song?.link,
-            originalFilename: song?.originalFilename,
-            size: song?.size,
-            folder: song?.folder,
-            bucket: song?.bucket,
-            mime: song?.mime,
+            id: song.data?.id || 'no song selected',
+            name: song.data?.name,
+            link: song.data?.link,
+            originalFilename: song.data?.originalFilename,
+            size: song.data?.size,
+            folder: song.data?.folder,
+            bucket: song.data?.bucket,
+            mime: song.data?.mime,
           }}
         />
-        <TextArea
-          value={song?.notes}
+        {/* <TextArea
+          value={song.data?.notes}
           onBlur={async () => {
-            await song?.fns.update.mutate({
-              id: song?.id,
-              notes: song?.notes,
+            await song.fns.update.mutate({
+              id: song.data?.id,
+              notes: song.data?.notes,
             })
           }}
-        />
+        /> */}
       </WidgetBody>
     </WidgetContainer>
   )

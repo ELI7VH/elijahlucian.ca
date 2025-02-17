@@ -1,4 +1,13 @@
-import { Box, Button, H1, H3, Link, Table, useSearchParams } from '@/lib'
+import {
+  Box,
+  Button,
+  FlexRow,
+  H1,
+  H3,
+  Link,
+  Table,
+  useSearchParams,
+} from '@/lib'
 import { useSongs } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBadge } from './components/WidgetBadge'
@@ -26,9 +35,12 @@ export const PlaylistWidget = () => {
         backgroundColor="white"
         color="black"
       >
-        <H1>songs ({songs.data.length})</H1>
+        <FlexRow justifyContent="space-between">
+          <H1>songs ({songs.data.length})</H1>
+          <Button size="small">add</Button>
+        </FlexRow>
         <Table
-          maxHeight="30vh"
+          maxHeight="20vh"
           data={songs.data}
           columns={[
             {
