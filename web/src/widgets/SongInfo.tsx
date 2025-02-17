@@ -70,7 +70,7 @@ export const SongInfo = () => {
             'mime',
           ]}
         />
-
+        <Divider />
         <TextArea
           value={song.data?.notes}
           onBlur={async (notes) => {
