@@ -5,7 +5,7 @@ import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetBody } from './components/WidgetBody'
 import { WidgetContainer } from './components/WidgetContainer'
 
-export const AdminPanel = () => {
+export const PlaylistWidget = () => {
   const songs = useSongs()
   const collapsed = useLocalState('admin-panel-collapsed', false)
   const sp = useSearchParams()
@@ -17,7 +17,7 @@ export const AdminPanel = () => {
   return (
     <WidgetContainer>
       <WidgetBadge
-        name={collapsed.state ? 'd' : 'Data'}
+        name={collapsed.state ? 'p' : 'Playlists'}
         onClick={() => collapsed.toggle()}
       ></WidgetBadge>
       <WidgetBody

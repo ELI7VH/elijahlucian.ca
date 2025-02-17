@@ -33,6 +33,7 @@ export function Table<T extends TableRecord>({
         boxShadow="var(--box-shadow)"
         bg="cool-bg"
         {...style}
+        border="1px solid var(--gray-2)"
         padding="0"
         height={data?.length ? style.maxHeight || '100%' : '3rem'}
         overflow="scroll"

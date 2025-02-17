@@ -27,7 +27,7 @@ export const WidgetBody = ({
           width={collapsed ? '1px' : 'auto'}
           height={collapsed ? '1px' : 'auto'}
           borderRadius="1rem"
-          padding={collapsed ? '0' : '1rem'}
+          padding={collapsed ? '0' : '2rem 1rem 1rem'}
           {...props}
         >
           {children}

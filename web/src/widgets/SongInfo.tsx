@@ -1,4 +1,4 @@
-import { Box, Button, FlexRow, H1, Json, useSearchParams } from '@/lib'
+import { Button, FlexRow, H1, Json, TextArea, useSearchParams } from '@/lib'
 import { useSong } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBody } from './components/WidgetBody'
@@ -59,6 +59,15 @@ export const SongInfo = () => {
             folder: song?.folder,
             bucket: song?.bucket,
             mime: song?.mime,
+          }}
+        />
+        <TextArea
+          value={song?.notes}
+          onBlur={async () => {
+            await song?.fns.update.mutate({
+              id: song?.id,
+              notes: song?.notes,
+            })
           }}
         />
       </WidgetBody>

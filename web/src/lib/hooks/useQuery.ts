@@ -2,7 +2,7 @@ import { QueryKey, useMutation } from '@tanstack/react-query'
 
 import { useApiContext } from '../providers/ApiContext'
 type QueryFnsProps = {
-  id?: string // idk if we need
+  id?: string | null // idk if we need
   queryKey: QueryKey
   path: string
 }

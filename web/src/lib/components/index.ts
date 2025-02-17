@@ -3,6 +3,7 @@ export * from './form/Input'
 export * from './form/Option'
 export * from './form/Select'
 export * from './form/HotInput'
+export * from './form/TextArea'
 
 export * from './elements/Button'
 export * from './elements/Link'

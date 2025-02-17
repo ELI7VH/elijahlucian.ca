@@ -15,7 +15,7 @@ import { useState } from 'react'
 import { Radio } from './widgets/Radio'
 import { DesktopContainer } from './widgets/components/DesktopContainer'
 import { Home } from './routes/home'
-import { AdminPanel } from './widgets/AdminPanel'
+import { PlaylistWidget } from './widgets/PlaylistWidget'
 import { SongInfo } from './widgets/SongInfo'
 
 export const App = () => {
@@ -93,7 +93,7 @@ export const App = () => {
       </FlexRow>
       <DesktopContainer>
         <Radio />
-        <AdminPanel />
+        <PlaylistWidget />
         <SongInfo />
       </DesktopContainer>
     </Grid>
