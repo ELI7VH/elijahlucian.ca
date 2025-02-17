@@ -10,7 +10,7 @@ import { WidgetContainer } from './components/WidgetContainer'
 
 export const Radio = () => {
   const songs = useSongs()
-  const collapsed = useLocalState('radio-collapsed', false)
+  const collapsed = useLocalState('radio-collapsed', true)
 
   const audioRef = useRef<HTMLAudioElement>(null)
   const autoplay = useLocalState('autoplay', false)

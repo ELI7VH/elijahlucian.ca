@@ -16,7 +16,7 @@ import { WidgetContainer } from './components/WidgetContainer'
 
 export const PlaylistWidget = () => {
   const songs = useSongs()
-  const collapsed = useLocalState('admin-panel-collapsed', false)
+  const collapsed = useLocalState('playlist-panel-collapsed', true)
   const sp = useSearchParams()
   if (songs.isLoading) return <div>Loading...</div>
   if (songs.error) return <div>Error: {songs.error.message}</div>
