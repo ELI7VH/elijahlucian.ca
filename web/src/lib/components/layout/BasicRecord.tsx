@@ -1,23 +1,27 @@
 import { PropsWithChildren } from 'react'
 import { Grid } from './Grid'
 
-type Props = PropsWithChildren & {
-  data?: Record<string, any>
+type Props<T extends Record<string, unknown>> = PropsWithChildren & {
+  data?: T
+  fields?: (keyof T)[]
 }
 
-export const BasicRecord = ({ data }: Props) => {
+export const BasicRecord = <T extends Record<string, unknown>>({
+  data,
+  fields,
+}: Props<T>) => {
   if (!data) return null
 
   return (
     <Grid>
-      {Object.entries(data).map(([key, value]) => (
+      {fields?.map((field) => (
         <Grid
           gridTemplateColumns="1fr 1fr"
           fontFamily="var(--font-mono)"
           fontSize="0.8rem"
         >
-          <span style={{ fontWeight: 'bold' }}>{key}</span>
-          <span>{value || '-'}</span>
+          <span style={{ fontWeight: 'bold' }}>{field}</span>
+          <span>{data?.[field] || '-'}</span>
         </Grid>
       ))}
     </Grid>

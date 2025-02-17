@@ -11,10 +11,35 @@ import { WidgetContainer } from './components/WidgetContainer'
 export const Radio = () => {
   const songs = useSongs()
   const collapsed = useLocalState('radio-collapsed', false)
+
   const audioRef = useRef<HTMLAudioElement>(null)
   const autoplay = useLocalState('autoplay', false)
 
   const index = useLocalState('radio-index', 0)
+
+  const queueId = useLocalState('radio-queue-id', '')
+
+  useEffect(() => {
+    if (!queueId.state || !audioRef.current) return
+
+    const song = songs.index?.[queueId.state]
+
+    // if audio playing, set listener to go to (song)
+    audioRef.current.addEventListener('ended', () => {
+      const i = songs.data?.findIndex((s) => s.id === queueId.state)
+
+      if (!i || i === -1) return
+
+      index.set(i)
+      // make sure this overrides the defaul behavior. state machine shit
+    })
+
+    if (!song) return
+
+    audioRef.current.src = song.link
+    audioRef.current.load()
+    audioRef.current.play()
+  }, [queueId.state])
 
   useEffect(() => {
     console.log('autoplay', audioRef.current, autoplay.state)
@@ -22,10 +47,9 @@ export const Radio = () => {
     else audioRef.current?.pause()
   }, [audioRef.current, autoplay.state])
 
-  if (songs.isLoading) return <div>Loading...</div>
-  if (songs.error) return <div>Error: {songs.error.message}</div>
-
-  if (!songs.data) return <div>no data?</div>
+  if (songs.isLoading) return null
+  if (songs.error) return null
+  if (!songs.data) return null
 
   // todo: generate playlist - save seed to local storage
   // todo: https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement
@@ -33,7 +57,7 @@ export const Radio = () => {
 
   const selected = songs.data[index.state]
 
-  if (!selected) return <div>no song selected / available</div>
+  if (!selected) return null
 
   return (
     <WidgetContainer>

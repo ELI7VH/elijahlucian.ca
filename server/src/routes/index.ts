@@ -10,6 +10,20 @@ export default () => {
     res.json(songs)
   })
 
+  router.get('/songs/:id', async (req, res) => {
+    const song = await Metadata.findById(req.params.id)
+
+    res.json(song)
+  })
+
+  router.patch('/songs/:id', async (req, res) => {
+    const song = await Metadata.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    })
+
+    res.json(song)
+  })
+
   router.get('/me', async (req, res) => {
     // const user = await User.findById(req.user.id)
 

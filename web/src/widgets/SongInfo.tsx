@@ -47,20 +47,20 @@ export const SongInfo = () => {
             x
           </Button>
         </FlexRow>
-        {/* <BasicRecord data={song.data} /> */}
-        <Json
-          data={{
-            id: song.data?.id || 'no song selected',
-            name: song.data?.name,
-            link: song.data?.link,
-            originalFilename: song.data?.originalFilename,
-            size: song.data?.size,
-            folder: song.data?.folder,
-            bucket: song.data?.bucket,
-            mime: song.data?.mime,
-          }}
+        <BasicRecord
+          data={song.data}
+          fields={[
+            'id',
+            'name',
+            'originalFilename',
+            'size',
+            'folder',
+            'bucket',
+            'mime',
+          ]}
         />
-        {/* <TextArea
+
+        <TextArea
           value={song.data?.notes}
           onBlur={async () => {
             await song.fns.update.mutate({
@@ -68,7 +68,7 @@ export const SongInfo = () => {
               notes: song.data?.notes,
             })
           }}
-        /> */}
+        />
       </WidgetBody>
     </WidgetContainer>
   )

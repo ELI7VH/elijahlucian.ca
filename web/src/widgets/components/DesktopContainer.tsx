@@ -6,8 +6,11 @@ import { useLocalState } from '@/lib/hooks/useLocalState'
 export const DesktopContainer = ({ children }: PropsWithChildren) => {
   // user can place shit in the container
   // load user widgets from local storage
-  const collapsed = useLocalState('desktop-collapsed', false)
+  const collapsed = useLocalState('desktop-collapsed', true)
   // const autoplay = useLocalState('autoplay', true)
+
+  // GRID VIEW
+  // MAP THINGS TO DIFFERENT AREAS... DUH
 
   return (
     <Grid
