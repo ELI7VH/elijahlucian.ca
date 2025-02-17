@@ -15,7 +15,7 @@ export const TextArea = ({ value, onChange, onBlur }: Props) => {
 
   return (
     <textarea
-      style={{ fontSize: '0.7rem' }}
+      style={{ fontSize: '0.7rem', padding: '0.5rem' }}
       rows={4}
       value={localValue}
       onChange={(e) => {
