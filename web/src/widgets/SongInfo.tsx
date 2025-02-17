@@ -4,6 +4,7 @@ import {
   FlexRow,
   H1,
   Json,
+  Link,
   TextArea,
   useSearchParams,
 } from '@/lib'
@@ -70,6 +71,8 @@ export const SongInfo = () => {
             'mime',
           ]}
         />
+        <Divider />
+        <Link to={song.data?.link || ''}>download</Link>
         <Divider />
         <TextArea
           value={song.data?.notes}
