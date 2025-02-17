@@ -1,4 +1,4 @@
-import { Box, H1, Json, useSearchParams } from '@/lib'
+import { Box, Button, FlexRow, H1, Json, useSearchParams } from '@/lib'
 import { useSong } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBody } from './components/WidgetBody'
@@ -34,12 +34,24 @@ export const SongInfo = () => {
         backgroundColor="white"
         color="black"
       >
-        <Box>
+        <FlexRow justifyContent="space-between">
           <H1>{song?.name}</H1>
-        </Box>
+          <Button
+            sx={{
+              padding: '0.25rem 0.5rem',
+              fontSize: '0.5rem',
+            }}
+            onClick={() => {
+              sp.set('song-id')
+              collapsed.set(true)
+            }}
+          >
+            x
+          </Button>
+        </FlexRow>
         <Json
           data={{
-            id: song?.id,
+            id: song?.id || 'no song selected',
             name: song?.name,
             link: song?.link,
             originalFilename: song?.originalFilename,

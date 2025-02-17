@@ -54,6 +54,7 @@ export const WidgetBadge = ({
               : '2px 2px 0px #000'
           }
           color={hovering.isOpen ? 'var(--brand-1)' : '#fff'}
+          {...textStyle}
         >
           {name || 'X'}
         </H1>

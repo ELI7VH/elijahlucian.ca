@@ -43,7 +43,17 @@ export const App = () => {
           </Box>
           <Divider />
           <Routes>
-            <Route path="/" element={<Link to="/home">➫ enter ➫</Link>} />
+            <Route
+              path="/"
+              element={
+                <Link to="/home">
+                  <Flex gap="1ch">
+                    <Box>➫</Box>
+                    <Box>enter</Box>
+                  </Flex>
+                </Link>
+              }
+            />
             <Route path="/home" element={<Home />} />
           </Routes>
           <Divider />

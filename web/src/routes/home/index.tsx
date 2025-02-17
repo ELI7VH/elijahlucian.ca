@@ -1,4 +1,4 @@
-import { Link, P } from '@/lib'
+import { Box, Flex, Link, P } from '@/lib'
 
 import { Page } from '@/lib'
 
@@ -7,14 +7,17 @@ export const Home = () => {
     <Page>
       <P>home - nothing here yet...</P>
       <Link to="/">
-        <span
-          style={{
-            transform: 'scaleX(-1)',
-          }}
-        >
-          ➫
-        </span>
-        back
+        <Flex gap="1ch">
+          <span
+            style={{
+              transform: 'scaleX(-1)',
+              display: 'inline-block',
+            }}
+          >
+            ➫
+          </span>
+          <Box>back</Box>
+        </Flex>
       </Link>
     </Page>
   )
