@@ -19,6 +19,7 @@ export const Radio = () => {
   useEffect(() => {
     console.log('autoplay', audioRef.current, autoplay.state)
     if (autoplay.state) audioRef.current?.play()
+    else audioRef.current?.pause()
   }, [audioRef.current, autoplay.state])
 
   if (songs.isLoading) return <div>Loading...</div>
@@ -40,7 +41,6 @@ export const Radio = () => {
         name={collapsed.state ? 'r' : 'Radio'}
         onClick={() => collapsed.toggle()}
       ></WidgetBadge>
-
       <WidgetBody collapsed={collapsed.state}>
         <FlexRow justifyContent="space-between">
           <Tooltip
@@ -57,14 +57,14 @@ export const Radio = () => {
                         padding="0.2rem"
                         borderRadius="0.2rem"
                       >
-                        {index.state - 5 + i}: {s.originalFilename}
+                        {index.state - 3 + i}: {s.originalFilename}
                       </P>
                     ) : (
                       <Button
                         key={s.originalFilename}
-                        onClick={() => index.set(index.state - 5 + i)}
+                        onClick={() => index.set(index.state - 3 + i)}
                       >
-                        {index.state - 5 + i}: {s.originalFilename}
+                        {index.state - 3 + i}: {s.originalFilename}
                       </Button>
                     ),
                   )}
@@ -92,6 +92,7 @@ export const Radio = () => {
           autoPlay={autoplay.state}
           onEnded={() => index.set(index.state + 1)}
           onPlay={() => autoplay.set(true)}
+          onPause={() => autoplay.set(false)}
           style={{
             width: '100%',
             height: '2rem',

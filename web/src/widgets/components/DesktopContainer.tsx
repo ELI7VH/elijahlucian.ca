@@ -7,6 +7,7 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
   // user can place shit in the container
   // load user widgets from local storage
   const collapsed = useLocalState('desktop-collapsed', false)
+  const autoplay = useLocalState('autoplay', true)
 
   return (
     <Grid
@@ -16,13 +17,13 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
       left="0"
       right="0"
       bottom="0"
-      padding="1rem"
-      borderColor="var(--brand-1)"
+      borderColor={collapsed.state ? 'var(--brand-2)' : 'var(--brand-1)'}
       borderRadius="1rem"
       borderWidth="2px"
       borderStyle="dashed"
     >
       <FlexCol
+        padding={collapsed.state ? '0' : '1rem'}
         position="absolute"
         overflow="hidden"
         transition="all 0.3s ease-in-out"
@@ -35,6 +36,7 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
       </FlexCol>
       <Box position="absolute" bottom="2rem" left="0" textAlign="right">
         <WidgetBadge
+          animated={autoplay.state && collapsed.state}
           name={collapsed.state ? 'd' : 'Desktop'}
           onClick={() => {
             collapsed.toggle()
