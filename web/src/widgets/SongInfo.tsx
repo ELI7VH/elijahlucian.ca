@@ -36,7 +36,9 @@ export const SongInfo = () => {
         color="black"
       >
         <FlexRow justifyContent="space-between">
-          <H1 fontSize="1rem">{song.data?.name}</H1>
+          <H1 fontSize="1rem" position="relative" top="7px">
+            {song.data?.name}
+          </H1>
           <Button
             size="small"
             onClick={() => {

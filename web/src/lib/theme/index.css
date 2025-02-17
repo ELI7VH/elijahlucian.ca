@@ -189,6 +189,7 @@ button {
   &:hover {
     background-color: var(--brand-1-light);
     box-shadow: var(--box-shadow-2);
+    filter: brightness(1.1);
   }
   &:active {
     background-color: var(--brand-1-dark);

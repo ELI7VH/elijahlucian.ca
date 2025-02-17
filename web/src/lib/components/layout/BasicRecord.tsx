@@ -15,13 +15,13 @@ export const BasicRecord = <T extends Record<string, unknown>>({
   return (
     <Grid>
       {fields?.map((field) => (
-        <Grid
-          gridTemplateColumns="1fr 1fr"
-          fontFamily="var(--font-mono)"
-          fontSize="0.8rem"
-        >
-          <span style={{ fontWeight: 'bold' }}>{field}</span>
-          <span>{data?.[field] || '-'}</span>
+        <Grid gridTemplateColumns="1fr 1fr" fontSize="0.8rem">
+          <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 'bold' }}>
+            {field}
+          </span>
+          <span style={{ fontFamily: 'var(--font-mono)' }}>
+            {data?.[field] || '-'}
+          </span>
         </Grid>
       ))}
     </Grid>
