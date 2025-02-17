@@ -72,7 +72,16 @@ export const SongInfo = () => {
           ]}
         />
         <Divider />
-        <Link to={song.data?.link || ''}>download</Link>
+        <Link
+          style={{
+            fontSize: '0.8rem',
+            color: 'var(--brand-3)',
+            textDecoration: 'underline',
+          }}
+          to={song.data?.link || ''}
+        >
+          {song.data?.originalFilename || song.data?.name}
+        </Link>
         <Divider />
         <TextArea
           value={song.data?.notes}
