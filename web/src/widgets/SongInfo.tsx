@@ -1,5 +1,5 @@
-import { Box, H1, H3, Json, Pre, useSearchParams } from '@/lib'
-import { useSong, useSongs } from '@/lib/hooks/api/useSongs'
+import { Box, H1, Json, useSearchParams } from '@/lib'
+import { useSong } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBody } from './components/WidgetBody'
 import { WidgetContainer } from './components/WidgetContainer'
