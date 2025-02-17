@@ -1,5 +1,6 @@
-import { FlexCol, Grid } from '@/lib'
+import { Box, FlexCol, Grid } from '@/lib'
 import { PropsWithChildren } from 'react'
+import { WidgetBadge } from './WidgetBadge'
 
 export const DesktopContainer = ({ children }: PropsWithChildren) => {
   // user can place shit in the container
@@ -19,7 +20,12 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
       borderWidth="2px"
       borderStyle="dashed"
     >
-      <FlexCol height="100%">{children}</FlexCol>
+      <FlexCol height="100%">
+        {children}
+        <Box position="relative" top="0" right="0">
+          <WidgetBadge name="Desktop" onClick={() => {}}></WidgetBadge>
+        </Box>
+      </FlexCol>
     </Grid>
   )
 }

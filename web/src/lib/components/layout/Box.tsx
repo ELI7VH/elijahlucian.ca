@@ -7,9 +7,18 @@ type BoxProps = {
   children?: ReactNode
   onClick?: () => void
   _hover?: InlineDivStyle
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
 } & InlineDivStyle
 
-export const Box = ({ children, onClick, _hover, ...style }: BoxProps) => {
+export const Box = ({
+  children,
+  onClick,
+  _hover,
+  onMouseEnter,
+  onMouseLeave,
+  ...style
+}: BoxProps) => {
   const hovering = useDisclosure()
 
   return (
@@ -19,8 +28,8 @@ export const Box = ({ children, onClick, _hover, ...style }: BoxProps) => {
         ...dankStylez(style),
         ...(hovering.isOpen && _hover),
       }}
-      onMouseEnter={hovering.open}
-      onMouseLeave={hovering.close}
+      onMouseEnter={onMouseEnter || hovering.open}
+      onMouseLeave={onMouseLeave || hovering.close}
     >
       {children}
     </div>

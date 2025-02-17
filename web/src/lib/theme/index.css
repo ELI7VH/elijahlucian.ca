@@ -25,6 +25,8 @@
   --gray-5: #606060;
   --gray-6: #303030;
 
+  --trans-black: rgba(0, 0, 0, 0.5);
+
   --cool-bg: linear-gradient(
     -45deg,
     var(--brand-4) 0%,
@@ -143,7 +145,12 @@ option {
 h1 {
   font-family: var(--font-mono);
   font-weight: var(--font-weight-3);
-  text-shadow: 2px 2px 0px var(--gray-6);
+  /* mix-blend-mode: difference; */
+  /* text-shadow: 2px 2px 0px var(--trans-black);
+
+  &:hover {
+    text-shadow: 2px 2px 0px var(--white);
+  } */
 }
 
 h2,
