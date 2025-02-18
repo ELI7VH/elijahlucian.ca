@@ -139,6 +139,8 @@ export const Radio = () => {
           }}
           onEnded={() => {
             console.log('playback ended')
+            if (!autoplay.state) return
+
             if (repeat.state) {
               console.log('repeating')
               audioRef.current?.play()
