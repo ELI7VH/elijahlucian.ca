@@ -1,9 +1,7 @@
 import {
-  Box,
   Button,
   FlexRow,
   H1,
-  H3,
   Input,
   Link,
   P,
@@ -16,10 +14,15 @@ import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetBody } from './components/WidgetBody'
 import { WidgetContainer } from './components/WidgetContainer'
 import { useNavigate } from 'react-router-dom'
+import { useLocalDB } from '@/lib/hooks/useLocalDB'
 
 export const PlaylistWidget = () => {
   const songs = useSongs()
   const collapsed = useLocalState('playlist-panel-collapsed', true)
+  // use localdb to store user state
+
+  const starred = useLocalDB<Record<string, boolean>>('starred-songs')
+  const onlyStars = useLocalState('playlist-only-stars', false)
   const sp = useSearchParams()
   const navigate = useNavigate()
   const search = sp.get('search')
@@ -57,9 +60,18 @@ export const PlaylistWidget = () => {
         border="2px solid var(--gray-6)"
       >
         <FlexRow justifyContent="space-between">
-          <H1 fontSize="1rem" position="relative" top="7px">
-            songs {search ? '' : ''}({songs.data.length})
-          </H1>
+          <FlexRow gap="0.5rem">
+            <H1 fontSize="1rem" position="relative" top="7px">
+              songs {search ? '' : ''}({songs.data.length})
+            </H1>
+            <Button
+              size="small"
+              onClick={() => onlyStars.toggle()}
+              variant={onlyStars.state ? 'contained' : 'text'}
+            >
+              {onlyStars.state ? '★' : '☆'}
+            </Button>
+          </FlexRow>
           {search && <P>search: '{search}'</P>}
           <Input
             placeholder="search"
@@ -79,7 +91,10 @@ export const PlaylistWidget = () => {
         </FlexRow>
         <Table
           maxHeight="20vh"
-          data={filtered || songs.data}
+          data={(filtered || songs.data).filter((s) =>
+            onlyStars.state ? starred.value[s.id] : true,
+          )}
+          padding="0.25rem"
           columns={[
             {
               render: (r, i) => (
@@ -105,6 +120,20 @@ export const PlaylistWidget = () => {
                 width: '100%',
               },
               label: 'Name',
+            },
+            {
+              label: 'Star',
+              render: (r) => (
+                <Button
+                  size="small"
+                  variant={starred.value[r.id] ? 'contained' : 'text'}
+                  onClick={() => {
+                    starred.set(r.id, !starred.get(r.id))
+                  }}
+                >
+                  {starred.value[r.id] ? '★' : '☆'}
+                </Button>
+              ),
             },
           ]}
         />

@@ -80,13 +80,11 @@ export const Radio = () => {
       />
       <WidgetBody
         collapsed={collapsed.state}
-        width="600px"
-        maxWidth="600px"
         backgroundColor="#111"
         border="2px solid var(--gray-6)"
         opacity={1}
       >
-        <FlexRow justifyContent="space-between" width="100%" maxWidth="600px">
+        <FlexRow justifyContent="space-between" width="100%">
           <Tooltip
             text={
               <Grid gap="0.2rem">
