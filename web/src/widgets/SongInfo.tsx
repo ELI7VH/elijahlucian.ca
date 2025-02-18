@@ -86,6 +86,21 @@ export const SongInfo = () => {
               {song.data?.name}
             </H1>
           </AnchorLink>
+          <Link
+            style={{
+              fontSize: '0.8rem',
+              color: 'var(--brand-3)',
+              textDecoration: 'underline',
+            }}
+            to={song.data?.link || ''}
+            onClick={(e) => {
+              e.preventDefault()
+              navigator.clipboard.writeText(song.data?.link || '')
+              toast.toast('copied to clipboard')
+            }}
+          >
+            {song.data?.originalFilename || song.data?.name}
+          </Link>
           <FlexRow gap="0.5rem">
             <Button
               size="small"
@@ -115,7 +130,7 @@ export const SongInfo = () => {
           fields={[
             // 'id',
             'name',
-            'originalFilename',
+            'filename',
             'size',
             'bpm',
             'key',
@@ -123,21 +138,7 @@ export const SongInfo = () => {
           ]}
         />
         <Divider />
-        <Link
-          style={{
-            fontSize: '0.8rem',
-            color: 'var(--brand-3)',
-            textDecoration: 'underline',
-          }}
-          to={song.data?.link || ''}
-          onClick={(e) => {
-            e.preventDefault()
-            navigator.clipboard.writeText(song.data?.link || '')
-            toast.toast('copied to clipboard')
-          }}
-        >
-          {song.data?.originalFilename || song.data?.name}
-        </Link>
+
         <Divider />
         <TextArea
           value={song.data?.notes}
@@ -149,7 +150,7 @@ export const SongInfo = () => {
             toast.toast('notes updated')
           }}
         />
-        <Divider />
+        {/* <Divider />
         <Box
           // display="none"
           maxWidth="100%"
@@ -158,7 +159,7 @@ export const SongInfo = () => {
           backgroundColor="var(--gray-1)"
         >
           <Json data={song.data} />
-        </Box>
+        </Box> */}
       </WidgetBody>
       <Toast>{toast.message}</Toast>
     </WidgetContainer>
