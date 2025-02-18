@@ -60,7 +60,7 @@ export const AdminDashboard = () => {
   })
 
   return (
-    <Page width="60vw">
+    <Page width="60vw" padding="6rem 1rem">
       <FlexRow justifyContent="center">
         <H1>Admin Dashboard</H1>
       </FlexRow>
@@ -73,7 +73,7 @@ export const AdminDashboard = () => {
           onChange={(e) => handleAddFile(e.target.files)}
         />
         <form onSubmit={handleSubmit}>
-          <Grid>
+          <Grid gap="0.2rem">
             <Input placeholder="Song Name" {...form.bind('name')} />
             <Input placeholder="filename" {...form.bind('filename')} />
             <Input placeholder="mime" {...form.bind('mime')} />
@@ -85,7 +85,9 @@ export const AdminDashboard = () => {
             <Input placeholder="link" {...form.bind('link')} />
             <Input placeholder="notes" {...form.bind('notes')} />
           </Grid>
-          <Button>Upload</Button>
+          <FlexRow justifyContent="end">
+            <Button>Upload</Button>
+          </FlexRow>
         </form>
         <Divider />
         <UserChip />
