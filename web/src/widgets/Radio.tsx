@@ -163,9 +163,11 @@ export const Radio = () => {
         />
         <FlexRow gap="1rem" justifyContent="space-between">
           <Button
-            onClick={() =>
-              index.set(Math.floor(Rando.range(0, songs.data.length - 1)))
-            }
+            onClick={() => {
+              const i = Math.floor(Rando.range(0, songs.data.length - 1))
+              index.set(i)
+              setHistory([...history, i])
+            }}
           >
             <Pre>random</Pre>
           </Button>
