@@ -1,5 +1,16 @@
-import { Button, FlexRow, Grid, H1, Input, P, Page, useForm } from '@/lib'
+import {
+  Button,
+  Divider,
+  FlexRow,
+  Grid,
+  H1,
+  Input,
+  P,
+  Page,
+  useForm,
+} from '@/lib'
 import { Song, useSongs } from '@/lib/hooks/api/useSongs'
+import { UserChip } from '@/widgets/UserChip'
 import { useState } from 'react'
 
 export const AdminDashboard = () => {
@@ -76,6 +87,8 @@ export const AdminDashboard = () => {
           </Grid>
           <Button>Upload</Button>
         </form>
+        <Divider />
+        <UserChip />
       </Grid>
     </Page>
   )

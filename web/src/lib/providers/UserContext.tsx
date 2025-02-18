@@ -15,7 +15,7 @@ type UserContextType = {
 }
 
 type LoginValues = {
-  email: string
+  username: string
   password: string
 }
 
@@ -27,7 +27,7 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
 
   const loginForm = useForm<LoginValues>({
     initialValues: {
-      email: '',
+      username: '',
       password: '',
     },
   })

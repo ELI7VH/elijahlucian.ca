@@ -77,5 +77,39 @@ export default () => {
     })
   })
 
+  // AUTH
+
+  router.post('/login', async (req, res) => {
+    const user = await User.findOne({
+      username: req.body.username,
+      password: req.body.password,
+    })
+
+    if (!user) {
+      res.status(401).json({ message: 'Invalid Credentials' })
+      return
+    }
+
+    user.cookie = req.headers.authorization
+    await user.save()
+
+    res.json(user)
+  })
+
+  router.post('/logout', async (req, res) => {
+    const cookie = req.headers.authorization
+    const user = await User.findOne({ cookie })
+
+    if (!user) {
+      res.status(401).json({ message: 'Require Authorization' })
+      return
+    }
+
+    user.cookie = null
+    await user.save()
+
+    res.json({ message: 'Logged out' })
+  })
+
   return router
 }
