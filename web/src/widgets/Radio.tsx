@@ -82,6 +82,7 @@ export const Radio = () => {
         collapsed={collapsed.state}
         backgroundColor="#111"
         border="2px solid var(--gray-6)"
+        maxWidth="600px"
         opacity={1}
       >
         <FlexRow justifyContent="space-between" width="100%">

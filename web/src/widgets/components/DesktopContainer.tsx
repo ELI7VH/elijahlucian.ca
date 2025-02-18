@@ -24,6 +24,7 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
       borderRadius="1rem"
       borderWidth="2px"
       borderStyle="dashed"
+      overflow="hidden"
     >
       <FlexCol
         padding={collapsed.state ? '0' : '1rem'}
@@ -32,8 +33,8 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
         maxHeight="100%"
         overflowY="auto"
         transition="all 0.3s ease-in-out"
-        width={collapsed.state ? '1px' : '100vw'}
-        height={collapsed.state ? '1px' : '100vh'}
+        width={collapsed.state ? '1px' : '100%'}
+        height={collapsed.state ? '1px' : '100%'}
         // opacity={collapsed.state ? 0 : 1}
         // opacity={collapsed.state ? 0 : 1}
       >
@@ -41,7 +42,8 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
       </FlexCol>
       <Box position="absolute" bottom="2rem" left="0" textAlign="right">
         <WidgetBadge
-          animated={collapsed.state}
+          // overflow="clip"
+          // animated={collapsed.state}
           name={collapsed.state ? 'd' : 'Desktop'}
           onClick={() => {
             collapsed.toggle()

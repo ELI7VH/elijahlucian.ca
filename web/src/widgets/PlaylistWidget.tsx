@@ -44,6 +44,14 @@ export const PlaylistWidget = () => {
       })
     : null
 
+  const next = () => {
+    // if only stars, find next starred song
+  }
+
+  const prev = () => {
+    // if only stars, find prev starred song
+  }
+
   return (
     <WidgetContainer>
       <WidgetBadge
@@ -55,6 +63,7 @@ export const PlaylistWidget = () => {
         opacity={1}
         backgroundColor="white"
         color="black"
+        maxWidth="600px"
         border="2px solid var(--gray-6)"
       >
         <FlexRow justifyContent="space-between">
