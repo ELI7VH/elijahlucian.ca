@@ -37,7 +37,7 @@ export const UserChip = () => {
       <Pre>{user.user?.username}</Pre>
       <Button onClick={() => user.logout()}>Sign Out</Button>
       <Divider />
-      <Json data={user.user} />
+      {/* <Json data={user.user} /> */}
     </Grid>
   )
 }

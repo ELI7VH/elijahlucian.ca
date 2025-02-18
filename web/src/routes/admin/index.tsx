@@ -5,6 +5,7 @@ import {
   Grid,
   H1,
   Input,
+  Json,
   P,
   Page,
   useForm,
@@ -53,6 +54,7 @@ export const AdminDashboard = () => {
   const handleSubmit = form.handleSubmit(async (values) => {
     if (!form.values.name || form.values.link) {
       toast.toast('Please fill in all fields')
+      console.log('form', form.values)
       return
     }
 
@@ -102,6 +104,7 @@ export const AdminDashboard = () => {
             <Button type="submit">Upload</Button>
           </FlexRow>
         </form>
+        <Json data={form.values} />
         <Divider />
         <UserChip />
       </Grid>
