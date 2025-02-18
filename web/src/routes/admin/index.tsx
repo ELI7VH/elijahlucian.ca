@@ -9,19 +9,22 @@ import {
   Page,
   useForm,
 } from '@/lib'
+import { Toast } from '@/lib/components/elements/Toast'
 import { Song, useSongs } from '@/lib/hooks/api/useSongs'
+import { useToast } from '@/lib/hooks/useToast'
 import { UserChip } from '@/widgets/UserChip'
 import { useState } from 'react'
 
 export const AdminDashboard = () => {
   const songs = useSongs()
   const [file, setFile] = useState<File | null>(null)
+  const toast = useToast()
 
   const form = useForm<Song>({
     initialValues: {
       name: '',
       filename: '',
-      mime: '',
+      mime: 'audio/mpeg',
       size: '',
       bpm: '',
       notes: '',
@@ -48,7 +51,16 @@ export const AdminDashboard = () => {
   }
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    console.log('yeah', values)
+    if (!form.values.name || form.values.link) {
+      toast.toast('Please fill in all fields')
+      return
+    }
+
+    if (file) {
+      // upload to s3
+      // get url
+      // update form with link=url
+    }
 
     await songs.create.mutateAsync({
       ...values,
@@ -57,6 +69,7 @@ export const AdminDashboard = () => {
     })
 
     form.reset()
+    toast.toast('Song uploaded')
   })
 
   return (
@@ -74,24 +87,25 @@ export const AdminDashboard = () => {
         />
         <form onSubmit={handleSubmit}>
           <Grid gap="0.2rem">
-            <Input placeholder="Song Name" {...form.bind('name')} />
-            <Input placeholder="filename" {...form.bind('filename')} />
-            <Input placeholder="mime" {...form.bind('mime')} />
-            <Input placeholder="size" {...form.bind('size')} />
+            <Input placeholder="Song Name" {...form.bind('name')} required />
+            <Input placeholder="filename" {...form.bind('filename')} required />
+            <Input placeholder="mime" {...form.bind('mime')} required />
+            <Input placeholder="size" {...form.bind('size')} required />
             <Grid gridTemplateColumns="1fr 1fr">
               <Input placeholder="key" {...form.bind('key')} />
               <Input placeholder="bpm" {...form.bind('bpm')} type="number" />
             </Grid>
-            <Input placeholder="link" {...form.bind('link')} />
+            <Input placeholder="link" {...form.bind('link')} required />
             <Input placeholder="notes" {...form.bind('notes')} />
           </Grid>
           <FlexRow justifyContent="end">
-            <Button>Upload</Button>
+            <Button type="submit">Upload</Button>
           </FlexRow>
         </form>
         <Divider />
         <UserChip />
       </Grid>
+      <Toast>{toast.message}</Toast>
     </Page>
   )
 }

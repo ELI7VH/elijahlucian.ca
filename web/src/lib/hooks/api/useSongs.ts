@@ -50,6 +50,13 @@ export const useSong = (id?: string | null) => {
     },
   })
 
+  const destroy = useMutation({
+    mutationFn: () => api.destroy(`/songs/${id}`),
+    onSuccess: () => {
+      songs.refetch()
+    },
+  })
+
   const form = useForm({
     values: {
       id: song?.id,
@@ -59,5 +66,5 @@ export const useSong = (id?: string | null) => {
     },
   })
 
-  return { data: song, form, update }
+  return { data: song, form, update, destroy }
 }
