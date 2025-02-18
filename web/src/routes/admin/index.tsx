@@ -79,7 +79,13 @@ export const AdminDashboard = () => {
   })
 
   return (
-    <Page width="60vw" maxWidth="700px" alignContent="center" height="100vh">
+    <Page
+      width="60vw"
+      maxWidth="700px"
+      alignContent="center"
+      height="100vh"
+      background="rgba(0,0,0,0.4)"
+    >
       <FlexRow justifyContent="center">
         <Link to="/">
           <H1>Admin Dashboard</H1>
