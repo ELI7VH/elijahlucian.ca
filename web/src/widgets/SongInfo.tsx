@@ -43,20 +43,32 @@ export const SongInfo = () => {
         opacity={1}
         backgroundColor="white"
         color="black"
+        width="600px"
+        maxWidth="600px"
       >
         <FlexRow justifyContent="space-between">
           <H1 fontSize="1rem" position="relative" top="7px">
             {song.data?.name}
           </H1>
-          <Button
-            size="small"
-            onClick={() => {
-              sp.set('song-id')
-              collapsed.set(true)
-            }}
-          >
-            x
-          </Button>
+          <FlexRow gap="0.5rem">
+            <Button
+              size="small"
+              onClick={() => {
+                sp.set('queue-id', song.data?.id)
+              }}
+            >
+              ▹
+            </Button>
+            <Button
+              size="small"
+              onClick={() => {
+                sp.set('song-id')
+                collapsed.set(true)
+              }}
+            >
+              x
+            </Button>
+          </FlexRow>
         </FlexRow>
         <Divider />
         <BasicRecord

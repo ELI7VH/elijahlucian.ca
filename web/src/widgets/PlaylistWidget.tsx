@@ -34,6 +34,8 @@ export const PlaylistWidget = () => {
         opacity={1}
         backgroundColor="white"
         color="black"
+        width="600px"
+        maxWidth="600px"
       >
         <FlexRow justifyContent="space-between">
           <H1 fontSize="1rem" position="relative" top="7px">

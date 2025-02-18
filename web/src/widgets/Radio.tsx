@@ -1,4 +1,15 @@
-import { Button, Flex, FlexRow, Grid, H1, Json, Link, P, Pre } from '@/lib'
+import {
+  Button,
+  Flex,
+  FlexRow,
+  Grid,
+  H1,
+  Json,
+  Link,
+  P,
+  Pre,
+  useSearchParams,
+} from '@/lib'
 import { Tooltip } from '@/lib/components/widgets/Tooltip'
 import { useSongs } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
@@ -10,38 +21,38 @@ import { WidgetContainer } from './components/WidgetContainer'
 
 export const Radio = () => {
   const songs = useSongs()
+  const sp = useSearchParams()
   const collapsed = useLocalState('radio-collapsed', true)
 
   const songPosition = useLocalState('radio-song-position', 0)
 
   const audioRef = useRef<HTMLAudioElement>(null)
   const autoplay = useLocalState('autoplay', false)
-
   const index = useLocalState('radio-index', 0)
-
-  const queueId = useLocalState('radio-queue-id', '')
+  const queueId = sp.get('queue-id')
 
   useEffect(() => {
-    if (!queueId.state || !audioRef.current) return
+    if (!queueId || !audioRef.current) return
 
-    const song = songs.index?.[queueId.state]
+    const song = songs.index?.[queueId]
 
+    console.log('playing song:', queueId, song)
     // if audio playing, set listener to go to (song)
-    audioRef.current.addEventListener('ended', () => {
-      const i = songs.data?.findIndex((s) => s.id === queueId.state)
-
-      if (!i || i === -1) return
-
-      index.set(i)
-      // make sure this overrides the defaul behavior. state machine shit
-    })
 
     if (!song) return
 
-    audioRef.current.src = song.link
-    audioRef.current.load()
-    audioRef.current.play()
-  }, [queueId.state])
+    const i = songs.data?.findIndex((s) => s.id === queueId)
+
+    if (!i || i === -1) return
+
+    index.set(i)
+
+    // audioRef.current.src = song.link
+    // audioRef.current.load()
+    // audioRef.current.play()
+
+    sp.set('queue-id')
+  }, [queueId])
 
   useEffect(() => {
     console.log('autoplay', audioRef.current, autoplay.state)
@@ -66,9 +77,9 @@ export const Radio = () => {
       <WidgetBadge
         name={collapsed.state ? 'r' : 'Radio'}
         onClick={() => collapsed.toggle()}
-      ></WidgetBadge>
-      <WidgetBody collapsed={collapsed.state}>
-        <FlexRow justifyContent="space-between">
+      />
+      <WidgetBody collapsed={collapsed.state} width="600px" maxWidth="600px">
+        <FlexRow justifyContent="space-between" width="100%" maxWidth="600px">
           <Tooltip
             text={
               <Grid gap="0.2rem">
