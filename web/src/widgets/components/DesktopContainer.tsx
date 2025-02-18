@@ -29,7 +29,6 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
       <FlexCol
         padding={collapsed.state ? '0' : '1rem'}
         position="absolute"
-        overflow="hidden"
         maxHeight="100%"
         overflowY="auto"
         transition="all 0.3s ease-in-out"
