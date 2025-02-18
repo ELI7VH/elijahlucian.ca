@@ -4,7 +4,7 @@ import { keyBy } from 'lodash'
 import { useForm } from '../useForm'
 import { useQueryFns } from '../useQuery'
 
-type Song = {
+export type Song = {
   id: string
   bucket: string
   filename: string
@@ -15,10 +15,17 @@ type Song = {
   originalFilename: string
   size: number
   notes: string
+  bpm: number
+  key: string
 }
 
 export const useSongs = () => {
   const api = useApiContext()
+
+  const fns = useQueryFns<Song>({
+    queryKey: ['songs'],
+    path: '/songs',
+  })
 
   const query = useQuery({
     queryKey: ['songs'],
@@ -27,7 +34,7 @@ export const useSongs = () => {
 
   const index = keyBy(query.data, 'id')
 
-  return { ...query, index }
+  return { ...query, index, ...fns }
 }
 
 export const useSong = (id?: string | null) => {

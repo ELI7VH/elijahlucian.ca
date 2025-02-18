@@ -91,11 +91,6 @@ export const App = () => {
           ▻ source code
         </Link>
       </FlexRow>
-      <DesktopContainer>
-        <Radio />
-        <PlaylistWidget />
-        <SongInfo />
-      </DesktopContainer>
     </Grid>
   )
 }

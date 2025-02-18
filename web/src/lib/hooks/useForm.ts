@@ -22,7 +22,9 @@ type FormProps<T> = {
   values?: Partial<T>
 }
 
-export function useForm<T, R = T>(props: FormProps<T>) {
+export function useForm<T extends Record<string, string | number>, R = T>(
+  props: FormProps<T>,
+) {
   const [values, setValues] = useState<Partial<T>>(props.initialValues || {})
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({})
   const configIndex = {} as Partial<Record<keyof T, BindResult<T>>>
@@ -87,8 +89,18 @@ export function useForm<T, R = T>(props: FormProps<T>) {
     return bindResult
   }
 
+  const setValue = (key: keyof T, value: T[keyof T]) => {
+    setValues({ ...values, [key]: value })
+    setUpdatedValues({ ...updatedValues, [key]: value })
+  }
+
   const watch = (key: keyof T) => {
     return values[key]
+  }
+
+  const update = (partial: Partial<T>) => {
+    setValues({ ...values, ...partial })
+    setUpdatedValues({ ...updatedValues, ...partial })
   }
 
   const reset = () => {
@@ -123,6 +135,8 @@ export function useForm<T, R = T>(props: FormProps<T>) {
     errors,
     validate,
     updatedValues,
+    update,
+    setValue,
     errorCount: Object.keys(errors).length,
     watch,
   }

@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react'
 import { Grid } from './Grid'
-import { Divider } from '../elements/Divider'
 
 type Props<T extends Record<string, unknown>> = PropsWithChildren & {
   data?: T

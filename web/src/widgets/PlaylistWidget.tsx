@@ -13,11 +13,14 @@ import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetBody } from './components/WidgetBody'
 import { WidgetContainer } from './components/WidgetContainer'
+import { useNavigate } from 'react-router-dom'
 
 export const PlaylistWidget = () => {
   const songs = useSongs()
   const collapsed = useLocalState('playlist-panel-collapsed', true)
   const sp = useSearchParams()
+  const navigate = useNavigate()
+
   if (songs.isLoading) return <div>Loading...</div>
   if (songs.error) return <div>Error: {songs.error.message}</div>
 
@@ -41,7 +44,15 @@ export const PlaylistWidget = () => {
           <H1 fontSize="1rem" position="relative" top="7px">
             songs ({songs.data.length})
           </H1>
-          <Button size="small">add</Button>
+          <Button
+            size="small"
+            onClick={() => {
+              navigate('/admin')
+              collapsed.set(true)
+            }}
+          >
+            add
+          </Button>
         </FlexRow>
         <Table
           maxHeight="20vh"

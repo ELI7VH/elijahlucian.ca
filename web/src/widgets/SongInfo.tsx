@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Divider,
   FlexRow,
@@ -18,9 +19,7 @@ import { BasicRecord } from '@/lib/components/layout/BasicRecord'
 export const SongInfo = () => {
   const sp = useSearchParams()
   const songId = sp.get('song-id')
-
   const song = useSong(songId)
-
   const collapsed = useLocalState('song-info-collapsed', false)
 
   if (!song.data)
@@ -89,8 +88,8 @@ export const SongInfo = () => {
             'name',
             'originalFilename',
             'size',
-            'folder',
-            'bucket',
+            'bpm',
+            'key',
             'mime',
           ]}
         />
@@ -115,6 +114,15 @@ export const SongInfo = () => {
             })
           }}
         />
+        <Divider />
+        <Box
+          maxWidth="100%"
+          overflow="auto"
+          fontSize="0.8rem"
+          backgroundColor="var(--gray-1)"
+        >
+          <Json data={song.data} />
+        </Box>
       </WidgetBody>
     </WidgetContainer>
   )

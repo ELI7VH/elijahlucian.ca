@@ -22,7 +22,7 @@ import { WidgetContainer } from './components/WidgetContainer'
 export const Radio = () => {
   const songs = useSongs()
   const sp = useSearchParams()
-  const collapsed = useLocalState('radio-collapsed', true)
+  const collapsed = useLocalState('radio-collapsed', false)
 
   const songPosition = useLocalState('radio-song-position', 0)
 
