@@ -94,6 +94,7 @@ export const Radio = () => {
                       </P>
                     ) : (
                       <Button
+                        size="small"
                         key={`${s.originalFilename}-${s.id}`}
                         onClick={() => index.set(index.state - 3 + i)}
                       >

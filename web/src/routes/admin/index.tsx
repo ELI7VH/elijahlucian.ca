@@ -9,6 +9,7 @@ import {
   P,
   Page,
   useForm,
+  useSearchParams,
 } from '@/lib'
 import { Toast } from '@/lib/components/elements/Toast'
 import { Song, useSongs } from '@/lib/hooks/api/useSongs'
@@ -18,6 +19,7 @@ import { useState } from 'react'
 
 export const AdminDashboard = () => {
   const songs = useSongs()
+  const sp = useSearchParams()
   const [file, setFile] = useState<File | null>(null)
   const toast = useToast()
 
@@ -64,12 +66,13 @@ export const AdminDashboard = () => {
       // update form with link=url
     }
 
-    await songs.create.mutateAsync({
+    const song = await songs.create.mutateAsync({
       ...values,
       bucket: 'songs',
       folder: 'songs',
     })
 
+    sp.set('song-id', song.id)
     form.reset()
     toast.toast('Song uploaded')
   })
@@ -89,6 +92,33 @@ export const AdminDashboard = () => {
         />
         <form onSubmit={handleSubmit}>
           <Grid gap="0.2rem">
+            <FlexRow justifyContent="space-between">
+              <Button
+                size="small"
+                onClick={() => {
+                  navigator.clipboard.readText().then((text) => {
+                    const {
+                      id,
+                      signedUrl,
+                      s3Key,
+                      type,
+                      scope,
+                      filename,
+                      originalFilename,
+                      ...json
+                    } = JSON.parse(text)
+
+                    form.update({
+                      ...json,
+                      id,
+                      filename: filename || originalFilename,
+                    })
+                  })
+                }}
+              >
+                paste
+              </Button>
+            </FlexRow>
             <Input placeholder="Song Name" {...form.bind('name')} required />
             <Input placeholder="filename" {...form.bind('filename')} required />
             <Input placeholder="mime" {...form.bind('mime')} required />

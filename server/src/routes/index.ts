@@ -75,12 +75,16 @@ export default () => {
   })
 
   router.post('/songs', isAdmin, async (req, res) => {
+    console.log('req.body', req.body)
+
     const song = await Metadata.create({
       ...req.body,
       type: 'upload',
       scope: 'music',
       createdBy: res.locals.user.id,
     })
+
+    console.log('song', song)
 
     res.json(song)
   })

@@ -153,8 +153,9 @@ export const SongInfo = () => {
             }}
           />
           <Divider />
-          <FlexRow>
+          <FlexRow justifyContent="space-between">
             <Button
+              variant="text"
               size="small"
               onClick={async () => {
                 if (!song.data?.id) return
@@ -164,6 +165,17 @@ export const SongInfo = () => {
               }}
             >
               delete
+            </Button>
+            <Button
+              size="small"
+              onClick={() => {
+                if (!song.data?.id) return
+
+                navigator.clipboard.writeText(JSON.stringify(song.data))
+                toast.toast('copied to clipboard')
+              }}
+            >
+              copy
             </Button>
           </FlexRow>
           {/* 
