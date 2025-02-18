@@ -12,11 +12,14 @@ export default () => {
       return
     }
 
-    const user = await User.findOne({ cookie: auth })
+    const devId = process.env.LOGGED_IN_USERID
+    const user = devId
+      ? await User.findById(devId)
+      : await User.findOne({ cookie: auth })
 
-    console.log('auth', auth, 'userid', user?._id)
+    console.log('auth', auth, 'userid', user?.id, 'admin', user?.admin)
 
-    if (!user || !user.accessLevel.includes('admin')) {
+    if (!user || !user.admin) {
       res.status(401).json({ message: 'Nice Try, HACKER!' })
       return
     }

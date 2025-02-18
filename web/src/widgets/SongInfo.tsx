@@ -140,6 +140,7 @@ export const SongInfo = () => {
               id: song.data?.id,
               notes,
             })
+            toast.toast('notes updated')
           }}
         />
         <Divider />

@@ -8,6 +8,7 @@ export const User = mongoose.model(
       email: { type: String, unique: true, required: true },
       password: { type: String, required: true },
       cookie: String,
+      admin: { type: Boolean, default: false },
       visits: { type: Number, default: 0 },
       accessLevel: { type: String, enum: ['user', 'admin'], default: 'user' },
     },

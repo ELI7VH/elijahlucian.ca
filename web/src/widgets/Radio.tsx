@@ -25,9 +25,9 @@ export const Radio = () => {
   const collapsed = useLocalState('radio-collapsed', false)
 
   const songPosition = useLocalState('radio-song-position', 0)
-
+  const repeat = useLocalState('radio-repeat', false)
   const audioRef = useRef<HTMLAudioElement>(null)
-  const autoplay = useLocalState('autoplay', false)
+  const autoplay = useLocalState('radio-autoplay', false)
 
   const index = useLocalState('radio-index', 0)
   const queueId = sp.get('queue-id')
@@ -49,22 +49,11 @@ export const Radio = () => {
 
     index.set(i)
 
-    audioRef.current.src = song.link
-    audioRef.current.load()
-    audioRef.current.play()
-
     sp.set('queue-id')
   }, [queueId])
 
   useEffect(() => {
-    console.log('autoplay', audioRef.current, autoplay.state)
-
-    if (autoplay.state) audioRef.current?.play()
-    else audioRef.current?.pause()
-  }, [audioRef.current, autoplay.state])
-
-  useEffect(() => {
-    if (audioRef.current?.src) audioRef.current?.play()
+    if (autoplay.state && audioRef.current?.src) audioRef.current?.play()
   }, [audioRef.current?.src])
 
   if (songs.isLoading) return null
@@ -134,7 +123,18 @@ export const Radio = () => {
           src={selected.link}
           controls
           autoPlay={autoplay.state}
-          onEnded={() => index.set(index.state + 1)}
+          onPause={() => {
+            console.log('playback paused')
+          }}
+          onEnded={() => {
+            console.log('playback ended')
+            if (repeat.state) {
+              console.log('repeating')
+              audioRef.current?.play()
+            } else {
+              index.set(index.state + 1)
+            }
+          }}
           style={{
             width: '100%',
             height: '2rem',
@@ -162,6 +162,17 @@ export const Radio = () => {
               htmlFor="autoplay"
             >
               autoplay
+            </label>
+            <Checkbox
+              id="repeat"
+              checked={repeat.state}
+              onChange={(checked) => repeat.set(checked)}
+            />
+            <label
+              style={{ fontSize: '0.8rem', cursor: 'pointer' }}
+              htmlFor="repeat"
+            >
+              repeat
             </label>
           </Flex>
           <FlexRow>

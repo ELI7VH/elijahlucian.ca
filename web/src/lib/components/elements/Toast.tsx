@@ -19,6 +19,9 @@ export const Toast = ({ children }: Props) => {
       backgroundColor="#111"
       borderRadius="1rem"
       border="1px solid var(--gray-6)"
+      overflow="hidden"
+      height={!children ? '0' : 'auto'}
+      transition="height 0.3s ease-out"
     >
       <Box bg="background-image-tex" padding="1rem 2rem">
         {children}
