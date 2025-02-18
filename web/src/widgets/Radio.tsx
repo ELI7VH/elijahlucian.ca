@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   Flex,
   FlexRow,
   Grid,
@@ -27,6 +28,7 @@ export const Radio = () => {
 
   const audioRef = useRef<HTMLAudioElement>(null)
   const autoplay = useLocalState('autoplay', false)
+
   const index = useLocalState('radio-index', 0)
   const queueId = sp.get('queue-id')
   const navigate = useNavigate()
@@ -56,9 +58,14 @@ export const Radio = () => {
 
   useEffect(() => {
     console.log('autoplay', audioRef.current, autoplay.state)
+
     if (autoplay.state) audioRef.current?.play()
     else audioRef.current?.pause()
   }, [audioRef.current, autoplay.state])
+
+  useEffect(() => {
+    if (audioRef.current?.src) audioRef.current?.play()
+  }, [audioRef.current?.src])
 
   if (songs.isLoading) return null
   if (songs.error) return null
@@ -128,8 +135,6 @@ export const Radio = () => {
           controls
           autoPlay={autoplay.state}
           onEnded={() => index.set(index.state + 1)}
-          onPlay={() => autoplay.set(true)}
-          onPause={() => autoplay.set(false)}
           style={{
             width: '100%',
             height: '2rem',
@@ -146,6 +151,19 @@ export const Radio = () => {
           >
             <Pre>random</Pre>
           </Button>
+          <Flex gap="0.2rem">
+            <Checkbox
+              id="autoplay"
+              checked={autoplay.state}
+              onChange={(checked) => autoplay.set(checked)}
+            />
+            <label
+              style={{ fontSize: '0.8rem', cursor: 'pointer' }}
+              htmlFor="autoplay"
+            >
+              autoplay
+            </label>
+          </Flex>
           <FlexRow>
             <Button
               onClick={() =>
