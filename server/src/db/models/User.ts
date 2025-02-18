@@ -11,6 +11,8 @@ export const User = mongoose.model(
       admin: { type: Boolean, default: false },
       visits: { type: Number, default: 0 },
       accessLevel: { type: String, enum: ['user', 'admin'], default: 'user' },
+      roles: { type: [String], default: [] },
+      metadata: { type: Object, default: {} },
     },
     {
       timestamps: true,
