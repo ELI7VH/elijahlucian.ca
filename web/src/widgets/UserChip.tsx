@@ -1,4 +1,13 @@
-import { Button, Grid, Input, P, useUserContext } from '@/lib'
+import {
+  Button,
+  Divider,
+  Grid,
+  Input,
+  Json,
+  P,
+  Pre,
+  useUserContext,
+} from '@/lib'
 
 export const UserChip = () => {
   const user = useUserContext()
@@ -10,16 +19,25 @@ export const UserChip = () => {
           <Input placeholder="username" {...user.loginForm.bind('username')} />
           <Input placeholder="password" {...user.loginForm.bind('password')} />
         </Grid>
-        <Button onClick={() => user.login(user.loginForm.values)}>
+        <Button
+          onClick={() =>
+            user.login({
+              username: user.loginForm.values.username || '',
+              password: user.loginForm.values.password || '',
+            })
+          }
+        >
           Sign In
         </Button>
       </Grid>
     )
 
   return (
-    <Grid>
-      <P>{user.user?.name}</P>
+    <Grid gap="1rem">
+      <Pre>{user.user?.username}</Pre>
       <Button onClick={() => user.logout()}>Sign Out</Button>
+      <Divider />
+      <Json data={user.user} />
     </Grid>
   )
 }

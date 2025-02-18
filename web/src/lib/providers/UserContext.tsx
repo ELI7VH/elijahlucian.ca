@@ -34,11 +34,11 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
 
   const query = useQuery<User>({
     queryKey: ['me', api.axios.defaults.headers.Authorization],
-    queryFn: () => api.get<User>('/me'),
+    queryFn: () => api.get<User>('/auth/me'),
   })
 
   const update = async (values: Partial<User>) => {
-    await api.patch('/me', values)
+    await api.patch('/auth/me', values)
     query.refetch()
   }
 

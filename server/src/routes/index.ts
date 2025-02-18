@@ -4,6 +4,27 @@ import { Metadata, User } from '../db/models'
 export default () => {
   const router = Router()
 
+  const isLoggedIn: RequestHandler = async (req, res, next) => {
+    const auth = req.headers.authorization
+
+    if (!auth) {
+      res.status(401).json({ message: 'Not logged in' })
+      return
+    }
+
+    const user = await User.findOne({ cookie: auth })
+
+    if (!user) {
+      res.status(401).json({ message: 'Not logged in' })
+      return
+    }
+
+    console.log('logged in user', user.id)
+
+    res.locals.user = user
+    next()
+  }
+
   const isAdmin: RequestHandler = async (req, res, next) => {
     const auth = req.headers.authorization
 
@@ -13,10 +34,7 @@ export default () => {
       return
     }
 
-    const devId = process.env.LOGGED_IN_USERID
-    const user = devId
-      ? await User.findById(devId)
-      : await User.findOne({ cookie: auth })
+    const user = await User.findOne({ cookie: auth })
 
     if (!user || !user.admin) {
       console.log('auth', auth, 'userid', user?.id, 'admin', user?.admin)
@@ -67,22 +85,33 @@ export default () => {
     res.json(song)
   })
 
-  router.get('/me', async (req, res) => {
-    // const user = await User.findById(req.user.id)
+  // AUTH
 
+  router.get('/auth/me', isLoggedIn, async (req, res) => {
     res.json({
-      id: 'user',
-      email: 'test@test.com',
-      name: 'Test User',
+      id: res.locals.user.id,
+      email: res.locals.user.email,
+      name: res.locals.user.name,
+      username: res.locals.user.username,
+      cookie: res.locals.user.cookie,
+      admin: res.locals.user.admin,
     })
   })
 
-  // AUTH
+  router.patch('/auth/me', isLoggedIn, async (req, res) => {
+    const user = res.locals.user
 
-  router.post('/login', async (req, res) => {
+    // await user.save()
+
+    res.json(user)
+  })
+
+  router.post('/auth/login', async (req, res) => {
+    const { username, password } = req.body
+
     const user = await User.findOne({
-      username: req.body.username,
-      password: req.body.password,
+      username,
+      password,
     })
 
     if (!user) {
@@ -90,20 +119,16 @@ export default () => {
       return
     }
 
-    user.cookie = req.headers.authorization
+    user.cookie = crypto.randomUUID()
     await user.save()
 
     res.json(user)
   })
 
-  router.post('/logout', async (req, res) => {
-    const cookie = req.headers.authorization
-    const user = await User.findOne({ cookie })
+  router.post('/auth/logout', isLoggedIn, async (req, res) => {
+    const user = res.locals.user
 
-    if (!user) {
-      res.status(401).json({ message: 'Require Authorization' })
-      return
-    }
+    console.log('logging out user', user.id)
 
     user.cookie = null
     await user.save()

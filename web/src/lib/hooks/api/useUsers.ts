@@ -3,6 +3,7 @@ import { useBaseQuery } from './useBaseQuery'
 export type User = {
   id: string
   name: string
+  username: string
   email: string
   password: string
   cookie: string
