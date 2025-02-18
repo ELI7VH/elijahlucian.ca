@@ -24,6 +24,7 @@ export const App = () => {
   }, [])
 
   // todo: grow the text on the home page
+  // todo: ui sound effects, because we're making a fucking banger here.
 
   return (
     <Grid
