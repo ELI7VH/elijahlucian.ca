@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   Divider,
   FlexRow,
   H1,
@@ -163,6 +164,15 @@ export const SongInfo = () => {
             >
               delete
             </Button>
+            <FlexRow gap="0.5rem">
+              <Checkbox
+                checked={song.data?.ready || false}
+                onChange={(ready) => {
+                  song.update.mutateAsync({ id: song.data?.id, ready })
+                }}
+              />
+              <label htmlFor="ready">ready</label>
+            </FlexRow>
             <Button
               size="small"
               onClick={() => {

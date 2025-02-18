@@ -15,6 +15,7 @@ export type Song = {
   originalFilename: string
   size: number | string
   notes: string
+  ready?: boolean
   bpm: number | string
   key: string
 }
