@@ -30,6 +30,21 @@ export const SongInfo = () => {
   //   }
   // }, [songId])
 
+  if (!song.data)
+    return (
+      <WidgetContainer>
+        <WidgetBadge
+          name="s"
+          onClick={() => {
+            collapsed.set(false)
+          }}
+        />
+        <WidgetBody collapsed={collapsed.state} width="600px" maxWidth="600px">
+          no song selected!
+        </WidgetBody>
+      </WidgetContainer>
+    )
+
   return (
     <WidgetContainer>
       <WidgetBadge

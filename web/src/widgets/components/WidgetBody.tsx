@@ -7,6 +7,7 @@ type Props = {
 export const WidgetBody = ({
   children,
   collapsed = false,
+  width,
   ...props
 }: Props) => {
   return (
@@ -24,7 +25,7 @@ export const WidgetBody = ({
           }}
           transition="all 0.2s ease-in-out"
           overflow={collapsed ? 'hidden' : 'visible'}
-          width={collapsed ? '1px' : 'auto'}
+          width={collapsed ? '1px' : width}
           height={collapsed ? '1px' : 'auto'}
           borderRadius="1rem"
           padding={collapsed ? '0' : '1rem 1rem'}
