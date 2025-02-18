@@ -1,5 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { Grid } from './Grid'
+import { useToast } from '@/lib/hooks/useToast'
+import { Toast } from '../elements/Toast'
 
 type Props<T extends Record<string, unknown>> = PropsWithChildren & {
   data?: T
@@ -11,6 +13,7 @@ export const BasicRecord = <T extends Record<string, unknown>>({
   fields,
 }: Props<T>) => {
   if (!data) return null
+  const toast = useToast()
 
   return (
     <Grid>
@@ -23,7 +26,19 @@ export const BasicRecord = <T extends Record<string, unknown>>({
           <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 'bold' }}>
             {field as string}
           </span>
-          <span style={{ fontFamily: 'var(--font-mono)' }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              cursor: data?.[field as keyof T] ? 'pointer' : 'default',
+            }}
+            onClick={() => {
+              const val = data?.[field as keyof T]
+              if (!val) return
+
+              navigator.clipboard.writeText(`${val}`)
+              toast.toast('copied to clipboard')
+            }}
+          >
             {`${data?.[field as keyof T] || '-'}`}
           </span>
         </Grid>
@@ -43,6 +58,7 @@ export const BasicRecord = <T extends Record<string, unknown>>({
             </span>
           </Grid>
         ))}
+      <Toast>{toast.message}</Toast>
     </Grid>
   )
 }
