@@ -22,9 +22,10 @@ type FormProps<T> = {
   values?: Partial<T>
 }
 
-export function useForm<T extends Record<string, string | number>, R = T>(
-  props: FormProps<T>,
-) {
+export function useForm<
+  T extends Record<string, string | number | boolean>,
+  R = T,
+>(props: FormProps<T>) {
   const [values, setValues] = useState<Partial<T>>(props.initialValues || {})
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({})
   const configIndex = {} as Partial<Record<keyof T, BindResult<T>>>
