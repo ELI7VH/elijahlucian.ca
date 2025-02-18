@@ -26,6 +26,8 @@ export const Radio = () => {
 
   const songPosition = useLocalState('radio-song-position', 0)
   const repeat = useLocalState('radio-repeat', false)
+  const shuffle = useLocalState('radio-shuffle', false)
+
   const audioRef = useRef<HTMLAudioElement>(null)
   const autoplay = useLocalState('radio-autoplay', false)
 
@@ -74,7 +76,14 @@ export const Radio = () => {
         name={collapsed.state ? 'r' : 'Radio'}
         onClick={() => collapsed.toggle()}
       />
-      <WidgetBody collapsed={collapsed.state} width="600px" maxWidth="600px">
+      <WidgetBody
+        collapsed={collapsed.state}
+        width="600px"
+        maxWidth="600px"
+        backgroundColor="#111"
+        border="1px solid var(--gray-6)"
+        opacity={1}
+      >
         <FlexRow justifyContent="space-between" width="100%" maxWidth="600px">
           <Tooltip
             text={
@@ -134,7 +143,11 @@ export const Radio = () => {
               console.log('repeating')
               audioRef.current?.play()
             } else {
-              index.set(index.state + 1)
+              if (shuffle.state) {
+                index.set(Math.floor(Rando.range(0, songs.data.length - 1)))
+              } else {
+                index.set(index.state + 1)
+              }
             }
           }}
           style={{
@@ -164,6 +177,17 @@ export const Radio = () => {
               htmlFor="autoplay"
             >
               autoplay
+            </label>
+            <Checkbox
+              id="shuffle"
+              checked={shuffle.state}
+              onChange={(checked) => shuffle.set(checked)}
+            />
+            <label
+              style={{ fontSize: '0.8rem', cursor: 'pointer' }}
+              htmlFor="shuffle"
+            >
+              shuffle
             </label>
             <Checkbox
               id="repeat"
