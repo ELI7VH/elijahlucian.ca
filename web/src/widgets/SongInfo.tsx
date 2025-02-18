@@ -23,22 +23,10 @@ export const SongInfo = () => {
 
   const collapsed = useLocalState('song-info-collapsed', false)
 
-  // useEffect(() => {
-  //   console.log('songId effect', songId)
-  //   if (songId) {
-  //     collapsed.set(false)
-  //   }
-  // }, [songId])
-
   if (!song.data)
     return (
       <WidgetContainer>
-        <WidgetBadge
-          name="s"
-          onClick={() => {
-            collapsed.set(false)
-          }}
-        />
+        <WidgetBadge name="s" onClick={collapsed.toggle} />
         <WidgetBody
           backgroundColor="#111"
           opacity={1}
@@ -46,6 +34,7 @@ export const SongInfo = () => {
           collapsed={collapsed.state}
           width="600px"
           maxWidth="600px"
+          textWrap="nowrap"
         >
           no song selected!
         </WidgetBody>
