@@ -1,10 +1,8 @@
 import {
-  Box,
   Button,
   Divider,
   FlexRow,
   H1,
-  Json,
   Link,
   TextArea,
   useSearchParams,
@@ -71,6 +69,7 @@ export const SongInfo = () => {
           color="black"
           width="600px"
           maxWidth="600px"
+          border="2px solid var(--gray-6)"
         >
           <FlexRow justifyContent="space-between">
             <AnchorLink id={song.data?.id || ''}>

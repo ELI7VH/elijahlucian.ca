@@ -6,6 +6,7 @@ import {
   H1,
   Input,
   Json,
+  Link,
   P,
   Page,
   useForm,
@@ -80,7 +81,9 @@ export const AdminDashboard = () => {
   return (
     <Page width="60vw" padding="6rem 1rem">
       <FlexRow justifyContent="center">
-        <H1>Admin Dashboard</H1>
+        <Link to="/">
+          <H1>Admin Dashboard</H1>
+        </Link>
       </FlexRow>
       <Grid textAlign="center" gap="1rem">
         <P>Upload Song</P>

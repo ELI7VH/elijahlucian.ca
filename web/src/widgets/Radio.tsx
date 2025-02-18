@@ -81,7 +81,7 @@ export const Radio = () => {
         width="600px"
         maxWidth="600px"
         backgroundColor="#111"
-        border="1px solid var(--gray-6)"
+        border="2px solid var(--gray-6)"
         opacity={1}
       >
         <FlexRow justifyContent="space-between" width="100%" maxWidth="600px">
