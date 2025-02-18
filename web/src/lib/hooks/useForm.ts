@@ -48,6 +48,7 @@ export function useForm<T extends Record<string, string | number>, R = T>(
 
       if (configIndex[key as keyof T]?.trim) {
         // todo: this
+        // @ts-expect-error fuck off typescript
         value = (value as string)?.trim()
       }
 
