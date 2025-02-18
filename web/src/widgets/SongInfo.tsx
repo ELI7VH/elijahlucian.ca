@@ -18,6 +18,7 @@ import { BasicRecord } from '@/lib/components/layout/BasicRecord'
 import { useToast } from '@/lib/hooks/useToast'
 import { Toast } from '@/lib/components/elements/Toast'
 import { AnchorLink } from '@/lib/components/elements/AnchorLink'
+import { useEffect } from 'react'
 
 export const SongInfo = () => {
   const sp = useSearchParams()
@@ -27,6 +28,10 @@ export const SongInfo = () => {
   const toast = useToast()
   // show waveform
   // create markers w/ notes & attachments & links
+
+  useEffect(() => {
+    collapsed.set(false)
+  }, [song.data?.id])
 
   if (!song.data)
     return (

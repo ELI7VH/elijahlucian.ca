@@ -123,6 +123,7 @@ export const Radio = () => {
           src={selected.link}
           controls
           autoPlay={autoplay.state}
+          preload=""
           onPause={() => {
             console.log('playback paused')
           }}
