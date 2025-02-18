@@ -58,6 +58,16 @@ export const useSong = (id?: string | null) => {
     },
   })
 
+  const addParent = (childId: string) => {
+    // get child song
+    // set child's parent ID to song.id
+  }
+
+  const addChild = (childId: string) => {
+    // get parent song
+    // set parent's child ID to song.id
+  }
+
   const form = useForm({
     values: {
       id: song?.id,

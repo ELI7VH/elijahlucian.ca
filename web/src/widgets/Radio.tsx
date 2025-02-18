@@ -13,7 +13,7 @@ import { Tooltip } from '@/lib/components/widgets/Tooltip'
 import { useSongs } from '@/lib/hooks/api/useSongs'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { Rando } from '@dank-inc/numbaz'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetBody } from './components/WidgetBody'
 import { WidgetContainer } from './components/WidgetContainer'
@@ -23,6 +23,7 @@ export const Radio = () => {
   const songs = useSongs()
   const sp = useSearchParams()
   const collapsed = useLocalState('radio-collapsed', false)
+  const [history, setHistory] = useState<number[]>([])
 
   const songPosition = useLocalState('radio-song-position', 0)
   const repeat = useLocalState('radio-repeat', false)
@@ -50,6 +51,7 @@ export const Radio = () => {
     if (!i || i === -1) return
 
     index.set(i)
+    setHistory([...history, i])
 
     sp.set('queue-id')
   }, [queueId])
@@ -138,18 +140,17 @@ export const Radio = () => {
             console.log('playback paused')
           }}
           onEnded={() => {
-            console.log('playback ended')
+            if (repeat.state) {
+              audioRef.current?.play()
+              return
+            }
+
             if (!autoplay.state) return
 
-            if (repeat.state) {
-              console.log('repeating')
-              audioRef.current?.play()
+            if (shuffle.state) {
+              index.set(Math.floor(Rando.range(0, songs.data.length - 1)))
             } else {
-              if (shuffle.state) {
-                index.set(Math.floor(Rando.range(0, songs.data.length - 1)))
-              } else {
-                index.set(index.state + 1)
-              }
+              index.set(index.state + 1)
             }
           }}
           style={{
@@ -205,11 +206,15 @@ export const Radio = () => {
           </Flex>
           <FlexRow>
             <Button
-              onClick={() =>
-                index.set(
-                  index.state === 0 ? songs.data.length - 1 : index.state - 1,
-                )
-              }
+              onClick={() => {
+                const prev = history.pop()
+
+                const last =
+                  index.state === 0 ? songs.data.length - 1 : index.state - 1
+
+                index.set(prev || last)
+                setHistory([...history.slice(0, -1)])
+              }}
             >
               <span
                 style={{
@@ -221,11 +226,16 @@ export const Radio = () => {
               </span>
             </Button>
             <Button
-              onClick={() =>
-                index.set(
-                  index.state === songs.data.length - 1 ? 0 : index.state + 1,
-                )
-              }
+              onClick={() => {
+                const next = shuffle.state
+                  ? history[Math.floor(Rando.range(0, history.length - 1))]
+                  : index.state === songs.data.length - 1
+                  ? 0
+                  : index.state + 1
+
+                setHistory([...history, next])
+                index.set(next)
+              }}
             >
               ➢
             </Button>
