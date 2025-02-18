@@ -15,13 +15,17 @@ export const BasicRecord = <T extends Record<string, unknown>>({
 
   return (
     <Grid>
-      {fields?.map((field) => (
-        <Grid gridTemplateColumns="1fr 1fr" fontSize="0.8rem">
+      {fields?.map((field, i) => (
+        <Grid
+          gridTemplateColumns="1fr 1fr"
+          fontSize="0.8rem"
+          key={`${field as string}-${i}`}
+        >
           <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 'bold' }}>
-            {field}
+            {field as string}
           </span>
           <span style={{ fontFamily: 'var(--font-mono)' }}>
-            {data?.[field] || '-'}
+            {`${data?.[field as keyof T] || '-'}`}
           </span>
         </Grid>
       ))}
@@ -36,7 +40,7 @@ export const BasicRecord = <T extends Record<string, unknown>>({
               {key}
             </span>
             <span style={{ fontFamily: 'var(--font-mono)' }}>
-              {data?.[key] || '-'}
+              {`${data?.[key as keyof T] || '-'}`}
             </span>
           </Grid>
         ))}

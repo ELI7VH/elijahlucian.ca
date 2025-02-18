@@ -14,7 +14,7 @@ import { WidgetBody } from './components/WidgetBody'
 import { WidgetContainer } from './components/WidgetContainer'
 import { WidgetBadge } from './components/WidgetBadge'
 import { BasicRecord } from '@/lib/components/layout/BasicRecord'
-import { useEffect } from 'react'
+
 export const SongInfo = () => {
   const sp = useSearchParams()
   const songId = sp.get('song-id')
@@ -39,7 +39,14 @@ export const SongInfo = () => {
             collapsed.set(false)
           }}
         />
-        <WidgetBody collapsed={collapsed.state} width="600px" maxWidth="600px">
+        <WidgetBody
+          backgroundColor="#111"
+          opacity={1}
+          border="1px solid var(--gray-6)"
+          collapsed={collapsed.state}
+          width="600px"
+          maxWidth="600px"
+        >
           no song selected!
         </WidgetBody>
       </WidgetContainer>
