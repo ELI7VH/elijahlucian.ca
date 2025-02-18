@@ -30,7 +30,8 @@ export const SongInfo = () => {
   // create markers w/ notes & attachments & links
 
   useEffect(() => {
-    collapsed.set(false)
+    if (song.data?.id) collapsed.set(false)
+    else collapsed.set(true)
   }, [song.data?.id])
 
   if (!song.data)

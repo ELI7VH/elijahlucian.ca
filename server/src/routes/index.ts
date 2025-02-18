@@ -8,6 +8,7 @@ export default () => {
     const auth = req.headers.authorization
 
     if (!auth) {
+      console.log('auth', auth)
       res.status(401).json({ message: 'Require Authorization' })
       return
     }
@@ -17,12 +18,13 @@ export default () => {
       ? await User.findById(devId)
       : await User.findOne({ cookie: auth })
 
-    console.log('auth', auth, 'userid', user?.id, 'admin', user?.admin)
-
     if (!user || !user.admin) {
+      console.log('auth', auth, 'userid', user?.id, 'admin', user?.admin)
       res.status(401).json({ message: 'Nice Try, HACKER!' })
       return
     }
+
+    console.log('admin user', user.id)
 
     res.locals.user = user
     next()
