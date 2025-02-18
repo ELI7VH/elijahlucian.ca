@@ -1,8 +1,29 @@
-import { Router } from 'express'
-import { Metadata } from '../db/models'
+import { RequestHandler, Router } from 'express'
+import { Metadata, User } from '../db/models'
 
 export default () => {
   const router = Router()
+
+  const isAdmin: RequestHandler = async (req, res, next) => {
+    const auth = req.headers.authorization
+
+    if (!auth) {
+      res.status(401).json({ message: 'Require Authorization' })
+      return
+    }
+
+    const user = await User.findOne({ cookie: auth })
+
+    console.log('auth', auth, 'userid', user?._id)
+
+    if (!user || !user.accessLevel.includes('admin')) {
+      res.status(401).json({ message: 'Nice Try, HACKER!' })
+      return
+    }
+
+    res.locals.user = user
+    next()
+  }
 
   router.get('/songs', async (req, res) => {
     const songs = await Metadata.find({ type: 'upload', scope: 'music' })
@@ -16,7 +37,7 @@ export default () => {
     res.json(song)
   })
 
-  router.patch('/songs/:id', async (req, res) => {
+  router.patch('/songs/:id', isAdmin, async (req, res) => {
     const song = await Metadata.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     })
@@ -24,17 +45,18 @@ export default () => {
     res.json(song)
   })
 
-  router.delete('/songs/:id', async (req, res) => {
+  router.delete('/songs/:id', isAdmin, async (req, res) => {
     await Metadata.findByIdAndDelete(req.params.id)
 
     res.json({ message: 'Song deleted' })
   })
 
-  router.post('/songs', async (req, res) => {
+  router.post('/songs', isAdmin, async (req, res) => {
     const song = await Metadata.create({
       ...req.body,
       type: 'upload',
       scope: 'music',
+      createdBy: res.locals.user.id,
     })
 
     res.json(song)

@@ -14,12 +14,12 @@ export const Metadata = mongoose.model(
       // lookup helpers
       tags: { type: [String], default: [] },
       // regular shit
-      createdBy: String,
       public: { type: Boolean, default: false },
       deleted: { type: Boolean },
       // idk why i added these
       verified: { type: Boolean },
       model: String,
+      createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
       // possibly remove - could be useful
       foreignId: String,
     },

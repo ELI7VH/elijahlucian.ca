@@ -3,8 +3,6 @@ import {
   Flex,
   FlexRow,
   Grid,
-  H1,
-  Json,
   Link,
   P,
   Pre,
@@ -49,10 +47,9 @@ export const Radio = () => {
 
     index.set(i)
 
-    // audioRef.current.src = song.link
-    // audioRef.current.load()
-    // audioRef.current.play()
-    navigate(`#${queueId}`)
+    audioRef.current.src = song.link
+    audioRef.current.load()
+    audioRef.current.play()
 
     sp.set('queue-id')
   }, [queueId])

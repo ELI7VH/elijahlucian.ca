@@ -29,6 +29,7 @@ export const ApiContextProvider = ({ children, baseURL = '/api' }: Props) => {
 
   axios.interceptors.request.use((config) => {
     const cookie = localStorage.getItem('cookie')
+
     if (cookie) {
       config.headers.Authorization = `${cookie}`
     }
