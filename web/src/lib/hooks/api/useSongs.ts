@@ -13,9 +13,9 @@ export type Song = {
   mime: string
   name: string
   originalFilename: string
-  size: number
+  size: number | string
   notes: string
-  bpm: number
+  bpm: number | string
   key: string
 }
 
