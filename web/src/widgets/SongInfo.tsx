@@ -140,7 +140,6 @@ export const SongInfo = () => {
               'mime',
             ]}
           />
-          <Divider />
           <TextArea
             value={song.data?.notes}
             onBlur={async (notes) => {
@@ -151,7 +150,6 @@ export const SongInfo = () => {
               toast.toast('notes updated')
             }}
           />
-          <Divider />
           <FlexRow justifyContent="space-between">
             <Button
               variant="text"

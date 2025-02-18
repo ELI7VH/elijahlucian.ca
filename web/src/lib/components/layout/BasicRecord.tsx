@@ -16,7 +16,7 @@ export const BasicRecord = <T extends Record<string, unknown>>({
   const toast = useToast()
 
   return (
-    <Grid>
+    <Grid backgroundColor="rgba(0,0,0,0.9)" color="white" padding="1rem">
       {fields?.map((field, i) => (
         <Grid
           gridTemplateColumns="1fr 1fr"
