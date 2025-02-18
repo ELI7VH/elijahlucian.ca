@@ -52,7 +52,7 @@ export const AdminDashboard = () => {
   }
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    if (!form.values.name || form.values.link) {
+    if (!form.values.name || !form.values.link) {
       toast.toast('Please fill in all fields')
       console.log('form', form.values)
       return
