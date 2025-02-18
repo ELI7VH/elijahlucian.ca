@@ -11,4 +11,7 @@ note to self: start simple
 - merge assets
 
 - web ring registry
+
   - decentralized?
+
+- ADD TAGS TO POSTS
