@@ -6,6 +6,10 @@ type JsonProps = PropsWithChildren & {
 } & PreProps
 
 export const Json = ({ data }: JsonProps) => {
+  // const use debug context
+
+  return null
+
   return (
     <Pre style={{ fontSize: '0.5rem' }}>{JSON.stringify(data, null, 2)}</Pre>
   )

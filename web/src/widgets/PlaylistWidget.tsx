@@ -44,7 +44,7 @@ export const PlaylistWidget = () => {
   return (
     <WidgetContainer>
       <WidgetBadge
-        name={collapsed.state ? 'p' : 'Playlists'}
+        name={collapsed.state ? 'p' : 'Playlist'}
         onClick={() => collapsed.toggle()}
       ></WidgetBadge>
       <WidgetBody
@@ -54,6 +54,7 @@ export const PlaylistWidget = () => {
         color="black"
         width="600px"
         maxWidth="600px"
+        border="2px solid var(--gray-6)"
       >
         <FlexRow justifyContent="space-between">
           <H1 fontSize="1rem" position="relative" top="7px">
@@ -73,7 +74,7 @@ export const PlaylistWidget = () => {
               collapsed.set(true)
             }}
           >
-            add
+            +
           </Button>
         </FlexRow>
         <Table

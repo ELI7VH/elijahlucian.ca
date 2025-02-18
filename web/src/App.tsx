@@ -12,11 +12,7 @@ import {
 } from './lib'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { Radio } from './widgets/Radio'
-import { DesktopContainer } from './widgets/components/DesktopContainer'
 import { Home } from './routes/home'
-import { PlaylistWidget } from './widgets/PlaylistWidget'
-import { SongInfo } from './widgets/SongInfo'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
@@ -30,7 +26,12 @@ export const App = () => {
   // todo: grow the text on the home page
 
   return (
-    <Grid height="100vh" gridTemplateRows="auto  1fr auto">
+    <Grid
+      height="100vh"
+      maxHeight="100vh"
+      overflowY="auto"
+      gridTemplateRows="auto  1fr auto"
+    >
       <FlexRow justifyContent="center" padding="1rem" gap="1rem">
         <Clock />
       </FlexRow>
