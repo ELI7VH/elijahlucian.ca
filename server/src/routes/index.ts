@@ -24,6 +24,22 @@ export default () => {
     res.json(song)
   })
 
+  router.delete('/songs/:id', async (req, res) => {
+    await Metadata.findByIdAndDelete(req.params.id)
+
+    res.json({ message: 'Song deleted' })
+  })
+
+  router.post('/songs', async (req, res) => {
+    const song = await Metadata.create({
+      ...req.body,
+      type: 'upload',
+      scope: 'music',
+    })
+
+    res.json(song)
+  })
+
   router.get('/me', async (req, res) => {
     // const user = await User.findById(req.user.id)
 

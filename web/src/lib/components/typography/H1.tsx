@@ -3,11 +3,13 @@ import { ReactNode } from 'react'
 
 type Props = {
   children: ReactNode
+  onClick?: () => void
 } & InlineHStyle
 
-export const H1 = ({ children, ...style }: Props) => {
+export const H1 = ({ children, onClick, ...style }: Props) => {
   return (
     <h1
+      onClick={onClick}
       style={{
         fontFamily: 'wideawake-black',
         letterSpacing: '0.05em',

@@ -7,8 +7,8 @@ type Props<T> = Omit<InlineDivStyle, 'columns'> & {
   columns: {
     key?: keyof T extends string ? keyof T : never
     label?: string
-    render?: (value: T) => React.ReactNode
-    renderEdit?: (value: T) => React.ReactNode
+    render?: (value: T, index: number) => React.ReactNode
+    renderEdit?: (value: T, index: number) => React.ReactNode
     style?: React.TdHTMLAttributes<HTMLTableCellElement>['style']
     title?: (value: T) => React.ReactNode
   }[]
@@ -103,8 +103,8 @@ export function Table<T extends TableRecord>({
                         }}
                       >
                         {editing
-                          ? column.renderEdit?.(row)
-                          : column.render?.(row) ||
+                          ? column.renderEdit?.(row, i)
+                          : column.render?.(row, i) ||
                             (column.key
                               ? row[column.key as keyof typeof row]
                               : '')}

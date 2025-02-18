@@ -15,6 +15,7 @@ export const AdminDashboard = () => {
       bpm: 0,
       notes: '',
       key: '',
+      link: '',
     },
   })
 
@@ -31,9 +32,21 @@ export const AdminDashboard = () => {
       mime: file.type,
       size: file.size,
     })
+
+    setFile(file)
   }
 
-  // todo: key selector.
+  const handleSubmit = form.handleSubmit(async (values) => {
+    console.log('yeah', values)
+
+    await songs.create.mutateAsync({
+      ...values,
+      bucket: 'songs',
+      folder: 'songs',
+    })
+
+    form.reset()
+  })
 
   return (
     <Page width="60vw">
@@ -42,24 +55,27 @@ export const AdminDashboard = () => {
       </FlexRow>
       <Grid textAlign="center" gap="1rem">
         <P>Upload Song</P>
-        {file && <P>{form.watch('name')}</P>}
+        {file && <P>{file.name}</P>}
         <Input
           type="file"
           accept="audio/*"
           onChange={(e) => handleAddFile(e.target.files)}
         />
-        <Grid>
-          <Input placeholder="Song Name" {...form.bind('name')} />
-          <Input placeholder="filename" {...form.bind('filename')} />
-          <Input disabled placeholder="mime" {...form.bind('mime')} />
-          <Input disabled placeholder="size" {...form.bind('size')} />
-          <Grid gridTemplateColumns="1fr 1fr">
-            <Input placeholder="key" {...form.bind('key')} />
-            <Input placeholder="bpm" {...form.bind('bpm')} type="number" />
+        <form onSubmit={handleSubmit}>
+          <Grid>
+            <Input placeholder="Song Name" {...form.bind('name')} />
+            <Input placeholder="filename" {...form.bind('filename')} />
+            <Input placeholder="mime" {...form.bind('mime')} />
+            <Input placeholder="size" {...form.bind('size')} />
+            <Grid gridTemplateColumns="1fr 1fr">
+              <Input placeholder="key" {...form.bind('key')} />
+              <Input placeholder="bpm" {...form.bind('bpm')} type="number" />
+            </Grid>
+            <Input placeholder="link" {...form.bind('link')} />
+            <Input placeholder="notes" {...form.bind('notes')} />
           </Grid>
-          <Input placeholder="notes" {...form.bind('notes')} />
-        </Grid>
-        <Button>Upload</Button>
+          <Button>Upload</Button>
+        </form>
       </Grid>
     </Page>
   )

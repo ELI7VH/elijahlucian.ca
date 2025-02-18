@@ -18,6 +18,7 @@ import { useEffect, useRef } from 'react'
 import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetBody } from './components/WidgetBody'
 import { WidgetContainer } from './components/WidgetContainer'
+import { useNavigate } from 'react-router-dom'
 
 export const Radio = () => {
   const songs = useSongs()
@@ -30,6 +31,7 @@ export const Radio = () => {
   const autoplay = useLocalState('autoplay', false)
   const index = useLocalState('radio-index', 0)
   const queueId = sp.get('queue-id')
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!queueId || !audioRef.current) return
@@ -50,6 +52,7 @@ export const Radio = () => {
     // audioRef.current.src = song.link
     // audioRef.current.load()
     // audioRef.current.play()
+    navigate(`#${queueId}`)
 
     sp.set('queue-id')
   }, [queueId])
@@ -89,7 +92,7 @@ export const Radio = () => {
                     index.state - 3 + i === index.state ? (
                       <P
                         textAlign="center"
-                        key={s.originalFilename}
+                        key={`${s.originalFilename}-${s.id}`}
                         backgroundColor={'var(--brand-2)'}
                         padding="0.2rem"
                         borderRadius="0.2rem"
@@ -98,7 +101,7 @@ export const Radio = () => {
                       </P>
                     ) : (
                       <Button
-                        key={s.originalFilename}
+                        key={`${s.originalFilename}-${s.id}`}
                         onClick={() => index.set(index.state - 3 + i)}
                       >
                         {index.state - 3 + i}: {s.originalFilename}
@@ -109,7 +112,7 @@ export const Radio = () => {
             }
           >
             <Pre>
-              [{index.state}/{songs.data.length}]
+              [{index.state + 1}/{songs.data.length}]
             </Pre>
           </Tooltip>
           <Link

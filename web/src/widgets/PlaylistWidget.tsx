@@ -4,7 +4,9 @@ import {
   FlexRow,
   H1,
   H3,
+  Input,
   Link,
+  P,
   Table,
   useSearchParams,
 } from '@/lib'
@@ -20,11 +22,24 @@ export const PlaylistWidget = () => {
   const collapsed = useLocalState('playlist-panel-collapsed', true)
   const sp = useSearchParams()
   const navigate = useNavigate()
+  const search = sp.get('search')
+  const index = useLocalState('radio-index', 0)
+  const songId = sp.get('song-id')
 
   if (songs.isLoading) return <div>Loading...</div>
   if (songs.error) return <div>Error: {songs.error.message}</div>
 
   if (!songs.data) return <div>no data?</div>
+
+  const filtered = search
+    ? songs.data.filter((s) => {
+        const searchable = [s.originalFilename, s.name, s.key, s.bpm, s.notes]
+          .filter(Boolean)
+          .join(' ')
+
+        return searchable.toLowerCase().includes(search.toLowerCase())
+      })
+    : null
 
   return (
     <WidgetContainer>
@@ -42,8 +57,15 @@ export const PlaylistWidget = () => {
       >
         <FlexRow justifyContent="space-between">
           <H1 fontSize="1rem" position="relative" top="7px">
-            songs ({songs.data.length})
+            songs {search ? '' : ''}({songs.data.length})
           </H1>
+          {search && <P>search: '{search}'</P>}
+          <Input
+            placeholder="search"
+            style={{ padding: '0.33rem' }}
+            value={search}
+            onChange={(e) => sp.set('search', e.target.value)}
+          />
           <Button
             size="small"
             onClick={() => {
@@ -56,19 +78,31 @@ export const PlaylistWidget = () => {
         </FlexRow>
         <Table
           maxHeight="20vh"
-          data={songs.data}
+          data={filtered || songs.data}
           columns={[
             {
-              render: (r) => (
+              render: (r, i) => (
                 <Link
+                  id={r.id}
+                  style={{
+                    color:
+                      i === index.state
+                        ? 'var(--brand-1)'
+                        : r.id === songId
+                        ? 'var(--brand-2)'
+                        : 'var(--gray-6)',
+                  }}
                   to={{
                     search: `?song-id=${r.id}`,
                   }}
                   onClick={() => sp.set('song-id', r.id)}
                 >
-                  {r.originalFilename || r.name}
+                  {i + 1}: {r.name || r.originalFilename}
                 </Link>
               ),
+              style: {
+                width: '100%',
+              },
               label: 'Name',
             },
           ]}
