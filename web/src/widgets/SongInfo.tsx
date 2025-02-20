@@ -1,9 +1,13 @@
 import {
+  Box,
   Button,
   Checkbox,
   Divider,
   FlexRow,
   H1,
+  HotInput,
+  Input,
+  Json,
   Link,
   TextArea,
   useSearchParams,
@@ -23,8 +27,10 @@ export const SongInfo = () => {
   const sp = useSearchParams()
   const songId = sp.get('song-id')
   const song = useSong(songId)
-  const collapsed = useLocalState('song-info-collapsed', false)
   const toast = useToast()
+
+  const collapsed = useLocalState('song-info-collapsed', false)
+  const mode = useLocalState('song-info-mode', 'view')
   // show waveform
   // create markers w/ notes & attachments & links
 
@@ -141,16 +147,51 @@ export const SongInfo = () => {
               'mime',
             ]}
           />
-          <TextArea
-            value={song.data?.notes}
-            onBlur={async (notes) => {
-              await song.update.mutateAsync({
-                id: song.data?.id,
-                notes,
-              })
-              toast.toast('notes updated')
-            }}
-          />
+          <FlexRow gap="0.7rem" justifyContent="end">
+            <Divider />
+            <Button
+              size="small"
+              variant={mode.state === 'view' ? 'contained' : 'text'}
+              onClick={() => mode.set('view')}
+            >
+              view
+            </Button>
+            <Button
+              size="small"
+              variant={mode.state === 'edit' ? 'contained' : 'text'}
+              onClick={() => mode.set('edit')}
+            >
+              edit
+            </Button>
+            <Divider width="1rem" />
+          </FlexRow>
+          {mode.state === 'edit' && (
+            <>
+              <HotInput
+                label="name"
+                value={song.data?.name}
+                onFinish={(name) => {
+                  song.update.mutateAsync({ name })
+                  toast.toast('name updated')
+                }}
+              />
+              <TextArea
+                value={song.data?.notes}
+                onBlur={async (notes) => {
+                  await song.update.mutateAsync({
+                    id: song.data?.id,
+                    notes,
+                  })
+                  toast.toast('notes updated')
+                }}
+              />
+            </>
+          )}
+          {mode.state === 'view' && (
+            <Box backgroundColor="var(--gray-2)" padding="0.5rem">
+              <Json data={song.data} />
+            </Box>
+          )}
           <FlexRow justifyContent="space-between">
             <Button
               variant="text"

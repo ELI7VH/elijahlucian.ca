@@ -1,4 +1,8 @@
-export const Divider = () => {
+import { BoxProps } from '../layout/Box'
+
+type Props = {} & BoxProps
+
+export const Divider = (props: Props) => {
   return (
     <div
       style={{
@@ -7,6 +11,7 @@ export const Divider = () => {
         width: '100%',
         margin: '0',
         backgroundColor: 'var(--brand-1-dark)',
+        ...props,
       }}
     />
   )

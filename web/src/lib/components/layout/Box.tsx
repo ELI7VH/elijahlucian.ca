@@ -3,7 +3,7 @@ import { InlineDivStyle } from '@/lib/types'
 import { dankStylez } from '@/lib/magic'
 import { useDisclosure } from '@/lib/hooks'
 
-type BoxProps = {
+export type BoxProps = {
   children?: ReactNode
   onClick?: () => void
   _hover?: InlineDivStyle
