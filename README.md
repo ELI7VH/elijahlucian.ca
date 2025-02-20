@@ -14,6 +14,38 @@ hello.andremichelle.io
 
 # Things I've done
 
+## Voice Acting
+
+flash fiction online interview
+
+- https://www.flashfictiononline.com/2015/03/flash-interview-with-elijah-lucian/
+
+# Flash Fiction Podcast (6 volumes)
+
+Volume 1
+
+- https://youtu.be/1ZHhg8O1Asg
+
+Volume 2
+
+- https://youtu.be/UVCEvmgJuGM
+
+Volume 3
+
+- https://youtu.be/YIcxdGO9xnA
+
+Volume 4
+
+- https://youtu.be/uQRdECqHRCw
+
+Volume 5
+
+- https://youtu.be/CnW7BzVUJ6Y
+
+Volume 6 (Victoria Maria)
+
+- https://youtu.be/yYQjK4l7TRs
+
 ### Vapsquad
 
 we had a twich stream became partnered pretty quick, but you know what happened next.
