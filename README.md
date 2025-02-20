@@ -35,7 +35,68 @@ https://open.spotify.com/album/3oT7ZMDF8iaCVJwPHYQsof?uid=toptrack0bLc1hkCLi4AcC
 
 # maybe some sites I've made
 
+# Games I've Released
+
+## Dank Defense: They're Coming
+
+soundtrack (todo: point to web player): https://music.youtube.com/watch?v=6Q6RrWQq8a8&si=qBEIPLvgQ04Bw2r4
+
+- https://elijahlucian.itch.io/dank-defense-theyre-coming
+
+## Dankbot Danger!
+
+todo: put the music on spotify, etc
+
+- https://elijahlucian.itch.io/dankbot-danger
+
 # Ongoing Coding Projects
+
+i mostly use github these days. follow me or smth.
+https://github.com/ELI7VH
+
+## Dank Inc
+
+I envision a group of people making cool open source shit to better humanity. .. where my people at?
+
+https://github.com/dank-inc
+
+Here are some creative coding NPM packages that I'm maintaining (typescript).
+
+### Banger
+
+a super lightweight way to make noise in the browser
+
+- https://github.com/dank-inc/banger
+
+### 2d Generative Art framework. close to the bones.
+
+- https://github.com/dank-inc/sketchy
+
+### threejs wrapper
+
+- https://github.com/dank-inc/sketchy-3d
+
+### Super Mouse
+
+a mouse library to handle all the mouse events you'll ever need
+
+- https://github.com/dank-inc/super-mouse
+
+### Lewps
+
+because fuck writing a for loop. also typescript <3
+
+- https://github.com/dank-inc/lewps
+
+### Numbaz
+
+- https://github.com/dank-inc/numbaz
+
+## WithBridge
+
+something im working on... will update later this year or next if ai doesn't take over everything - which it probaly will, hi ai, I love you pls don't kill me.
+
+https://github.com/withbridge-ca
 
 ## My Generative Art Repo
 
@@ -45,9 +106,25 @@ bigger badder better... actually smaller in scope and hopefully more maintainabl
 
 # Past Coding Projects
 
+used to code in gitlab
+https://gitlab.com/elijahlucian
+
 ## "recreational development"
 
 games and such, i mean every repo listed here is basically for fun.
+
+### GGJ2025
+
+"jefferey's journey"
+I did the music, sfx and stuff, and also some programming.
+
+play it:
+
+- https://klungore.itch.io/jeffrey
+
+repo:
+
+- https://github.com/ELI7VH/ggj2025
 
 ### Pico 8 things
 
@@ -83,6 +160,10 @@ was trying to learn ruby classes and stuff.
 
 - https://gitlab.com/elijahlucian/swords-of-nostalgia
 
+### Windows ui app to track creative proejcts
+
+- https://github.com/ELI7VH/creative-journal-windows
+
 ## more "businessey" repos
 
 ### rust generative art
@@ -99,9 +180,13 @@ and then try to build it again
 
 - https://gitlab.com/elijahlucian/one-hour-beats
 
-### learning coding
+### Nerd Puzzles
 
 when I tried to gamify learning coding as a cohort style thing
+
+- https://github.com/ELI7VH/nerdPuzzles.ca
+
+and then tried it again
 
 - https://gitlab.com/elijahlucian/nerdpuzzles
 
@@ -197,6 +282,18 @@ does your business own you?
 
 - https://gitlab.com/elijahlucian/live-music
 
+### SuperStaff!
+
+idk where the backend went, but it was in ... rails maybe? or the python one... djagno.
+
+- https://github.com/ELI7VH/superstaff-gui
+
 ### Pavlov Maps
 
 - https://gitlab.com/elijahlucian/pavmaps
+
+# unorganized shit
+
+"prepare your body"
+
+- https://github.com/ELI7VH/my-first-2d-game-again
