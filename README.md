@@ -98,6 +98,10 @@ todo: add the soundboard to the site.
 
 # Random things Ive done
 
+### I'm somehow on IMDb
+
+- https://www.imdb.com/name/nm7759926/
+
 ### skyrim mods voice acting
 
 - Odvar the afflicted
