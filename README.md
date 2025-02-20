@@ -12,11 +12,6 @@ _todo: consolidate all from tele_
 
 hello.andremichelle.io
 
-# artists Ive worked with:
-
-Flowshine
-https://open.spotify.com/album/3oT7ZMDF8iaCVJwPHYQsof?uid=toptrack0bLc1hkCLi4AcCknz0SrB6&uri=spotify%3Atrack%3A0bLc1hkCLi4AcCknz0SrB6
-
 # Things I've done
 
 - Vapsquad https://soundcloud.com/vapsquad
@@ -297,3 +292,21 @@ idk where the backend went, but it was in ... rails maybe? or the python one... 
 "prepare your body"
 
 - https://github.com/ELI7VH/my-first-2d-game-again
+
+# Old recording projects
+
+## BoyBitch - Be Eh (2017)
+
+- https://open.spotify.com/album/4Wns1fNgW4kf41D6pPh3GL
+
+## BoyBitch - Cut Off At 20,000 hurts (2013)
+
+- https://open.spotify.com/album/0wywj3PmgPBcDPiizrg1ZW
+
+## Flowshine - Mountain Queen (2012)
+
+- https://open.spotify.com/album/3oT7ZMDF8iaCVJwPHYQsof
+
+## Gabrielle Bohna - Fortune Teller (2010)
+
+- https://soundcloud.com/gabriellebohna/sets/fortune-teller-original-album
