@@ -30,7 +30,7 @@ hello.andremichelle.io
 
 # maybe some sites I've made
 
-# Games I've Released
+# Game Dev
 
 ## Dank Defense: They're Coming
 
@@ -43,6 +43,53 @@ soundtrack (todo: point to web player): https://music.youtube.com/watch?v=6Q6RrW
 todo: put the music on spotify, etc
 
 - https://elijahlucian.itch.io/dankbot-danger
+
+### Pavlov Maps
+
+- https://gitlab.com/elijahlucian/pavmaps
+
+### GGJ2025
+
+"jefferey's journey"
+I did the music, sfx and stuff, and also some programming.
+
+play it:
+
+- https://klungore.itch.io/jeffrey
+
+repo:
+
+- https://github.com/ELI7VH/ggj2025
+
+### Pico 8 things
+
+- https://gitlab.com/elijahlucian/pico8-things
+
+### Love 2D Projects
+
+one of these was featured at a booth at maker faire!
+
+- https://gitlab.com/elijahlucian/love2d-things
+
+### rust games and things
+
+- https://gitlab.com/elijahlucian/rust-dabblings
+
+### Sword of Zorquan
+
+was trying to learn ruby classes and stuff.
+
+- https://gitlab.com/elijahlucian/sword-of-zorquan
+
+### Swords of Nostalgia
+
+- https://gitlab.com/elijahlucian/swords-of-nostalgia
+
+### Retro World
+
+"hey bro want to help me make an open world mmo?"
+
+- https://gitlab.com/elijahlucian/retro-world
 
 # Ongoing Coding Projects
 
@@ -108,52 +155,15 @@ https://gitlab.com/elijahlucian
 
 games and such, i mean every repo listed here is basically for fun.
 
-### GGJ2025
-
-"jefferey's journey"
-I did the music, sfx and stuff, and also some programming.
-
-play it:
-
-- https://klungore.itch.io/jeffrey
-
-repo:
-
-- https://github.com/ELI7VH/ggj2025
-
-### Pico 8 things
-
-- https://gitlab.com/elijahlucian/pico8-things
-
-### Love 2D Projects
-
-one of these was featured at a booth at maker faire!
-
-- https://gitlab.com/elijahlucian/love2d-things
-
 ### generative art
 
 my generative art repo - canvas-sketch, threejs, p5, raw canvas. all good stuff
 
 - https://gitlab.com/elijahlucian/genart
 
-### rust games and things
-
-- https://gitlab.com/elijahlucian/rust-dabblings
-
 ### Arduino Projects
 
 - https://gitlab.com/elijahlucian/arduino
-
-### Sword of Zorquan
-
-was trying to learn ruby classes and stuff.
-
-- https://gitlab.com/elijahlucian/sword-of-zorquan
-
-### Swords of Nostalgia
-
-- https://gitlab.com/elijahlucian/swords-of-nostalgia
 
 ### Windows ui app to track creative proejcts
 
@@ -234,12 +244,6 @@ an exploration into recording audio in unity
 
 - https://gitlab.com/elijahlucian/unity-audio-recorder
 
-### Retro World
-
-"hey bro want to help me make an open world mmo?"
-
-- https://gitlab.com/elijahlucian/retro-world
-
 ### 8 plus 1 skills to becoming a web developer
 
 8 easy steps to becoming a very rich and successful web developer
@@ -282,10 +286,6 @@ does your business own you?
 idk where the backend went, but it was in ... rails maybe? or the python one... djagno.
 
 - https://github.com/ELI7VH/superstaff-gui
-
-### Pavlov Maps
-
-- https://gitlab.com/elijahlucian/pavmaps
 
 # unorganized shit
 
