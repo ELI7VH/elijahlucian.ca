@@ -30,7 +30,25 @@ hello.andremichelle.io
 
 # maybe some sites I've made
 
-# Game Dev
+# Recreational Dev
+
+games and such, i mean every repo listed here is basically for fun.
+
+### My Generative Art Repo
+
+bigger badder better... actually smaller in scope and hopefully more maintainable.
+
+- https://github.com/elI7VH/nextgenart
+
+### generative art
+
+my generative art repo - canvas-sketch, threejs, p5, raw canvas. all good stuff
+
+- https://gitlab.com/elijahlucian/genart
+
+### Arduino Projects
+
+- https://gitlab.com/elijahlucian/arduino
 
 ### Dank Defense: They're Coming
 
@@ -140,36 +158,16 @@ something im working on... will update later this year or next if ai doesn't tak
 
 https://github.com/withbridge-ca
 
-## My Generative Art Repo
-
-bigger badder better... actually smaller in scope and hopefully more maintainable.
-
-- https://github.com/elI7VH/nextgenart
-
 # Past Coding Projects
 
 used to code in gitlab
 https://gitlab.com/elijahlucian
 
-## "recreational development"
-
-games and such, i mean every repo listed here is basically for fun.
-
-### generative art
-
-my generative art repo - canvas-sketch, threejs, p5, raw canvas. all good stuff
-
-- https://gitlab.com/elijahlucian/genart
-
-### Arduino Projects
-
-- https://gitlab.com/elijahlucian/arduino
+## more "businessey" repos
 
 ### Windows ui app to track creative proejcts
 
 - https://github.com/ELI7VH/creative-journal-windows
-
-## more "businessey" repos
 
 ### rust generative art
 
