@@ -188,15 +188,22 @@ export const SongInfo = () => {
             </>
           )}
           {mode.state === 'view' && (
-            <Box backgroundColor="var(--gray-2)" padding="0.5rem">
+            <Box
+              backgroundColor="var(--gray-2)"
+              padding="0.5rem"
+              borderRadius="0.25rem"
+            >
               <Json data={song.data} />
             </Box>
           )}
-          <FlexRow justifyContent="space-between">
+          <FlexRow justifyContent="center" gap="0.5rem">
             <Button
               variant="text"
               size="small"
               onClick={async () => {
+                const confirm = window.confirm('are you sure?')
+                if (!confirm) return
+
                 if (!song.data?.id) return
 
                 await song.destroy.mutateAsync()
@@ -205,15 +212,7 @@ export const SongInfo = () => {
             >
               delete
             </Button>
-            <FlexRow gap="0.5rem">
-              <Checkbox
-                checked={song.data?.ready || false}
-                onChange={(ready) => {
-                  song.update.mutateAsync({ id: song.data?.id, ready })
-                }}
-              />
-              <label htmlFor="ready">ready</label>
-            </FlexRow>
+            <Divider />
             <Button
               size="small"
               onClick={() => {
@@ -225,6 +224,17 @@ export const SongInfo = () => {
             >
               copy
             </Button>
+          </FlexRow>
+          <FlexRow justifyContent="center">
+            <FlexRow gap="0.5rem">
+              <Checkbox
+                checked={song.data?.ready || false}
+                onChange={(ready) => {
+                  song.update.mutateAsync({ id: song.data?.id, ready })
+                }}
+              />
+              <label htmlFor="ready">ready</label>
+            </FlexRow>
           </FlexRow>
           {/* 
         <Box
