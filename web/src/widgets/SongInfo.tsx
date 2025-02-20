@@ -4,6 +4,7 @@ import {
   Checkbox,
   Divider,
   FlexRow,
+  Grid,
   H1,
   HotInput,
   Input,
@@ -165,37 +166,43 @@ export const SongInfo = () => {
             </Button>
             <Divider width="1rem" />
           </FlexRow>
-          {mode.state === 'edit' && (
-            <>
-              <HotInput
-                label="name"
-                value={song.data?.name}
-                onFinish={(name) => {
-                  song.update.mutateAsync({ name })
-                  toast.toast('name updated')
-                }}
-              />
-              <TextArea
-                value={song.data?.notes}
-                onBlur={async (notes) => {
-                  await song.update.mutateAsync({
-                    id: song.data?.id,
-                    notes,
-                  })
-                  toast.toast('notes updated')
-                }}
-              />
-            </>
-          )}
-          {mode.state === 'view' && (
-            <Box
-              backgroundColor="var(--gray-2)"
-              padding="0.5rem"
-              borderRadius="0.25rem"
-            >
-              <Json data={song.data} />
+          <Grid
+            height={mode.state === 'edit' ? '200px' : '0'}
+            transition="height 0.3s ease-in-out"
+            overflow="hidden"
+            alignItems="center"
+          >
+            <HotInput
+              label="name"
+              value={song.data?.name}
+              onFinish={(name) => {
+                song.update.mutateAsync({ name })
+                toast.toast('name updated')
+              }}
+            />
+            <TextArea
+              value={song.data?.notes}
+              onBlur={async (notes) => {
+                await song.update.mutateAsync({
+                  id: song.data?.id,
+                  notes,
+                })
+                toast.toast('notes updated')
+              }}
+            />
+          </Grid>
+          <Box
+            transition="height 0.3s ease-in-out"
+            height={mode.state === 'view' ? '200px' : '0'}
+            maxWidth="100%"
+            overflow="hidden"
+          >
+            <Box padding="0.5rem" border="1px solid var(--gray-2)">
+              <Box overflow="auto" padding="0.5rem">
+                <Json data={song.data} />
+              </Box>
             </Box>
-          )}
+          </Box>
           <FlexRow justifyContent="center" gap="0.5rem">
             <Button
               variant="text"

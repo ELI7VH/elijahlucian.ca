@@ -227,3 +227,15 @@ input[type='checkbox'] {
     transform: rotate(360deg);
   }
 }
+
+
+textarea {
+  background-color: var(--gray-0);
+  background-image: var(--background-image-3);
+  /* border: none; */
+  border: 1.5px solid var(--brand-1);
+
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+
+}
