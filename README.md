@@ -22,29 +22,7 @@ flash fiction online interview
 
 # Flash Fiction Podcast (6 volumes)
 
-Volume 1
-
-- https://youtu.be/1ZHhg8O1Asg
-
-Volume 2
-
-- https://youtu.be/UVCEvmgJuGM
-
-Volume 3
-
-- https://youtu.be/YIcxdGO9xnA
-
-Volume 4
-
-- https://youtu.be/uQRdECqHRCw
-
-Volume 5
-
-- https://youtu.be/CnW7BzVUJ6Y
-
-Volume 6 (Victoria Maria)
-
-- https://youtu.be/yYQjK4l7TRs
+- https://www.youtube.com/playlist?list=PLMrGa3-RIUa6uJ64OgKDtb775cI7p743E
 
 ### Vapsquad
 
