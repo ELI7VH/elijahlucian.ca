@@ -14,8 +14,55 @@ hello.andremichelle.io
 
 # Things I've done
 
-- Vapsquad https://soundcloud.com/vapsquad
-- ?
+### Vapsquad
+
+we had a twich stream became partnered pretty quick, but you know what happened next.
+voice acting for indie games, game jams, mods,
+I wish twitch kept all the vods.. 🥺 but! at least we have proof that we existed!
+
+- https://soundcloud.com/vapsquad
+- https://www.facebook.com/vapsquad/
+
+## Published Works our cast in the game:
+
+### AWAKE Definitive Edition
+
+Elijah & Nancy
+
+- https://store.steampowered.com/app/1002630/AWAKE__Definitive_Edition/
+
+### Stranded Deep
+
+Elijah
+
+- https://store.steampowered.com/app/313120/Stranded_Deep/
+
+### Cell 327
+
+Elijah
+
+- https://web.archive.org/web/20170909031729/http://ludum.thenet.sk/ld31/cell327_voiced.html
+
+### The Ransom
+
+Shylo,
+
+https://offthebeatentrack.games/three-years-of-adventure-jam-part-three-the-ransom-2018/?cn-reloaded=1
+
+some posts and stuff:
+
+- https://www.reddit.com/r/ludumdare/comments/4e5y2r/voice_acting_assets_available_recordings_on/
+
+newgrounds
+
+- https://www.newgrounds.com/audio/listen/614162
+
+we even had an instagram
+
+- https://www.instagram.com/vapsquad/
+- https://www.instagram.com/p/7lLBecptBE/
+
+todo: add the soundboard to the site.
 
 # Random things Ive done
 
