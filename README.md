@@ -32,13 +32,13 @@ hello.andremichelle.io
 
 # Game Dev
 
-## Dank Defense: They're Coming
+### Dank Defense: They're Coming
 
 soundtrack (todo: point to web player): https://music.youtube.com/watch?v=6Q6RrWQq8a8&si=qBEIPLvgQ04Bw2r4
 
 - https://elijahlucian.itch.io/dank-defense-theyre-coming
 
-## Dankbot Danger!
+### Dankbot Danger!
 
 todo: put the music on spotify, etc
 
