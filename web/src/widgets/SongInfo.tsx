@@ -35,6 +35,8 @@ export const SongInfo = () => {
   // show waveform
   // create markers w/ notes & attachments & links
 
+  // todo: add album artwork
+
   useEffect(() => {
     if (song.data?.id) collapsed.set(false)
     else collapsed.set(true)
@@ -225,7 +227,7 @@ export const SongInfo = () => {
               onClick={() => {
                 if (!song.data?.id) return
 
-                navigator.clipboard.writeText(JSON.stringify(song.data))
+                navigator.clipboard.writeText(JSON.stringify(song.data || '{}'))
                 toast.toast('copied to clipboard')
               }}
             >

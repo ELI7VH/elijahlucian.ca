@@ -7,14 +7,19 @@ export const useLocalState = <T>(key: string, initialValue: T) => {
 
   useEffect(() => {
     const value = localStorage.getItem(key)
-    // console.log('useLocalState', key, value)
+    console.log('useLocalState', key, value)
     if (value) {
-      setState(JSON.parse(value))
+      setState(JSON.parse(value || '{}'))
     }
   }, [key])
 
   const set = (value: T) => {
     // console.log('useLocalState', key, value)
+    if (!value) {
+      rm()
+      return
+    }
+
     localStorage.setItem(key, JSON.stringify(value))
     setState(value)
   }

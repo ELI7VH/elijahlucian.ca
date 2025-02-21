@@ -13,6 +13,7 @@ import {
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Home } from './routes/home'
+import { ThoughtBubby } from './widgets/ThoughtBubby'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
@@ -39,6 +40,7 @@ export const App = () => {
       <Page>
         <FlexCol justifyContent="center" alignItems="center" gap="1rem">
           <Box opacity={started ? 1 : 0} transition="all 0.5s ease-in">
+            <ThoughtBubby />
             <Link to="/">
               <H1>elijah lucian</H1>
             </Link>

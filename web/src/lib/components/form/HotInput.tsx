@@ -1,5 +1,5 @@
 import { Box, Button, Input } from '@/lib/components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {
   value: string
@@ -9,6 +9,10 @@ type Props = {
 
 export const HotInput = ({ value, onFinish, label }: Props) => {
   const [inputValue, setInputValue] = useState(value)
+
+  useEffect(() => {
+    setInputValue(value)
+  }, [value])
 
   const handleFinish = () => {
     if (inputValue === value) return
