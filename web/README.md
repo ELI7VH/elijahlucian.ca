@@ -15,3 +15,7 @@ note to self: start simple
   - decentralized?
 
 - ADD TAGS TO POSTS
+
+# cursor rules
+
+https://github.com/PatrickJS/awesome-cursorrules
