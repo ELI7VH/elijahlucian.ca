@@ -153,7 +153,11 @@ export const PlaylistWidget = () => {
           </FlexRow>
           <Button
             size="small"
+            disabled={!songId || !playlist.state}
             onClick={() => {
+              if (!songId) return
+              if (!playlist.state) return
+
               playlists.set(playlist.state, [
                 ...(playlists.value[playlist.state] || []),
                 songId,
