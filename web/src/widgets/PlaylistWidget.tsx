@@ -30,13 +30,16 @@ export const PlaylistWidget = () => {
     podcasts: [],
     releases: [],
   })
-  const playlist = useLocalState('playlist-name', 'vibes')
   const onlyStars = useLocalState('playlist-only-stars', false)
   const sp = useSearchParams()
   const navigate = useNavigate()
   const search = sp.get('search')
   const index = useLocalState('radio-index', 0)
   const songId = sp.get('song-id')
+
+  const playlist = useLocalState('playlist-name', 'vibes', {
+    onSet: () => sp.set('search'),
+  })
 
   if (songs.isLoading) return <div>Loading...</div>
   if (songs.error) return <div>Error: {songs.error.message}</div>
@@ -78,10 +81,11 @@ export const PlaylistWidget = () => {
         opacity={1}
         backgroundColor="white"
         color="black"
-        maxWidth="600px"
+        // width="500px"
+        maxWidth="900px"
         border="2px solid var(--gray-6)"
       >
-        <FlexRow justifyContent="space-between">
+        <FlexRow justifyContent="space-between" gap="1rem">
           <FlexRow gap="0.5rem">
             <H1 fontSize="1rem" position="relative" top="7px">
               songs {search ? '' : ''}({songs.data.length})

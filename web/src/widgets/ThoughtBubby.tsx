@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { Box, Flex, Grid, H3, P, Page, useDisclosure } from '@/lib'
+import { Box, Flex, Grid, useDisclosure } from '@/lib'
 import { useState } from 'react'
 import { Rando } from '@dank-inc/numbaz'
 

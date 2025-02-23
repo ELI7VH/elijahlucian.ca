@@ -2,7 +2,16 @@ import { useEffect } from 'react'
 
 import { useState } from 'react'
 
-export const useLocalState = <T>(key: string, initialValue: T) => {
+type Config<T> = {
+  onSet?: (value: T) => void
+  onRm?: () => void
+}
+
+export const useLocalState = <T>(
+  key: string,
+  initialValue: T,
+  config?: Config<T>,
+) => {
   const [state, setState] = useState<T>(initialValue)
 
   useEffect(() => {
@@ -18,12 +27,14 @@ export const useLocalState = <T>(key: string, initialValue: T) => {
 
     localStorage.setItem(key, JSON.stringify(value ?? initialValue))
     setState(value)
+    config?.onSet?.(value)
   }
 
   const rm = () => {
     console.log('useLocalState', key, 'rm')
     localStorage.removeItem(key)
     setState(initialValue)
+    config?.onRm?.()
   }
 
   const toggle = () => {

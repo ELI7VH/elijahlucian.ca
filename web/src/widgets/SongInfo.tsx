@@ -7,7 +7,6 @@ import {
   Grid,
   H1,
   HotInput,
-  Input,
   Json,
   Link,
   TextArea,
@@ -52,8 +51,6 @@ export const SongInfo = () => {
             opacity={1}
             border="1px solid var(--gray-6)"
             collapsed={collapsed.state}
-            width="600px"
-            maxWidth="600px"
             textWrap="nowrap"
           >
             no song selected!
