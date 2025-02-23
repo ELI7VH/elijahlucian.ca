@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { Home } from './routes/home'
 import { ThoughtBubby } from './widgets/ThoughtBubby'
+import { Null } from './routes/null'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
@@ -47,6 +48,7 @@ export const App = () => {
           </Box>
           <Divider />
           <Routes>
+            <Route path="/null" element={<Null />} />
             <Route
               path="/"
               element={

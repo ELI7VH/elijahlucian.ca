@@ -82,8 +82,6 @@ export const Radio = () => {
         collapsed={collapsed.state}
         backgroundColor="#111"
         border="2px solid var(--gray-6)"
-        maxWidth="600px"
-        opacity={1}
       >
         <FlexRow justifyContent="space-between" width="100%">
           <Tooltip
@@ -170,39 +168,45 @@ export const Radio = () => {
           >
             <Pre>random</Pre>
           </Button>
-          <Flex gap="0.2rem">
-            <Checkbox
-              id="autoplay"
-              checked={autoplay.state}
-              onChange={(checked) => autoplay.set(checked)}
-            />
+          <Flex gap="1rem">
             <label
               style={{ fontSize: '0.8rem', cursor: 'pointer' }}
               htmlFor="autoplay"
             >
-              autoplay
+              <Flex gap="0.5rem">
+                <Checkbox
+                  id="autoplay"
+                  checked={autoplay.state}
+                  onChange={(checked) => autoplay.set(checked)}
+                />
+                autoplay
+              </Flex>
             </label>
-            <Checkbox
-              id="shuffle"
-              checked={shuffle.state}
-              onChange={(checked) => shuffle.set(checked)}
-            />
             <label
               style={{ fontSize: '0.8rem', cursor: 'pointer' }}
               htmlFor="shuffle"
             >
-              shuffle
+              <Flex gap="0.5rem">
+                <Checkbox
+                  id="shuffle"
+                  checked={shuffle.state}
+                  onChange={(checked) => shuffle.set(checked)}
+                />
+                shuffle
+              </Flex>
             </label>
-            <Checkbox
-              id="repeat"
-              checked={repeat.state}
-              onChange={(checked) => repeat.set(checked)}
-            />
             <label
               style={{ fontSize: '0.8rem', cursor: 'pointer' }}
               htmlFor="repeat"
             >
-              repeat
+              <Flex gap="0.5rem">
+                <Checkbox
+                  id="repeat"
+                  checked={repeat.state}
+                  onChange={(checked) => repeat.set(checked)}
+                />
+                repeat
+              </Flex>
             </label>
           </Flex>
           <FlexRow>

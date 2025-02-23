@@ -22,6 +22,7 @@ import { useToast } from '@/lib/hooks/useToast'
 import { Toast } from '@/lib/components/elements/Toast'
 import { AnchorLink } from '@/lib/components/elements/AnchorLink'
 import { useEffect } from 'react'
+import { omit } from 'lodash'
 
 export const SongInfo = () => {
   const sp = useSearchParams()
@@ -48,7 +49,6 @@ export const SongInfo = () => {
           <WidgetBadge name="s" onClick={collapsed.toggle} />
           <WidgetBody
             backgroundColor="#111"
-            opacity={1}
             border="1px solid var(--gray-6)"
             collapsed={collapsed.state}
             textWrap="nowrap"
@@ -71,11 +71,8 @@ export const SongInfo = () => {
         />
         <WidgetBody
           collapsed={collapsed.state}
-          opacity={1}
           backgroundColor="white"
           color="black"
-          width="600px"
-          maxWidth="600px"
           border="2px solid var(--gray-6)"
         >
           <FlexRow justifyContent="space-between">
@@ -198,7 +195,9 @@ export const SongInfo = () => {
           >
             <Box padding="0.5rem" border="1px solid var(--gray-2)">
               <Box overflow="auto" padding="0.5rem">
-                <Json data={song.data} />
+                <Json
+                  data={omit(song.data, ['id', 'signedUrl', 'notes', 'link'])}
+                />
               </Box>
             </Box>
           </Box>
@@ -242,16 +241,6 @@ export const SongInfo = () => {
               <label htmlFor="ready">ready</label>
             </FlexRow>
           </FlexRow>
-          {/* 
-        <Box
-          // display="none"
-          maxWidth="100%"
-          overflow="auto"
-          fontSize="0.8rem"
-          backgroundColor="var(--gray-1)"
-        >
-          <Json data={song.data} />
-        </Box> */}
         </WidgetBody>
       </WidgetContainer>
       <Toast>{toast.message}</Toast>

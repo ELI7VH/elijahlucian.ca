@@ -78,11 +78,9 @@ export const PlaylistWidget = () => {
       ></WidgetBadge>
       <WidgetBody
         collapsed={collapsed.state}
-        opacity={1}
         backgroundColor="white"
         color="black"
-        // width="500px"
-        maxWidth="900px"
+        width="100%"
         border="2px solid var(--gray-6)"
       >
         <FlexRow justifyContent="space-between" gap="1rem">
@@ -150,7 +148,7 @@ export const PlaylistWidget = () => {
             <Button
               size="small"
               onClick={() => playlist.set('')}
-              variant="text"
+              variant="reset"
             >
               All
             </Button>
@@ -176,7 +174,7 @@ export const PlaylistWidget = () => {
           data={(filtered || playlistSongs).filter((s) =>
             onlyStars.state ? starred.value[s.id] : true,
           )}
-          padding="0.25rem"
+          // padding="0.25rem"
           columns={[
             {
               render: (r, i) => (
@@ -195,16 +193,20 @@ export const PlaylistWidget = () => {
                   }}
                   onClick={() => sp.set('song-id', r.id)}
                 >
-                  {i + 1}: {r.name || r.originalFilename}
+                  <P>{r.name || r.originalFilename}</P>
                 </Link>
               ),
               style: {
                 width: '100%',
+                padding: '0 0.25rem',
               },
               label: 'Name',
             },
             {
               label: 'Remove',
+              style: {
+                textAlign: 'center',
+              },
               render: (r, i) => (
                 <Button
                   disabled={!playlist.state}
@@ -225,6 +227,10 @@ export const PlaylistWidget = () => {
             },
             {
               label: 'Star',
+              style: {
+                textAlign: 'center',
+                padding: '0 0.25rem',
+              },
               render: (r) => (
                 <Button
                   size="small"

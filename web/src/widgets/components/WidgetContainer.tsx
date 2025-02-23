@@ -1,6 +1,16 @@
-import { Box } from '@/lib'
-import { PropsWithChildren } from 'react'
+import { Box, BoxProps } from '@/lib'
 
-export const WidgetContainer = ({ children }: PropsWithChildren) => {
-  return <Box position="relative">{children}</Box>
+type Props = BoxProps
+
+export const WidgetContainer = ({ children, ...props }: Props) => {
+  return (
+    <Box
+      position="relative"
+      width="100%"
+      // border="1px solid var(--brand-1)"
+      {...props}
+    >
+      {children}
+    </Box>
+  )
 }

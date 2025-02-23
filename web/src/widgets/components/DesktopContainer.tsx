@@ -31,9 +31,11 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
         position="absolute"
         maxHeight="100%"
         overflowY="auto"
+        maxWidth="600px"
         transition="all 0.3s ease-in-out"
         width={collapsed.state ? '1px' : '100%'}
         height={collapsed.state ? '1px' : '100%'}
+
         // opacity={collapsed.state ? 0 : 1}
         // opacity={collapsed.state ? 0 : 1}
       >

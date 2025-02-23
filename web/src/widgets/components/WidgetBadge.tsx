@@ -16,7 +16,6 @@ export const WidgetBadge = ({
   name,
   onClick,
   animated = false,
-  collapsed = false,
   textStyle,
   ...style
 }: Props) => {

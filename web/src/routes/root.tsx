@@ -5,11 +5,13 @@ import { DesktopContainer } from '@/widgets/components/DesktopContainer'
 import { Radio } from '@/widgets/Radio'
 import { PlaylistWidget } from '@/widgets/PlaylistWidget'
 import { SongInfo } from '@/widgets/SongInfo'
+import { Null } from './null'
 
 export const RootRouter = () => {
   return (
     <>
       <Routes>
+        <Route path="/null" element={<Null />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/*" element={<App />} />
       </Routes>

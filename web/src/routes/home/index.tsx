@@ -1,4 +1,4 @@
-import { Box, Flex, Link, P } from '@/lib'
+import { Box, Flex, FlexRow, Link, P } from '@/lib'
 
 import { Page } from '@/lib'
 
@@ -19,6 +19,14 @@ export const Home = () => {
           <Box>back</Box>
         </Flex>
       </Link>
+      <FlexRow justifyContent="end">
+        <Link to="/null">
+          <Flex gap="1ch" color="var(--gray-5)">
+            <Box>№</Box>
+            <Box>null</Box>
+          </Flex>
+        </Link>
+      </FlexRow>
     </Page>
   )
 }
