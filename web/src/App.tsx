@@ -63,12 +63,12 @@ export const App = () => {
             <Route path="/home" element={<Home />} />
           </Routes>
           <Divider />
-          <FlexRow justifyContent="center" gap="1rem">
+          <FlexRow justifyContent="center" gap="1rem" flexWrap="wrap">
             <Link
               target="_blank"
               to="https://music.youtube.com/playlist?list=PLMrGa3-RIUa6vT8mJFYsEHGhsrcnJ3kkM"
             >
-              ▻ my current "album" (youtube)
+              ▻ youtube (music)
             </Link>
             <Link
               target="_blank"
