@@ -41,6 +41,7 @@ export const Button = ({
         backgroundColor,
         color: foreground,
         border,
+        userSelect: 'none',
         padding: size === 'small' ? '0.25rem 0.5rem' : '0.5rem 1rem',
         fontSize: size === 'small' ? '0.5rem' : '1rem',
         borderRadius: '0.25rem',

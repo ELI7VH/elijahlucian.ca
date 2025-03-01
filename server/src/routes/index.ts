@@ -22,6 +22,7 @@ export default () => {
     console.log('logged in user', user.id)
 
     res.locals.user = user
+    res.locals.userId = user.id
     next()
   }
 
@@ -152,15 +153,20 @@ export default () => {
       username: res.locals.user.username,
       cookie: res.locals.user.cookie,
       admin: res.locals.user.admin,
+      starred: res.locals.user.starred,
+      metadata: res.locals.user.metadata,
     })
   })
 
   router.patch('/auth/me', isLoggedIn, async (req, res) => {
     const user = res.locals.user
 
-    // await user.save()
+    const { id, admin, accessLevel, roles, visits, ...body } = req.body
 
-    res.json(user)
+    console.log('update user', user.id, body)
+    const updated = await User.findByIdAndUpdate(user.id, body, { new: true })
+    console.log('update user', user.id, updated)
+    res.json(updated)
   })
 
   router.post('/auth/login', async (req, res) => {

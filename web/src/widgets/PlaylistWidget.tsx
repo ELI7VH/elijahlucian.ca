@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Divider,
   FlexRow,
@@ -8,8 +7,6 @@ import {
   Link,
   P,
   Table,
-  useDisclosure,
-  useForm,
   useSearchParams,
   useUserContext,
 } from '@/lib'
@@ -23,15 +20,12 @@ import { useLocalDB } from '@/lib/hooks/useLocalDB'
 import { usePlaylists } from '@/lib/hooks/api/usePlaylists'
 import { Modal } from './Modal'
 import { useToast } from '@/lib/hooks/useToast'
+import { Toast } from '@/lib/components/elements/Toast'
 
 export const PlaylistWidget = () => {
   const songs = useSongs()
   const user = useUserContext()
   const collapsed = useLocalState('playlist-panel-collapsed', true)
-  // use localdb to store user state
-
-  const starred = useLocalDB<Record<string, boolean>>('starred-songs')
-
   const playlists = usePlaylists()
 
   const onlyStars = useLocalState('playlist-only-stars', false)
@@ -80,9 +74,6 @@ export const PlaylistWidget = () => {
     (id) => songs.index[id],
   )
 
-  console.log('songs', playlistSongs)
-  console.log('filtered', filtered)
-
   return (
     <>
       <WidgetContainer>
@@ -104,7 +95,14 @@ export const PlaylistWidget = () => {
               </H1>
               <Button
                 size="small"
-                onClick={() => onlyStars.toggle()}
+                onClick={() => {
+                  if (!user.user) {
+                    toast.toast('you must be loggged in')
+                    return
+                  }
+
+                  onlyStars.toggle()
+                }}
                 variant={onlyStars.state ? 'contained' : 'ghost'}
               >
                 {onlyStars.state ? '★' : '☆'}
@@ -155,14 +153,19 @@ export const PlaylistWidget = () => {
                 variant="contained"
                 onClick={async () => {
                   const songId = sp.get('song-id')
+
                   if (!playlist.state || !songId) return
+
                   await playlists.update.mutateAsync({
                     id: playlist.state,
                     items: [...playlists.index[playlist.state].items, songId],
                   })
                 }}
               >
-                + song
+                + song id: {songId?.slice(-4)}{' '}
+                {playlistSongs.find((s) => s.id === sp.get('song-id'))
+                  ? '✓'
+                  : null}
               </Button>
             ) : (
               <Button size="small" onClick={playlists.createDialog.toggle}>
@@ -173,7 +176,9 @@ export const PlaylistWidget = () => {
           <Table
             maxHeight="20vh"
             data={(filtered || playlistSongs || songs.data || []).filter((s) =>
-              onlyStars.state ? starred.value[s.id] : true,
+              onlyStars.state
+                ? user.user?.starred?.filter((id) => id === s.id)
+                : true,
             )}
             columns={[
               {
@@ -240,12 +245,21 @@ export const PlaylistWidget = () => {
                 render: (r) => (
                   <Button
                     size="small"
-                    variant={starred.value[r.id] ? 'contained' : 'ghost'}
+                    variant={
+                      user.user?.starred?.includes(r.id) ? 'contained' : 'ghost'
+                    }
                     onClick={() => {
-                      starred.set(r.id, !starred.get(r.id))
+                      if (!songId) return
+                      const prev = user.user?.starred || []
+
+                      const starred = prev.includes(r.id)
+                        ? prev.filter((id) => id !== r.id)
+                        : [...prev, r.id]
+
+                      user.update({ starred })
                     }}
                   >
-                    {starred.value[r.id] ? '★' : '☆'}
+                    {user.user?.starred.includes(r.id) ? '★' : '☆'}
                   </Button>
                 ),
               },
@@ -265,7 +279,9 @@ export const PlaylistWidget = () => {
             </Button>
           </FlexRow>
         </WidgetBody>
+        <Toast>{toast.message}</Toast>
       </WidgetContainer>
+
       <Modal
         open={playlists.createDialog.isOpen}
         onClose={playlists.createDialog.close}

@@ -8,8 +8,8 @@ export type User = {
   password: string
   cookie: string
   visits: number
-  selected_nation: string
-
+  starred: string[]
+  metadata: Record<string, unknown>
   createdAt: string
   updatedAt: string
 }
