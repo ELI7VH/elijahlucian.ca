@@ -34,6 +34,7 @@ export function Table<T extends TableRecord>({
         bg="cool-bg"
         {...style}
         border="1px solid var(--gray-2)"
+        fontFamily="var(--font-mono)"
         padding="0"
         height={data?.length ? style.maxHeight || '100%' : '3rem'}
         overflow="scroll"
@@ -71,6 +72,8 @@ export function Table<T extends TableRecord>({
                     textAlign: 'left',
                     ...style,
                     ...column.style,
+                    fontSize: '0.66rem',
+                    padding: '0 0.25rem',
                     fontWeight: 'var(--font-weight-2)',
                     color: 'var(--brand-5)',
                   }}

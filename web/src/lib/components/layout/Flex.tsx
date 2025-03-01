@@ -7,9 +7,10 @@ import { useDisclosure } from '@/lib/hooks'
 export type FlexProps = {
   children?: ReactNode
   _hover?: InlineDivStyle
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
 } & InlineDivStyle
 
-export const Flex = ({ children, _hover, ...style }: FlexProps) => {
+export const Flex = ({ children, _hover, onClick, ...style }: FlexProps) => {
   const hovering = useDisclosure()
 
   return (
@@ -21,6 +22,7 @@ export const Flex = ({ children, _hover, ...style }: FlexProps) => {
         ...dankStylez(style),
         ...(hovering.isOpen && _hover),
       }}
+      onClick={onClick}
     >
       {children}
     </div>

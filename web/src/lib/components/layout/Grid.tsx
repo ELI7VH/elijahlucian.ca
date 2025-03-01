@@ -1,13 +1,16 @@
-import { dankStylez, toCssVar } from "@/lib/magic";
-import { InlineDivStyle } from "@/lib/types";
-import { ReactNode } from "react";
+import { dankStylez, toCssVar } from '@/lib/magic'
+import { InlineDivStyle } from '@/lib/types'
+import { ReactNode } from 'react'
 
 type GridProps = {
-  children?: ReactNode;
-} & InlineDivStyle;
+  children?: ReactNode
+  onClick?: () => void
+} & InlineDivStyle
 
-export const Grid = ({ children, ...style }: GridProps) => {
+export const Grid = ({ children, onClick, ...style }: GridProps) => {
   return (
-    <div style={{ display: "grid", ...dankStylez(style) }}>{children}</div>
-  );
-};
+    <div style={{ display: 'grid', ...dankStylez(style) }} onClick={onClick}>
+      {children}
+    </div>
+  )
+}

@@ -5,11 +5,12 @@ type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value'> & {
   value?: string | number | boolean | null | string[] | undefined | any
   gridColumn?: string
   label?: string
+  onEnter?: (value: string) => void
 }
 
 // 📌
 
-export const Input = ({ gridColumn, label, ...props }: InputProps) => {
+export const Input = ({ gridColumn, label, onEnter, ...props }: InputProps) => {
   // todo: put placeholder in label if has value
 
   const title = [label || props.placeholder || props.name, props.value]
@@ -20,6 +21,11 @@ export const Input = ({ gridColumn, label, ...props }: InputProps) => {
     <Box bg="background-image-2">
       {label && <H6 padding="0.5rem 0.5rem 0.25rem">{label}</H6>}
       <input
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            onEnter?.(e.currentTarget.value)
+          }
+        }}
         {...props}
         value={props.value?.toString() ?? ''}
         style={{

@@ -89,6 +89,59 @@ export default () => {
     res.json(song)
   })
 
+  router.get('/playlists', async (req, res) => {
+    const playlists = await Metadata.find({ type: 'playlist', scope: 'music' })
+
+    res.json(playlists)
+  })
+
+  router.get('/playlists/:id', async (req, res) => {
+    const playlist = await Metadata.findById(req.params.id)
+
+    res.json(playlist)
+  })
+
+  router.post('/playlists', isAdmin, async (req, res) => {
+    const playlist = await Metadata.create({
+      ...req.body,
+      type: 'playlist',
+      scope: 'music',
+    })
+
+    res.json(playlist)
+  })
+
+  router.patch('/playlists/:id', isAdmin, async (req, res) => {
+    const playlist = await Metadata.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    })
+
+    res.json(playlist)
+  })
+
+  router.delete('/playlists/:id', isAdmin, async (req, res) => {
+    await Metadata.findByIdAndDelete(req.params.id)
+
+    res.json({ message: 'Playlist deleted' })
+  })
+
+  router.patch('/playlists/:id/reorder', isAdmin, async (req, res) => {
+    const playlist = await Metadata.findById(req.params.id)
+
+    playlist.items = req.body.items
+
+    // insert at index // double check this works
+    playlist.items.splice(
+      req.body.index,
+      0,
+      playlist.items.splice(req.body.oldIndex, 1)[0],
+    )
+
+    await playlist.save()
+
+    res.json(playlist)
+  })
+
   // AUTH
 
   router.get('/auth/me', isLoggedIn, async (req, res) => {

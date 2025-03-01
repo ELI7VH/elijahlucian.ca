@@ -11,6 +11,7 @@ export const Metadata = mongoose.model(
       // scoping queries
       type: { type: String, required: true },
       scope: String,
+      items: { type: [mongoose.Schema.Types.Mixed], default: [] },
       // lookup helpers
       tags: { type: [String], default: [] },
       // regular shit
@@ -26,6 +27,7 @@ export const Metadata = mongoose.model(
     {
       timestamps: true,
       strict: false,
+      // populate based on route.
       statics: {
         isPublic: () => true,
         path: '/prototypes/metadata',
