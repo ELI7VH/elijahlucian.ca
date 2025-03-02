@@ -59,6 +59,7 @@ export const PlaylistWidget = () => {
     })
     toast.toast('Playlist created')
     playlists.createDialog.close()
+    playlists.form.reset()
   }
 
   const next = () => {
@@ -175,9 +176,7 @@ export const PlaylistWidget = () => {
           <Table
             maxHeight="20vh"
             data={(filtered || playlistSongs || songs.data || []).filter((s) =>
-              onlyStars.state
-                ? user.user?.starred?.filter((id) => id === s.id)
-                : true,
+              onlyStars.state ? user.user?.starred?.includes(s.id) : true,
             )}
             columns={[
               {
@@ -283,7 +282,10 @@ export const PlaylistWidget = () => {
 
       <Modal
         open={playlists.createDialog.isOpen}
-        onClose={playlists.createDialog.close}
+        onClose={() => {
+          playlists.createDialog.close()
+          playlists.form.reset()
+        }}
       >
         <P>Create Playlist</P>
         <Input
