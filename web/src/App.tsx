@@ -15,7 +15,6 @@ import { useState } from 'react'
 import { Home } from './routes/home'
 import { ThoughtBubby } from './widgets/ThoughtBubby'
 import { Null } from './routes/null'
-import { useThoughts } from './lib/hooks/api/useThoughts'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
