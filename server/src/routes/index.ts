@@ -1,30 +1,9 @@
 import { RequestHandler, Router } from 'express'
 import { Metadata, User } from '../db/models'
+import { isLoggedIn } from './middleware'
 
 export default () => {
   const router = Router()
-
-  const isLoggedIn: RequestHandler = async (req, res, next) => {
-    const auth = req.headers.authorization
-
-    if (!auth) {
-      res.status(401).json({ message: 'Not logged in' })
-      return
-    }
-
-    const user = await User.findOne({ cookie: auth })
-
-    if (!user) {
-      res.status(401).json({ message: 'Not logged in' })
-      return
-    }
-
-    console.log('logged in user', user.id)
-
-    res.locals.user = user
-    res.locals.userId = user.id
-    next()
-  }
 
   const isAdmin: RequestHandler = async (req, res, next) => {
     const auth = req.headers.authorization
@@ -88,42 +67,6 @@ export default () => {
     console.log('song', song)
 
     res.json(song)
-  })
-
-  router.get('/playlists', async (req, res) => {
-    const playlists = await Metadata.find({ type: 'playlist', scope: 'music' })
-
-    res.json(playlists)
-  })
-
-  router.get('/playlists/:id', async (req, res) => {
-    const playlist = await Metadata.findById(req.params.id)
-
-    res.json(playlist)
-  })
-
-  router.post('/playlists', isAdmin, async (req, res) => {
-    const playlist = await Metadata.create({
-      ...req.body,
-      type: 'playlist',
-      scope: 'music',
-    })
-
-    res.json(playlist)
-  })
-
-  router.patch('/playlists/:id', isAdmin, async (req, res) => {
-    const playlist = await Metadata.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    })
-
-    res.json(playlist)
-  })
-
-  router.delete('/playlists/:id', isAdmin, async (req, res) => {
-    await Metadata.findByIdAndDelete(req.params.id)
-
-    res.json({ message: 'Playlist deleted' })
   })
 
   router.patch('/playlists/:id/reorder', isAdmin, async (req, res) => {

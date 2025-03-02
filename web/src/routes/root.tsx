@@ -6,6 +6,7 @@ import { Radio } from '@/widgets/Radio'
 import { PlaylistWidget } from '@/widgets/PlaylistWidget'
 import { SongInfo } from '@/widgets/SongInfo'
 import { Null } from './null'
+import { ThoughtAggregatorModule } from '@/widgets/ThoughtAggregatorModule'
 
 export const RootRouter = () => {
   return (
@@ -19,6 +20,7 @@ export const RootRouter = () => {
         <Radio />
         <PlaylistWidget />
         <SongInfo />
+        <ThoughtAggregatorModule />
       </DesktopContainer>
     </>
   )

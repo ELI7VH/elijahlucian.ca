@@ -12,6 +12,9 @@ export const Metadata = mongoose.model(
       type: { type: String, required: true },
       scope: String,
       items: { type: [mongoose.Schema.Types.Mixed], default: [] },
+      // content
+      text: String,
+      md: String,
       // lookup helpers
       tags: { type: [String], default: [] },
       // regular shit

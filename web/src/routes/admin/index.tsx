@@ -83,7 +83,8 @@ export const AdminDashboard = () => {
       width="60vw"
       maxWidth="700px"
       alignContent="center"
-      height="100vh"
+      maxHeight="100vh"
+      overflow="auto"
       background="rgba(0,0,0,0.4)"
     >
       <FlexRow justifyContent="center">
@@ -146,6 +147,8 @@ export const AdminDashboard = () => {
         <Json data={form.values} />
         <Divider />
         <UserChip />
+        <Divider />
+        {/* <Resources /> */}
       </Grid>
       <Toast>{toast.message}</Toast>
     </Page>

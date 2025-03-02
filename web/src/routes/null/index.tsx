@@ -12,9 +12,10 @@ export const Null = () => {
       maxWidth="100vw"
       // border="1px solid blue"
     >
-      <FlexCol>
+      <FlexCol gap="1rem">
         <H1>Null</H1>
-        <Link to="/">.</Link>
+        <Link to="/">☜ home</Link>
+        <Link to="/admin">☞ admin</Link>
       </FlexCol>
     </Page>
   )

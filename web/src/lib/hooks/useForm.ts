@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
-import { capitalize, entries, valuesIn } from 'lodash'
+import { useState } from 'react'
+import { entries } from 'lodash'
 
 type OnSubmit<T> = (values: T) => void
 
-type BindOptions = React.InputHTMLAttributes<HTMLInputElement> & {
+type BindOptions = React.InputHTMLAttributes<unknown> & {
   label?: string
 }
 
@@ -11,7 +11,7 @@ type BindResult<T> = {
   name: keyof T
   value: T[keyof T]
   placeholder: string
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: React.ChangeEvent<unknown>) => void
   type: string
   trim?: boolean
   required?: boolean
@@ -88,7 +88,7 @@ export function useForm<
     // @ts-expect-error fuck off typescript
     configIndex[key as keyof T] = bindResult
 
-    return bindResult
+    return bindResult as any
   }
 
   const setValue = (key: keyof T, value: T[keyof T]) => {

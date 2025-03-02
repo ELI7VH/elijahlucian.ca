@@ -2,6 +2,7 @@ import cors from 'cors'
 import express from 'express'
 import { connectDb } from './db'
 import routes from './routes'
+import base from './routes/base'
 
 const main = async () => {
   const app = express()
@@ -44,6 +45,7 @@ const main = async () => {
     })
   })
 
+  app.use(await base())
   app.use(routes())
 
   app.listen(process.env.PORT, () => {
