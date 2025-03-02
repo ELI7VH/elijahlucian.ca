@@ -3,20 +3,22 @@ import { useEffect } from 'react'
 import { Box, Flex, Grid, useDisclosure } from '@/lib'
 import { useState } from 'react'
 import { Rando } from '@dank-inc/numbaz'
+import { useThoughts } from '@/lib/hooks/api/useThoughts'
+import { sample } from 'lodash'
 
 export const ThoughtBubby = () => {
-  const [thoughts, setThoughts] = useState<string[]>([
-    'its been a while since we spoke, I thought we should catch up',
-    'hello world!',
-  ])
+  const thoughts = useThoughts()
 
-  const rando = Rando.item(thoughts)
+  if (thoughts.isLoading) return null
+  if (thoughts.error) return null
+
+  const rando = sample(thoughts.data)
 
   return (
     <Grid position="relative">
       <Box position="absolute" top="-120px" right="-50px">
         <Flex>
-          <Bubble n={0}>{rando}</Bubble>
+          <Bubble n={0}>{rando?.text}</Bubble>
         </Flex>
       </Box>
     </Grid>
