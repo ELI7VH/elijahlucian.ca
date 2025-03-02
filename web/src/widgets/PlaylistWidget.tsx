@@ -259,7 +259,7 @@ export const PlaylistWidget = () => {
                       user.update({ starred })
                     }}
                   >
-                    {user.user?.starred.includes(r.id) ? '★' : '☆'}
+                    {user.user?.starred?.includes(r.id) ? '★' : '☆'}
                   </Button>
                 ),
               },
