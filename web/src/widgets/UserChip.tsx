@@ -17,7 +17,11 @@ export const UserChip = () => {
       <Grid>
         <Grid gridTemplateColumns="1fr 1fr">
           <Input placeholder="username" {...user.loginForm.bind('username')} />
-          <Input placeholder="password" {...user.loginForm.bind('password')} />
+          <Input
+            placeholder="password"
+            type="password"
+            {...user.loginForm.bind('password')}
+          />
         </Grid>
         <Button
           onClick={() =>
