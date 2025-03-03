@@ -9,6 +9,9 @@
 
 :root {
   --text-color: #fff;
+  --text-muted: #ccc;
+  --text-dark: #000;
+  --text-dark-muted: #333;
   --text-color-2: #ccc;
   --brand-1: #ff0080;
   --brand-1-dark: #cc0066;

@@ -44,9 +44,15 @@ export const ThoughtAggregatorModule = () => {
               justifyContent="space-between"
             >
               <FlexCol gap="0.25rem">
-                {thought.title && <P>{thought.title}</P>}
-                <P>{thought.text}</P>
-                <P>{toRelative(thought.createdAt)}</P>
+                <FlexRow gap="0.25rem">
+                  {thought.title && <P>{thought.title}</P>}
+                  <P>{thought.text}</P>
+                </FlexRow>
+                <FlexRow gap="0.25rem" justifyContent="flex-end">
+                  <P color="var(--text-dark-muted)">
+                    {toRelative(thought.createdAt)}
+                  </P>
+                </FlexRow>
               </FlexCol>
               <Button
                 variant="ghost"

@@ -1,13 +1,4 @@
-import {
-  Button,
-  Divider,
-  Grid,
-  Input,
-  Json,
-  P,
-  Pre,
-  useUserContext,
-} from '@/lib'
+import { Button, Divider, Grid, Input, Pre, useUserContext } from '@/lib'
 
 export const UserChip = () => {
   const user = useUserContext()
