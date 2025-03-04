@@ -12,6 +12,12 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
   // GRID VIEW
   // MAP THINGS TO DIFFERENT AREAS... DUH
 
+  // file drag and drop
+  // or
+  // ctrl v
+  // detects text or image or video or audio or link
+  // selects upload component, navigates to it, inserting payload into the component -> handles rest
+
   return (
     <Grid
       position="absolute"
