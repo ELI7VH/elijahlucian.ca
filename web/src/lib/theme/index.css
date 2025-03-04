@@ -184,7 +184,7 @@ button {
   transition: all 0.2s ease-out;
   font-family: var(--font-family);
   font-weight: var(--font-weight-2);
-  font-size: 1rem;
+  /* font-size: 1rem; */
 
   &:hover {
     background-color: var(--brand-1-light);
@@ -213,6 +213,7 @@ input[type='checkbox'] {
 
   accent-color: var(--brand-1);
   transform: rotate(45deg);
+  font-size: 16px;
 
   &:checked {
     transform: rotate(0deg);
@@ -234,7 +235,7 @@ textarea {
   background-image: var(--background-image-3);
   /* border: none; */
   border: 1.5px solid var(--brand-1);
-
+  font-size: 16px;
   font-family: var(--font-family);
   font-weight: var(--font-weight);
 
