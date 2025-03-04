@@ -46,8 +46,21 @@ export const ThoughtAggregatorModule = () => {
               justifyContent="space-between"
             >
               <FlexCol gap="0.25rem">
-                <FlexRow gap="0.25rem">
-                  {thought.title && <P>{thought.title}</P>}
+                <FlexRow
+                  gap="1rem"
+                  textShadow="1px 1px 1px var(--text-dark-muted)"
+                >
+                  {thought.title && (
+                    <P
+                      color="var(--text-muted)"
+                      textTransform="uppercase"
+                      fontWeight="light"
+                      background="#000"
+                      padding="0.25rem 0.5rem"
+                    >
+                      {thought.title}
+                    </P>
+                  )}
                   <P>{filter.clean(thought.text)}</P>
                 </FlexRow>
                 <FlexRow gap="0.25rem" justifyContent="flex-end">
