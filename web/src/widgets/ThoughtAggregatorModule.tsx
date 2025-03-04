@@ -38,46 +38,48 @@ export const ThoughtAggregatorModule = () => {
           {/* <Json data={thoughts.data} />
           <Json data={thoughts.form.values} /> */}
           <Divider />
-          {thoughts.data?.map((thought) => (
-            <FlexRow
-              key={thought.id}
-              gap="0.5rem"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FlexCol gap="0.25rem">
-                <FlexRow
-                  gap="1rem"
-                  textShadow="1px 1px 1px var(--text-dark-muted)"
-                >
-                  {thought.title && (
-                    <P
-                      color="var(--text-muted)"
-                      textTransform="uppercase"
-                      fontWeight="light"
-                      background="#000"
-                      padding="0.25rem 0.5rem"
-                    >
-                      {thought.title}
-                    </P>
-                  )}
-                  <P>{filter.clean(thought.text)}</P>
-                </FlexRow>
-                <FlexRow gap="0.25rem" justifyContent="flex-end">
-                  <P color="var(--text-dark-muted)">
-                    {toRelative(thought.createdAt)}
-                  </P>
-                </FlexRow>
-              </FlexCol>
-              <Button
-                variant="ghost"
-                size="small"
-                onClick={() => thoughts.destroy.mutateAsync(thought.id)}
+          <Grid maxHeight="40vh" overflowY="auto">
+            {thoughts.data?.map((thought) => (
+              <FlexRow
+                key={thought.id}
+                gap="0.5rem"
+                alignItems="center"
+                justifyContent="space-between"
               >
-                x
-              </Button>
-            </FlexRow>
-          ))}
+                <FlexCol gap="0.25rem">
+                  <FlexRow
+                    gap="1rem"
+                    textShadow="1px 1px 1px var(--text-dark-muted)"
+                  >
+                    {thought.title && (
+                      <P
+                        color="var(--text-muted)"
+                        textTransform="uppercase"
+                        fontWeight="light"
+                        background="#000"
+                        padding="0.25rem 0.5rem"
+                      >
+                        {thought.title}
+                      </P>
+                    )}
+                    <P>{filter.clean(thought.text)}</P>
+                  </FlexRow>
+                  <FlexRow gap="0.25rem" justifyContent="flex-end">
+                    <P color="var(--text-dark-muted)">
+                      {toRelative(thought.createdAt)}
+                    </P>
+                  </FlexRow>
+                </FlexCol>
+                <Button
+                  variant="ghost"
+                  size="small"
+                  onClick={() => thoughts.destroy.mutateAsync(thought.id)}
+                >
+                  x
+                </Button>
+              </FlexRow>
+            ))}
+          </Grid>
           <Divider />
           <form onSubmit={handleSubmit}>
             <Grid gap="0.5rem">

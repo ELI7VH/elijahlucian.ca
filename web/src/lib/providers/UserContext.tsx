@@ -43,14 +43,18 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
   }
 
   const login = async (values: LoginValues) => {
-    const user = await api.post<User>('/auth/login', values)
+    try {
+      const user = await api.post<User>('/auth/login', values)
 
-    if (!user.cookie) {
-      throw new Error('No cookie returned from login')
+      if (!user.cookie) {
+        throw new Error('No cookie returned from login')
+      }
+
+      api.setCookie(user.cookie)
+      query.refetch()
+    } catch (error) {
+      throw new Error('Invalid username or password')
     }
-
-    api.setCookie(user.cookie)
-    query.refetch()
   }
 
   const logout = async () => {
