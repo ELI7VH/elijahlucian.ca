@@ -21,6 +21,8 @@ export const RootRouter = () => {
         <PlaylistWidget />
         <SongInfo />
         <ThoughtAggregatorModule />
+        {/* <IdeaRepository />  */}
+        {/* <PublicationManager />  */}
       </DesktopContainer>
     </>
   )

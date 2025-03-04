@@ -26,3 +26,7 @@ export const toRelative = (date: Date | string) => {
     addSuffix: true,
   })
 }
+
+export const cn = (...classes: string[]) => {
+  return classes.filter(Boolean).join(' ')
+}

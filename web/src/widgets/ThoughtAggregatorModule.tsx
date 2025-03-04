@@ -12,11 +12,13 @@ import { Button } from '@/lib/components/elements/Button'
 import { TextArea } from '@/lib/components/form/TextArea'
 import { Divider, Grid, Input, Json } from '@/lib'
 import { toRelative } from '@/lib/magic'
+import { Filter } from 'bad-words'
 
 export const ThoughtAggregatorModule = () => {
   const collapsed = useLocalState('thought-aggregator-collapsed', true)
   const thoughts = useThoughts()
   const toast = useToast()
+  const filter = new Filter({ placeHolder: 'x' })
 
   const handleSubmit = thoughts.form.handleSubmit(async (values) => {
     console.log(values)
@@ -46,7 +48,7 @@ export const ThoughtAggregatorModule = () => {
               <FlexCol gap="0.25rem">
                 <FlexRow gap="0.25rem">
                   {thought.title && <P>{thought.title}</P>}
-                  <P>{thought.text}</P>
+                  <P>{filter.clean(thought.text)}</P>
                 </FlexRow>
                 <FlexRow gap="0.25rem" justifyContent="flex-end">
                   <P color="var(--text-dark-muted)">
