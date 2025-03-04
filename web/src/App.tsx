@@ -8,16 +8,21 @@ import {
   FlexRow,
   Grid,
   H1,
+  P,
   Page,
 } from './lib'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Home } from './routes/home'
-import { ThoughtBubby } from './widgets/ThoughtBubby'
 import { Null } from './routes/null'
+import { Bub3 } from './widgets/components/Bub3'
+import { useThoughts } from './lib/hooks/api/useThoughts'
+import { useLocalState } from './lib/hooks/useLocalState'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
+  const thoughts = useThoughts()
+  const index = useLocalState('bub3-i', 0)
 
   useEffect(() => {
     setTimeout(() => {
@@ -27,6 +32,8 @@ export const App = () => {
 
   // todo: grow the text on the home page
   // todo: ui sound effects, because we're making a fucking banger here.
+
+  const thought = thoughts.data?.[index.state]
 
   return (
     <Grid
@@ -41,11 +48,28 @@ export const App = () => {
       <Page>
         <FlexCol justifyContent="center" alignItems="center" gap="1rem">
           <Box opacity={started ? 1 : 0} transition="all 0.5s ease-in">
-            <ThoughtBubby />
+            <Box position="relative" top="-2rem">
+              {thought && (
+                <Bub3
+                  id={`${index.state}`}
+                  title={thought?.title ?? ''}
+                  text={thought?.text ?? ''}
+                  createdAt={thought?.createdAt ?? ''}
+                  onDestroy={() => {
+                    index.set(index.state + 1)
+                  }}
+                />
+              )}
+            </Box>
+          </Box>
+          <Flex gap="1ch">
             <Link to="/">
               <H1>elijah lucian</H1>
             </Link>
-          </Box>
+            <Box cursor="pointer" onClick={() => index.set(0)}>
+              x
+            </Box>
+          </Flex>
           <Divider />
           <Routes>
             <Route path="/null" element={<Null />} />
