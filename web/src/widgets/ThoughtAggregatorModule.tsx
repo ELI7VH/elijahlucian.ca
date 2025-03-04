@@ -38,13 +38,24 @@ export const ThoughtAggregatorModule = () => {
           {/* <Json data={thoughts.data} />
           <Json data={thoughts.form.values} /> */}
           <Divider />
-          <Grid maxHeight="40vh" overflowY="auto">
-            {thoughts.data?.map((thought) => (
+          <Grid
+            maxHeight="40vh"
+            overflowY="auto"
+            background="rgba(0,0,0,0.1)"
+            // padding="0.5rem"
+          >
+            {thoughts.data?.map((thought, i) => (
               <FlexRow
                 key={thought.id}
                 gap="0.5rem"
+                padding="0.5rem 1rem"
                 alignItems="center"
                 justifyContent="space-between"
+                background={
+                  i === (thoughts.data?.length ?? 0) - 1
+                    ? 'rgba(255,255,255,0.1)'
+                    : ''
+                }
               >
                 <FlexCol gap="0.25rem">
                   <FlexRow

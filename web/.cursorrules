@@ -1,2 +1,3 @@
-prefer guard statements
+prefer guard statements over nested truthy statements 
+
 follow existing codebase patterns rather than creating new ones
