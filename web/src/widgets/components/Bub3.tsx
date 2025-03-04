@@ -26,6 +26,7 @@ export const Bub3 = ({
   const filter = new Filter({ placeHolder: 'x' })
   // todo: scale to new size.
   // todo: replace swears with the cool dos shit
+  // todo: grow upwards to full size.
 
   return (
     <FlexRow

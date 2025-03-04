@@ -67,7 +67,7 @@ export const App = () => {
               <H1>elijah lucian</H1>
             </Link>
             <Box cursor="pointer" onClick={() => index.set(0)}>
-              x
+              ☕︎
             </Box>
           </Flex>
           <Divider />

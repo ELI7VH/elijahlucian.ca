@@ -7,6 +7,7 @@ import { PlaylistWidget } from '@/widgets/PlaylistWidget'
 import { SongInfo } from '@/widgets/SongInfo'
 import { Null } from './null'
 import { ThoughtAggregatorModule } from '@/widgets/ThoughtAggregatorModule'
+import { DankVision } from '@/widgets/DankVision'
 
 export const RootRouter = () => {
   return (
@@ -22,6 +23,7 @@ export const RootRouter = () => {
         <SongInfo />
         <ThoughtAggregatorModule />
         {/* <IdeaRepository />  */}
+        <DankVision />
         {/* <PublicationManager />  */}
       </DesktopContainer>
     </>
