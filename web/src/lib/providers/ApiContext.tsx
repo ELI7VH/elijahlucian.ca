@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { createContext, ReactNode, useContext } from 'react'
 
 type ApiContextType = {
   get<T>(url: string, params?: unknown): Promise<T>

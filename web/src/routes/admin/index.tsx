@@ -108,12 +108,13 @@ export const AdminDashboard = () => {
                   navigator.clipboard.readText().then((text) => {
                     const {
                       id,
-                      signedUrl,
-                      s3Key,
-                      type,
-                      scope,
                       filename,
                       originalFilename,
+                      // Unused values kept as comments for reference
+                      // signedUrl,
+                      // s3Key,
+                      // type,
+                      // scope,
                       ...json
                     } = JSON.parse(text)
 

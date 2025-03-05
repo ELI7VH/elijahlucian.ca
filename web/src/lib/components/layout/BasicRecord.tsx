@@ -35,7 +35,7 @@ export const BasicRecord = <T extends Record<string, unknown>>({
               if (!val) return
 
               navigator.clipboard.writeText(`${val}`)
-              toast.toast('copied to clipboard')
+              toast('copied to clipboard')
             }}
           >
             {`${data?.[field as keyof T] || '-'}`}

@@ -34,9 +34,9 @@ export const Bubble = ({
 }) => {
   const open = useDisclosure()
   const split = useDisclosure()
-  const [left, setLeft] = useState(Rando.int(-50, 50))
-  const [top, setTop] = useState(Rando.int(-5, 5) + n * 2)
-  const [r, setR] = useState(Rando.normal(0.5, 2.5))
+  const [left] = useState(Rando.int(-50, 50))
+  const [top] = useState(Rando.int(-5, 5) + n * 2)
+  const [r] = useState(Rando.normal(0.5, 2.5))
   const [bubs, setBubs] = useState<string[]>([])
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { Button, useUserContext } from '@/lib'
+import { Button } from '@/lib'
 
 import { FlexCol, FlexRow, P } from '@/lib'
 import { toRelative } from '@/lib/magic'
@@ -13,7 +13,6 @@ type Props = {
   onPin?: () => void
   pinned?: boolean
   highlight?: boolean
-  selected?: boolean
 }
 
 export const Bub3 = ({
@@ -25,7 +24,6 @@ export const Bub3 = ({
   onPin,
   pinned,
   highlight,
-  selected,
 }: Props) => {
   const filter = new Filter({ placeHolder: 'x' })
 

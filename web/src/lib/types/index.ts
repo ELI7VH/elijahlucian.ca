@@ -1,4 +1,4 @@
-type BaseAttr = React.HTMLAttributes<HTMLDivElement>['style']
+export type BaseAttr = React.HTMLAttributes<HTMLDivElement>['style']
 
 export type InlineDivStyle = React.HTMLAttributes<HTMLDivElement>['style'] &
   InlineColors

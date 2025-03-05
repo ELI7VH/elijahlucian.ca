@@ -28,7 +28,11 @@ export function useDisclosure(
   }, [onClose])
 
   const toggle = useCallback(() => {
-    opened ? close() : open()
+    if (opened) {
+      close();
+    } else {
+      open();
+    }
   }, [close, open, opened])
 
   return { isOpen: opened, open, close, toggle }

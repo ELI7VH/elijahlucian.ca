@@ -1,10 +1,7 @@
 import { Button, Flex, Grid, H3, Section, useToast } from '@/lib'
 import { PlaylistWidget } from '@/widgets/PlaylistWidget'
-import { Radio } from '@/widgets/Radio'
 import { SongInfo } from '@/widgets/SongInfo'
 import { ThoughtAggregatorModule } from '@/widgets/ThoughtAggregatorModule'
-import { ThoughtBub2 } from '@/widgets/ThoughtBub2'
-import { ThoughtBubby } from '@/widgets/ThoughtBubby'
 import { UserChip } from '@/widgets/UserChip'
 
 export const Home = () => {

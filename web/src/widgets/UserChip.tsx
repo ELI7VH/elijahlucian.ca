@@ -23,9 +23,9 @@ export const UserChip = () => {
                 username: user.loginForm.values.username || '',
                 password: user.loginForm.values.password || '',
               })
-              toast.toast('Signed in')
-            } catch (error) {
-              toast.toast('Invalid username or password')
+              toast('Signed in')
+            } catch {
+              toast('Invalid username or password')
             }
           }}
         >
@@ -40,7 +40,7 @@ export const UserChip = () => {
       <Button
         onClick={async () => {
           await user.logout()
-          toast.toast('Signed out')
+          toast('Signed out')
         }}
       >
         Sign Out

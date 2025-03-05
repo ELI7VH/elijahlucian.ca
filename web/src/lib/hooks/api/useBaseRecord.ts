@@ -49,7 +49,7 @@ export function useBaseRecord<
         })
       : Promise.reject(`destroy: No id: ${props.path}`)
 
-  const handleFormUpdate = form.handleSubmit((data) => {
+  const handleFormUpdate = form.handleSubmit(() => {
     update(form.updatedValues)
     form.reset()
   })

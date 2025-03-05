@@ -9,7 +9,7 @@ import { useThoughts } from '@/lib/hooks/api/useThoughts'
 import { useToast } from '@/lib/hooks/useToast'
 import { Button } from '@/lib/components/elements/Button'
 import { TextArea } from '@/lib/components/form/TextArea'
-import { Divider, Grid, Input, Json } from '@/lib'
+import { Divider, Grid, Input } from '@/lib'
 import { toRelative } from '@/lib/magic'
 import { Filter } from 'bad-words'
 
@@ -34,8 +34,6 @@ export const ThoughtAggregatorModule = () => {
       />
       <WidgetBody collapsed={collapsed.state} background="background-image-2">
         <FlexCol gap="0.5rem">
-          {/* <Json data={thoughts.data} />
-          <Json data={thoughts.form.values} /> */}
           <Divider />
           <Grid
             maxHeight="40vh"
@@ -84,7 +82,8 @@ export const ThoughtAggregatorModule = () => {
                   variant="ghost"
                   size="small"
                   onClick={() => {
-                    thoughts.destroy.mutateAsync(thought.id)
+                    thoughts.destroy
+                      .mutateAsync(thought.id)
                       .then(() => toast(`Thought deleted`, 'warning'))
                   }}
                 >

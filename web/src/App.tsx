@@ -8,7 +8,6 @@ import {
   FlexRow,
   Grid,
   H1,
-  P,
   Page,
   useUserContext,
 } from './lib'

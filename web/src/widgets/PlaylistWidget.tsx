@@ -61,13 +61,13 @@ export const PlaylistWidget = () => {
     playlists.form.reset()
   }
 
-  const next = () => {
-    // if only stars, find next starred song
-  }
+  // const next = () => {
+  //   // if only stars, find next starred song
+  // }
 
-  const prev = () => {
-    // if only stars, find prev starred song
-  }
+  // const prev = () => {
+  //   // if only stars, find prev starred song
+  // }
 
   const playlistSongs = playlists.index[playlist.state]?.items.map(
     (id) => songs.index[id],
@@ -159,7 +159,12 @@ export const PlaylistWidget = () => {
                     id: playlist.state,
                     items: [...playlists.index[playlist.state].items, songId],
                   })
-                  toast(`Song added to playlist ${playlists.index[playlist.state].name}`, 'success')
+                  toast(
+                    `Song added to playlist ${
+                      playlists.index[playlist.state].name
+                    }`,
+                    'success',
+                  )
                 }}
               >
                 + song id: {songId?.slice(-4)}{' '}
@@ -228,7 +233,12 @@ export const PlaylistWidget = () => {
                           ...playlists.index[playlist.state].items.slice(i + 1),
                         ],
                       })
-                      toast(`Song removed from playlist ${playlists.index[playlist.state].name}`, 'info')
+                      toast(
+                        `Song removed from playlist ${
+                          playlists.index[playlist.state].name
+                        }`,
+                        'info',
+                      )
                     }}
                   >
                     -
@@ -256,7 +266,10 @@ export const PlaylistWidget = () => {
                         : [...prev, r.id]
 
                       user.update({ starred })
-                      toast(prev.includes(r.id) ? 'Song unstarred' : 'Song starred', prev.includes(r.id) ? 'info' : 'success')
+                      toast(
+                        prev.includes(r.id) ? 'Song unstarred' : 'Song starred',
+                        prev.includes(r.id) ? 'info' : 'success',
+                      )
                     }}
                   >
                     {user.user?.starred?.includes(r.id) ? '★' : '☆'}
@@ -271,11 +284,10 @@ export const PlaylistWidget = () => {
               size="small"
               variant="reset"
               onClick={() => {
-                playlists.destroy.mutateAsync(playlist.state)
-                  .then(() => {
-                    toast(`Playlist deleted`, 'warning')
-                    playlist.set('')
-                  })
+                playlists.destroy.mutateAsync(playlist.state).then(() => {
+                  toast(`Playlist deleted`, 'warning')
+                  playlist.set('')
+                })
               }}
             >
               delete playlist

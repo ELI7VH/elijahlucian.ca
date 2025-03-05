@@ -1,4 +1,4 @@
-import { dankStylez, toCssVar } from '@/lib/magic'
+import { dankStylez } from '@/lib/magic'
 import { InlineDivStyle } from '@/lib/types'
 import { ReactNode } from 'react'
 

@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { createContext, ReactNode, useContext } from 'react'
 import { User } from '../hooks/api/useUsers'
 import { useApiContext } from './ApiContext'
 import { useForm } from '../hooks/useForm'
@@ -56,7 +56,7 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
       api.setCookie(user.cookie)
       toast(`Welcome back, ${user.username || 'user'}!`, 'success')
       query.refetch()
-    } catch (error) {
+    } catch {
       toast('Invalid username or password', 'error')
       throw new Error('Invalid username or password')
     }

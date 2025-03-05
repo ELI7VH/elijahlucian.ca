@@ -7,7 +7,7 @@ type Props = {
   text: string
 }
 
-export const Bub = ({ children, text }: Props) => {
+export const Bub = ({ text }: Props) => {
   // renders. floats up screen and fades out
 
   const [isVisible, setIsVisible] = useState(true)

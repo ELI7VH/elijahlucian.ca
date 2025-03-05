@@ -23,8 +23,7 @@ type FormProps<T> = {
 }
 
 export function useForm<
-  T extends Record<string, string | number | boolean>,
-  R = T,
+  T extends Record<string, string | number | boolean>
 >(props: FormProps<T>) {
   const [values, setValues] = useState<Partial<T>>(props.initialValues || {})
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({})

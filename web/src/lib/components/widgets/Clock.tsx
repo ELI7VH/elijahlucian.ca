@@ -1,6 +1,6 @@
 import { now, to24h } from '@/lib/magic'
 import { useEffect, useState } from 'react'
-import { Box, P } from '@/lib/components'
+import { Box } from '@/lib/components'
 
 export const Clock = () => {
   const [time, setTime] = useState(now())

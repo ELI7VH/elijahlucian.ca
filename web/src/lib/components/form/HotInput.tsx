@@ -1,4 +1,4 @@
-import { Box, Button, Input } from '@/lib/components'
+import { Box, Input } from '@/lib/components'
 import { useEffect, useState } from 'react'
 
 type Props = {
