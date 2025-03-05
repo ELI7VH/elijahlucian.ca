@@ -1,10 +1,9 @@
 import { Button, Divider, Grid, Input, Pre, useUserContext } from '@/lib'
-import { Toast } from '@/lib/components/elements/Toast'
 import { useToast } from '@/lib/hooks/useToast'
 
 export const UserChip = () => {
   const user = useUserContext()
-  const toast = useToast()
+  const { toast } = useToast()
 
   if (!user.user)
     return (
@@ -48,7 +47,6 @@ export const UserChip = () => {
       </Button>
       <Divider />
       {/* <Json data={user.user} /> */}
-      <Toast>{toast.message}</Toast>
     </Grid>
   )
 }

@@ -20,7 +20,6 @@ import { Bub3 } from './widgets/components/Bub3'
 import { useThoughts } from './lib/hooks/api/useThoughts'
 import { useLocalState } from './lib/hooks/useLocalState'
 import { useToast } from './lib/hooks/useToast'
-import { Toast } from './lib/components/elements/Toast'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
@@ -28,7 +27,7 @@ export const App = () => {
   const user = useUserContext()
 
   const index = useLocalState('bub3-index', 0)
-  const toast = useToast()
+  const { toast } = useToast()
 
   useEffect(() => {
     setTimeout(() => {
@@ -63,7 +62,7 @@ export const App = () => {
                   pinned={user?.user?.pinned?.includes(`${thought?.id}`)}
                   onPin={() => {
                     if (!user?.user) {
-                      toast.toast('You must be logged in to pin thoughts')
+                      toast('You must be logged in to pin thoughts', 'error')
                       return
                     }
 
@@ -73,6 +72,7 @@ export const App = () => {
                           (pin) => pin !== `${thought?.id}`,
                         ),
                       })
+                      toast(`Unpinned thought: ${thought?.title || 'Untitled'}`, 'info')
                     } else {
                       user?.update({
                         pinned: [
@@ -80,10 +80,12 @@ export const App = () => {
                           `${thought?.id}`,
                         ],
                       })
+                      toast(`Pinned thought: ${thought?.title || 'Untitled'}`, 'success')
                     }
                   }}
                   createdAt={thought?.createdAt ?? ''}
                   onDestroy={() => {
+                    toast(`Thought dismissed: ${thought?.title || 'Untitled'}`, 'warning')
                     index.set(index.state + 1)
                   }}
                 />
@@ -149,7 +151,6 @@ export const App = () => {
           ▻ source code
         </Link>
       </FlexRow>
-      <Toast>{toast.message}</Toast>
     </Grid>
   )
 }

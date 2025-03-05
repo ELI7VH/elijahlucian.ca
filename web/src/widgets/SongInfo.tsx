@@ -19,7 +19,6 @@ import { WidgetContainer } from './components/WidgetContainer'
 import { WidgetBadge } from './components/WidgetBadge'
 import { BasicRecord } from '@/lib/components/layout/BasicRecord'
 import { useToast } from '@/lib/hooks/useToast'
-import { Toast } from '@/lib/components/elements/Toast'
 import { AnchorLink } from '@/lib/components/elements/AnchorLink'
 import { useEffect } from 'react'
 import { omit } from 'lodash'
@@ -28,7 +27,7 @@ export const SongInfo = () => {
   const sp = useSearchParams()
   const songId = sp.get('song-id')
   const song = useSong(songId)
-  const toast = useToast()
+  const { toast } = useToast()
 
   const collapsed = useLocalState('song-info-collapsed', false)
   const mode = useLocalState('song-info-mode', 'view')
@@ -56,7 +55,6 @@ export const SongInfo = () => {
             no song selected!
           </WidgetBody>
         </WidgetContainer>
-        <Toast>{toast.message}</Toast>
       </>
     )
 
@@ -103,7 +101,7 @@ export const SongInfo = () => {
               onClick={(e) => {
                 e.preventDefault()
                 navigator.clipboard.writeText(song.data?.link || '')
-                toast.toast('copied to clipboard')
+                toast('copied to clipboard')
               }}
             >
               {song.data?.originalFilename || song.data?.name}
@@ -173,7 +171,7 @@ export const SongInfo = () => {
               value={song.data?.name}
               onFinish={(name) => {
                 song.update.mutateAsync({ name })
-                toast.toast('name updated')
+                toast('name updated')
               }}
             />
             <TextArea
@@ -183,7 +181,7 @@ export const SongInfo = () => {
                   id: song.data?.id,
                   notes,
                 })
-                toast.toast('notes updated')
+                toast('notes updated')
               }}
             />
           </Grid>
@@ -212,7 +210,7 @@ export const SongInfo = () => {
                 if (!song.data?.id) return
 
                 await song.destroy.mutateAsync()
-                toast.toast('song deleted')
+                toast('song deleted')
               }}
             >
               delete
@@ -224,7 +222,7 @@ export const SongInfo = () => {
                 if (!song.data?.id) return
 
                 navigator.clipboard.writeText(JSON.stringify(song.data || '{}'))
-                toast.toast('copied to clipboard')
+                toast('copied to clipboard')
               }}
             >
               copy
@@ -236,6 +234,7 @@ export const SongInfo = () => {
                 checked={song.data?.ready || false}
                 onChange={(ready) => {
                   song.update.mutateAsync({ id: song.data?.id, ready })
+                    toast(`Song ${ready ? 'marked as ready' : 'unmarked as ready'}`, 'success')
                 }}
               />
               <label htmlFor="ready">ready</label>
@@ -243,7 +242,6 @@ export const SongInfo = () => {
           </FlexRow>
         </WidgetBody>
       </WidgetContainer>
-      <Toast>{toast.message}</Toast>
     </>
   )
 }

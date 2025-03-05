@@ -3,6 +3,7 @@ import { createContext, ReactNode, useContext, useState } from 'react'
 import { User } from '../hooks/api/useUsers'
 import { useApiContext } from './ApiContext'
 import { useForm } from '../hooks/useForm'
+import { useToast } from '../hooks/useToast'
 
 type UserContextType = {
   user: User | null
@@ -24,6 +25,7 @@ export const UserContext = createContext<UserContextType | null>(null)
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
   const api = useApiContext()
+  const { toast } = useToast()
 
   const loginForm = useForm<LoginValues>({
     initialValues: {
@@ -39,6 +41,7 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
 
   const update = async (values: Partial<User>) => {
     await api.patch('/auth/me', values)
+    toast('Profile updated successfully', 'success')
     query.refetch()
   }
 
@@ -51,8 +54,10 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
       }
 
       api.setCookie(user.cookie)
+      toast(`Welcome back, ${user.username || 'user'}!`, 'success')
       query.refetch()
     } catch (error) {
+      toast('Invalid username or password', 'error')
       throw new Error('Invalid username or password')
     }
   }
@@ -60,6 +65,7 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
   const logout = async () => {
     await api.post('/auth/logout')
     api.setCookie(null)
+    toast('Logged out successfully', 'info')
     query.refetch()
   }
 

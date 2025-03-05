@@ -12,7 +12,6 @@ import {
   useForm,
   useSearchParams,
 } from '@/lib'
-import { Toast } from '@/lib/components/elements/Toast'
 import { Song, useSongs } from '@/lib/hooks/api/useSongs'
 import { useToast } from '@/lib/hooks/useToast'
 import { UserChip } from '@/widgets/UserChip'
@@ -22,7 +21,7 @@ export const AdminDashboard = () => {
   const songs = useSongs()
   const sp = useSearchParams()
   const [file, setFile] = useState<File | null>(null)
-  const toast = useToast()
+  const { toast } = useToast()
 
   const form = useForm<Song>({
     initialValues: {
@@ -56,7 +55,7 @@ export const AdminDashboard = () => {
 
   const handleSubmit = form.handleSubmit(async (values) => {
     if (!form.values.name || !form.values.link) {
-      toast.toast('Please fill in all fields')
+      toast('Please fill in all fields')
       console.log('form', form.values)
       return
     }
@@ -75,7 +74,7 @@ export const AdminDashboard = () => {
 
     sp.set('song-id', song.id)
     form.reset()
-    toast.toast('Song uploaded')
+    toast('Song uploaded')
   })
 
   return (
@@ -150,7 +149,6 @@ export const AdminDashboard = () => {
         <Divider />
         {/* <Resources /> */}
       </Grid>
-      <Toast>{toast.message}</Toast>
     </Page>
   )
 }

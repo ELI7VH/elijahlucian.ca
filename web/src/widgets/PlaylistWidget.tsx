@@ -19,7 +19,6 @@ import { useNavigate } from 'react-router-dom'
 import { usePlaylists } from '@/lib/hooks/api/usePlaylists'
 import { Modal } from './Modal'
 import { useToast } from '@/lib/hooks/useToast'
-import { Toast } from '@/lib/components/elements/Toast'
 
 export const PlaylistWidget = () => {
   const songs = useSongs()
@@ -33,7 +32,7 @@ export const PlaylistWidget = () => {
   const search = sp.get('search')
   const index = useLocalState('radio-index', 0)
   const songId = sp.get('song-id')
-  const toast = useToast()
+  const { toast } = useToast()
 
   const playlist = useLocalState('playlist-id', '', {
     onSet: () => sp.set('search'),
@@ -57,7 +56,7 @@ export const PlaylistWidget = () => {
     await playlists.create.mutateAsync({
       name: playlists.form.values.name,
     })
-    toast.toast('Playlist created')
+    toast('Playlist created')
     playlists.createDialog.close()
     playlists.form.reset()
   }
@@ -97,7 +96,7 @@ export const PlaylistWidget = () => {
                 size="small"
                 onClick={() => {
                   if (!user.user) {
-                    toast.toast('you must be loggged in')
+                    toast('you must be loggged in')
                     return
                   }
 
@@ -160,6 +159,7 @@ export const PlaylistWidget = () => {
                     id: playlist.state,
                     items: [...playlists.index[playlist.state].items, songId],
                   })
+                  toast(`Song added to playlist ${playlists.index[playlist.state].name}`, 'success')
                 }}
               >
                 + song id: {songId?.slice(-4)}{' '}
@@ -228,6 +228,7 @@ export const PlaylistWidget = () => {
                           ...playlists.index[playlist.state].items.slice(i + 1),
                         ],
                       })
+                      toast(`Song removed from playlist ${playlists.index[playlist.state].name}`, 'info')
                     }}
                   >
                     -
@@ -255,6 +256,7 @@ export const PlaylistWidget = () => {
                         : [...prev, r.id]
 
                       user.update({ starred })
+                      toast(prev.includes(r.id) ? 'Song unstarred' : 'Song starred', prev.includes(r.id) ? 'info' : 'success')
                     }}
                   >
                     {user.user?.starred?.includes(r.id) ? '★' : '☆'}
@@ -270,14 +272,16 @@ export const PlaylistWidget = () => {
               variant="reset"
               onClick={() => {
                 playlists.destroy.mutateAsync(playlist.state)
-                playlist.set('')
+                  .then(() => {
+                    toast(`Playlist deleted`, 'warning')
+                    playlist.set('')
+                  })
               }}
             >
               delete playlist
             </Button>
           </FlexRow>
         </WidgetBody>
-        <Toast>{toast.message}</Toast>
       </WidgetContainer>
 
       <Modal

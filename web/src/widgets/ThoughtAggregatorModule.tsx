@@ -7,7 +7,6 @@ import { FlexRow } from '@/lib/components/layout/Flex'
 import { P } from '@/lib/components/typography/P'
 import { useThoughts } from '@/lib/hooks/api/useThoughts'
 import { useToast } from '@/lib/hooks/useToast'
-import { Toast } from '@/lib/components/elements/Toast'
 import { Button } from '@/lib/components/elements/Button'
 import { TextArea } from '@/lib/components/form/TextArea'
 import { Divider, Grid, Input, Json } from '@/lib'
@@ -17,14 +16,14 @@ import { Filter } from 'bad-words'
 export const ThoughtAggregatorModule = () => {
   const collapsed = useLocalState('thought-aggregator-collapsed', true)
   const thoughts = useThoughts()
-  const toast = useToast()
+  const { toast } = useToast()
   const filter = new Filter({ placeHolder: 'x' })
 
   const handleSubmit = thoughts.form.handleSubmit(async (values) => {
     console.log(values)
     await thoughts.create.mutateAsync(values)
     thoughts.form.reset()
-    toast.toast('Thought created')
+    toast('Thought created')
   })
 
   return (
@@ -84,7 +83,10 @@ export const ThoughtAggregatorModule = () => {
                 <Button
                   variant="ghost"
                   size="small"
-                  onClick={() => thoughts.destroy.mutateAsync(thought.id)}
+                  onClick={() => {
+                    thoughts.destroy.mutateAsync(thought.id)
+                      .then(() => toast(`Thought deleted`, 'warning'))
+                  }}
                 >
                   x
                 </Button>
@@ -107,7 +109,6 @@ export const ThoughtAggregatorModule = () => {
               </FlexRow>
             </Grid>
           </form>
-          <Toast>{toast.message}</Toast>
         </FlexCol>
       </WidgetBody>
     </WidgetContainer>

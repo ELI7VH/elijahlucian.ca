@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { Grid } from './Grid'
 import { useToast } from '@/lib/hooks/useToast'
-import { Toast } from '../elements/Toast'
 
 type Props<T extends Record<string, unknown>> = PropsWithChildren & {
   data?: T
@@ -13,7 +12,7 @@ export const BasicRecord = <T extends Record<string, unknown>>({
   fields,
 }: Props<T>) => {
   if (!data) return null
-  const toast = useToast()
+  const { toast } = useToast()
 
   return (
     <Grid backgroundColor="rgba(0,0,0,0.9)" color="white" padding="1rem">
@@ -58,7 +57,6 @@ export const BasicRecord = <T extends Record<string, unknown>>({
             </span>
           </Grid>
         ))}
-      <Toast>{toast.message}</Toast>
     </Grid>
   )
 }
