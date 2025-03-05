@@ -15,7 +15,11 @@ export const AnchorLink = ({ id, children }: Props) => {
 
   return (
     <a
-      style={{ cursor: 'pointer', color: 'var(--brand-3)' }}
+      style={{ 
+        cursor: 'pointer', 
+        color: 'var(--brand-3)',
+        fontFamily: 'var(--font-mono)'
+      }}
       onClick={handleClick}
     >
       {children}
