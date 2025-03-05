@@ -57,7 +57,7 @@ export const Bub3 = ({
         </FlexRow>
       </FlexCol>
       <Button variant="ghost" size="small" onClick={onDestroy}>
-        x
+        ☞
       </Button>
     </FlexRow>
   )
