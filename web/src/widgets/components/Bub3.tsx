@@ -1,4 +1,4 @@
-import { Button } from '@/lib'
+import { Button, useUserContext } from '@/lib'
 
 import { FlexCol, FlexRow, P } from '@/lib'
 import { toRelative } from '@/lib/magic'
@@ -11,6 +11,7 @@ type Props = {
   createdAt: string
   onDestroy?: () => void
   onPin?: () => void
+  pinned?: boolean
   highlight?: boolean
   selected?: boolean
 }
@@ -64,10 +65,14 @@ export const Bub3 = ({
           <P color="var(--text-dark-muted)">{toRelative(createdAt)}</P>
         </FlexRow>
       </FlexCol>
-      <Button variant="ghost" size="small" onClick={onPin}>
+      <Button
+        variant={pinned ? 'highlighted' : 'text'}
+        size="small"
+        onClick={onPin}
+      >
         {pinned ? '⩘' : '⩗'}
       </Button>
-      <Button variant="ghost" size="small" onClick={onDestroy}>
+      <Button variant="text" size="small" onClick={onDestroy}>
         𝔁
       </Button>
     </FlexRow>

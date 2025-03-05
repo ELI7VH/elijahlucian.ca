@@ -8,6 +8,7 @@ import { SongInfo } from '@/widgets/SongInfo'
 import { Null } from './null'
 import { ThoughtAggregatorModule } from '@/widgets/ThoughtAggregatorModule'
 import { DankVision } from '@/widgets/DankVision'
+import { PinContainer } from '@/widgets/components/PinContainer'
 
 export const RootRouter = () => {
   return (
@@ -17,6 +18,7 @@ export const RootRouter = () => {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/*" element={<App />} />
       </Routes>
+      <PinContainer />
       <DesktopContainer>
         <Radio />
         <PlaylistWidget />

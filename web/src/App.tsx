@@ -10,6 +10,7 @@ import {
   H1,
   P,
   Page,
+  useUserContext,
 } from './lib'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -18,11 +19,16 @@ import { Null } from './routes/null'
 import { Bub3 } from './widgets/components/Bub3'
 import { useThoughts } from './lib/hooks/api/useThoughts'
 import { useLocalState } from './lib/hooks/useLocalState'
+import { useToast } from './lib/hooks/useToast'
+import { Toast } from './lib/components/elements/Toast'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
   const thoughts = useThoughts()
-  const index = useLocalState('bub3-i', 0)
+  const user = useUserContext()
+
+  const index = useLocalState('bub3-index', 0)
+  const toast = useToast()
 
   useEffect(() => {
     setTimeout(() => {
@@ -51,9 +57,31 @@ export const App = () => {
             <Box position="relative" top="-2rem">
               {thought && (
                 <Bub3
-                  id={`${index.state}`}
+                  id={`app-bub3-${thought?.id}`}
                   title={thought?.title ?? ''}
                   text={thought?.text ?? ''}
+                  pinned={user?.user?.pinned?.includes(`${thought?.id}`)}
+                  onPin={() => {
+                    if (!user?.user) {
+                      toast.toast('You must be logged in to pin thoughts')
+                      return
+                    }
+
+                    if (user?.user?.pinned?.includes(`${thought?.id}`)) {
+                      user?.update({
+                        pinned: user?.user?.pinned?.filter(
+                          (pin) => pin !== `${thought?.id}`,
+                        ),
+                      })
+                    } else {
+                      user?.update({
+                        pinned: [
+                          ...(user?.user?.pinned ?? []),
+                          `${thought?.id}`,
+                        ],
+                      })
+                    }
+                  }}
                   createdAt={thought?.createdAt ?? ''}
                   onDestroy={() => {
                     index.set(index.state + 1)
@@ -121,6 +149,7 @@ export const App = () => {
           ▻ source code
         </Link>
       </FlexRow>
+      <Toast>{toast.message}</Toast>
     </Grid>
   )
 }

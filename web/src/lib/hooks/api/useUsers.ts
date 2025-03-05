@@ -9,6 +9,7 @@ export type User = {
   cookie: string
   visits: number
   starred: string[]
+  pinned: string[]
   metadata: Record<string, unknown>
   createdAt: string
   updatedAt: string

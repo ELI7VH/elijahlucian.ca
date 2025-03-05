@@ -96,8 +96,9 @@ export default () => {
       username: res.locals.user.username,
       cookie: res.locals.user.cookie,
       admin: res.locals.user.admin,
-      starred: res.locals.user.starred,
       metadata: res.locals.user.metadata,
+      starred: res.locals.user.starred,
+      pinned: res.locals.user.pinned,
     })
   })
 

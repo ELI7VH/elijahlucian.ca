@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 export const User = mongoose.model(
   'User',
@@ -13,6 +13,8 @@ export const User = mongoose.model(
       accessLevel: { type: String, enum: ['user', 'admin'], default: 'user' },
       roles: { type: [String], default: [] },
       metadata: { type: Object, default: {} },
+      pinned: { type: [Schema.Types.ObjectId], ref: 'Metadata', default: [] },
+      starred: { type: [Schema.Types.ObjectId], ref: 'Metadata', default: [] },
     },
     {
       timestamps: true,
