@@ -10,6 +10,7 @@ type Props = {
   text: string
   createdAt: string
   onDestroy?: () => void
+  onPin?: () => void
   highlight?: boolean
   selected?: boolean
 }
@@ -20,10 +21,13 @@ export const Bub3 = ({
   text,
   createdAt,
   onDestroy,
+  onPin,
+  pinned,
   highlight,
   selected,
 }: Props) => {
   const filter = new Filter({ placeHolder: 'x' })
+
   // todo: scale to new size.
   // todo: replace swears with the cool dos shit
   // todo: grow upwards to full size.
@@ -60,8 +64,11 @@ export const Bub3 = ({
           <P color="var(--text-dark-muted)">{toRelative(createdAt)}</P>
         </FlexRow>
       </FlexCol>
+      <Button variant="ghost" size="small" onClick={onPin}>
+        {pinned ? '⩘' : '⩗'}
+      </Button>
       <Button variant="ghost" size="small" onClick={onDestroy}>
-        ☞
+        𝔁
       </Button>
     </FlexRow>
   )
