@@ -27,6 +27,9 @@ export const Bub3 = ({
   // todo: scale to new size.
   // todo: replace swears with the cool dos shit
   // todo: grow upwards to full size.
+  // todo: generative ambience background.
+  // like noise or smth. but maybe time / music based. (component)
+  // as in the component is the generative ambience background component.
 
   return (
     <FlexRow
