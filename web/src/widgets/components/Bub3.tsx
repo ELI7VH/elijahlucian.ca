@@ -36,6 +36,7 @@ export const Bub3 = ({
       alignItems="center"
       justifyContent="space-between"
       background={highlight ? 'rgba(255,255,255,0.1)' : 'var(--brand-1)'}
+      boxShadow="0.5rem 0.5rem 0 0 rgba(0, 0, 0, 0.9)"
     >
       <FlexCol gap="0.25rem">
         <FlexRow gap="1rem" textShadow="1px 1px 1px var(--text-dark-muted)">
