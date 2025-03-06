@@ -71,7 +71,10 @@ export const App = () => {
                           (pin) => pin !== `${thought?.id}`,
                         ),
                       })
-                      toast(`Unpinned thought: ${thought?.title || 'Untitled'}`, 'info')
+                      toast(
+                        `Unpinned thought: ${thought?.title || 'Untitled'}`,
+                        'info',
+                      )
                     } else {
                       user?.update({
                         pinned: [
@@ -79,12 +82,18 @@ export const App = () => {
                           `${thought?.id}`,
                         ],
                       })
-                      toast(`Pinned thought: ${thought?.title || 'Untitled'}`, 'success')
+                      toast(
+                        `Pinned thought: ${thought?.title || 'Untitled'}`,
+                        'success',
+                      )
                     }
                   }}
                   createdAt={thought?.createdAt ?? ''}
                   onDestroy={() => {
-                    toast(`Thought dismissed: ${thought?.title || 'Untitled'}`, 'warning')
+                    toast(
+                      `Thought dismissed: ${thought?.title || 'Untitled'}`,
+                      'warning',
+                    )
                     index.set(index.state + 1)
                   }}
                 />
