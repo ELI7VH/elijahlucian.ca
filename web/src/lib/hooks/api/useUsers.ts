@@ -1,5 +1,13 @@
 import { useBaseQuery } from './useBaseQuery'
 
+export type UserConfig = {
+  fontFamily: string
+  fontSize: string
+  fontWeight: string
+  colorPrimary: string
+  colorSecondary: string
+}
+
 export type User = {
   id: string
   name: string
@@ -11,6 +19,7 @@ export type User = {
   starred: string[]
   pinned: string[]
   metadata: Record<string, unknown>
+  localConfig: UserConfig
   createdAt: string
   updatedAt: string
 }

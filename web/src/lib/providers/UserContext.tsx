@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { createContext, ReactNode, useContext } from 'react'
-import { User } from '../hooks/api/useUsers'
+import { User, UserConfig } from '../hooks/api/useUsers'
 import { useApiContext } from './ApiContext'
 import { useForm } from '../hooks/useForm'
 import { useToast } from '../hooks/useToast'
+import { useLocalDB } from '../hooks/useLocalDB'
 
 type UserContextType = {
   user: User | null
@@ -13,6 +14,7 @@ type UserContextType = {
   handleLogin: (e: React.FormEvent<HTMLFormElement>) => void
   query: ReturnType<typeof useQuery<User>>
   update: (values: Partial<User>) => Promise<void>
+  localConfig: ReturnType<typeof useLocalDB<UserConfig>>
 }
 
 type LoginValues = {
@@ -74,11 +76,20 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
     loginForm.reset()
   })
 
+  const localConfig = useLocalDB<UserConfig>('user-config', {
+    fontFamily: '',
+    fontSize: '',
+    fontWeight: '',
+    colorPrimary: '',
+    colorSecondary: '',
+  })
+
   return (
     <UserContext.Provider
       value={{
         user: query.data || null,
         query,
+        localConfig,
         login,
         logout,
         update,
