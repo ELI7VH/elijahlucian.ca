@@ -20,7 +20,8 @@ export const ThoughtEdit = () => {
       <form onSubmit={thought.handleFormUpdate}>
         <Grid gap="0.5rem">
           <Flex
-            bg="var(--trans-black)"
+            background="var(--trans-black-2)"
+            alignItems="center"
             padding="0.25rem 0.5rem"
             justifyContent="space-between"
           >
