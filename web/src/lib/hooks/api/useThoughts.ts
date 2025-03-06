@@ -1,4 +1,5 @@
 import { useBaseQuery } from './useBaseQuery'
+import { useBaseRecord } from './useBaseRecord'
 
 type Thought = {
   id: string
@@ -13,5 +14,13 @@ export const useThoughts = () => {
   return useBaseQuery<Thought>({
     path: '/thoughts',
     queryKey: ['thoughts'],
+  })
+}
+
+export const useThought = (id?: string) => {
+  return useBaseRecord<Thought>({
+    path: '/thoughts',
+    baseQueryKey: ['thoughts'],
+    id,
   })
 }

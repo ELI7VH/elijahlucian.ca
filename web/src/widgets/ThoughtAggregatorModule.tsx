@@ -5,19 +5,23 @@ import { FlexCol } from '@/lib/components/layout/Flex'
 import { WidgetBody } from './components/WidgetBody'
 import { FlexRow } from '@/lib/components/layout/Flex'
 import { P } from '@/lib/components/typography/P'
-import { useThoughts } from '@/lib/hooks/api/useThoughts'
+import { useThought, useThoughts } from '@/lib/hooks/api/useThoughts'
 import { useToast } from '@/lib/hooks/useToast'
 import { Button } from '@/lib/components/elements/Button'
 import { TextArea } from '@/lib/components/form/TextArea'
-import { Divider, Grid, Input } from '@/lib'
+import { Divider, Grid, Input, useSearchParams } from '@/lib'
 import { toRelative } from '@/lib/magic'
 import { Filter } from 'bad-words'
+import { ThoughtEdit } from '@/lib/components/domain/thoughts/edit'
 
 export const ThoughtAggregatorModule = () => {
+  const sp = useSearchParams()
   const collapsed = useLocalState('thought-aggregator-collapsed', true)
   const thoughts = useThoughts()
   const { toast } = useToast()
   const filter = new Filter({ placeHolder: 'x' })
+  const thoughtId = sp.get('thoughtId')
+  const thought = useThought(thoughtId)
 
   const handleSubmit = thoughts.form.handleSubmit(async (values) => {
     console.log(values)
@@ -78,36 +82,50 @@ export const ThoughtAggregatorModule = () => {
                     </P>
                   </FlexRow>
                 </FlexCol>
-                <Button
-                  variant="ghost"
-                  size="small"
-                  onClick={() => {
-                    thoughts.destroy
-                      .mutateAsync(thought.id)
-                      .then(() => toast(`Thought deleted`, 'warning'))
-                  }}
-                >
-                  x
-                </Button>
+                <FlexRow gap="0.25rem">
+                  <Button
+                    variant="text"
+                    size="small"
+                    type="submit"
+                    onClick={() => {
+                      sp.set('thoughtId', thought.id)
+                    }}
+                  >
+                    ✎
+                  </Button>
+                </FlexRow>
               </FlexRow>
             ))}
           </Grid>
           <Divider />
-          <form onSubmit={handleSubmit}>
-            <Grid gap="0.5rem">
-              <Input {...thoughts.form.bind('title')} />
-              <TextArea
-                placeholder="Thought"
-                {...thoughts.form.bind('text')}
-                onSubmit={handleSubmit}
-              />
-              <FlexRow justifyContent="flex-end">
-                <Button variant="ghost" size="small" type="submit">
-                  Submit
-                </Button>
-              </FlexRow>
-            </Grid>
-          </form>
+          {thoughtId ? (
+            <ThoughtEdit />
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <Grid gap="0.5rem">
+                <FlexRow
+                  background="var(--trans-black-2)"
+                  padding="0.25rem 0.5rem"
+                  justifyContent="space-between"
+                >
+                  <P color="var(--text-light-muted)" fontSize="0.5rem">
+                    new, original thought
+                  </P>
+                </FlexRow>
+                <Input {...thoughts.form.bind('title')} />
+                <TextArea
+                  placeholder="Thought"
+                  {...thoughts.form.bind('text')}
+                  onSubmit={handleSubmit}
+                />
+                <FlexRow justifyContent="flex-end">
+                  <Button variant="text" size="small" type="submit">
+                    ►
+                  </Button>
+                </FlexRow>
+              </Grid>
+            </form>
+          )}
         </FlexCol>
       </WidgetBody>
     </WidgetContainer>

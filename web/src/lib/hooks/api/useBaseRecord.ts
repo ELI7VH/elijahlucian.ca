@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
-import { useApiContext, useForm, useQueryFns } from '../..'
+import { useApiContext, useForm, useQueryFns, useToast } from '../..'
 
 type BaseRecordProps<T, R> = {
   id?: string
   path: string
+  baseQueryKey?: string[]
   options?: {
     onUpdate?: (payload: Partial<R>, response: Partial<T>) => void
     onDestroy?: (id?: string) => void
@@ -38,14 +39,21 @@ export function useBaseRecord<
       ? fns.update.mutate(
           { ...data, id: props.id },
           {
-            onSuccess: (response) => props.options?.onUpdate?.(response, data),
+            onSuccess: (response) => {
+              props.options?.onUpdate?.(response, data)
+              api.client.invalidateQueries({ queryKey: props.baseQueryKey })
+            },
           },
         )
       : Promise.reject(`update: No id: ${props.path}`)
+
   const destroy = () =>
     props.id
       ? fns.destroy.mutate(props.id, {
-          onSuccess: () => props.options?.onDestroy?.(props.id),
+          onSuccess: () => {
+            props.options?.onDestroy?.(props.id)
+            api.client.invalidateQueries({ queryKey: props.baseQueryKey })
+          },
         })
       : Promise.reject(`destroy: No id: ${props.path}`)
 

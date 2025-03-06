@@ -7,7 +7,7 @@ type PProps = {
 
 export const P = ({ children, ...style }: PProps) => {
   return (
-    <p style={{ ...style, fontSize: '0.8rem', fontFamily: 'var(--font-mono)' }}>
+    <p style={{ fontSize: '0.8rem', fontFamily: 'var(--font-mono)', ...style }}>
       {children}
     </p>
   )

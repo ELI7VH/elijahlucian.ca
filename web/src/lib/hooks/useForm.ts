@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { entries } from 'lodash'
+import { useEffect, useState } from 'react'
+import { entries, isEqual } from 'lodash'
 
 type OnSubmit<T> = (values: T) => void
 
@@ -22,20 +22,22 @@ type FormProps<T> = {
   values?: Partial<T>
 }
 
-export function useForm<
-  T extends Record<string, string | number | boolean>
->(props: FormProps<T>) {
+export function useForm<T extends Record<string, string | number | boolean>>(
+  props: FormProps<T>,
+) {
   const [values, setValues] = useState<Partial<T>>(props.initialValues || {})
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({})
   const configIndex = {} as Partial<Record<keyof T, BindResult<T>>>
 
   const [updatedValues, setUpdatedValues] = useState<Partial<T>>(values)
 
-  // useEffect(() => {
-  //   if (!props.values) return
+  useEffect(() => {
+    if (!props.values) return
 
-  //   setValues(props.values)
-  // }, [props.values])
+    if (isEqual(props.values, values)) return
+
+    setValues(props.values)
+  }, [props.values])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUpdatedValues({ ...updatedValues, [e.target.name]: e.target.value })

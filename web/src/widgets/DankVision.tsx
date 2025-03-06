@@ -19,6 +19,7 @@ export const DankVision = () => {
         <FlexCol>
           {sources.map((source) => (
             <iframe
+              key={source}
               width="600"
               height="420"
               src={source}
