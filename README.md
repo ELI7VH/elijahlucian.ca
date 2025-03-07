@@ -11,6 +11,7 @@ we have AI ✨
 _todo: consolidate all from tele_
 
 hello.andremichelle.io
+scubatank.dev
 
 # Things I've done
 
