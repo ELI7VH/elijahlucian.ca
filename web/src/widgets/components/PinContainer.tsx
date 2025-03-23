@@ -68,6 +68,7 @@ export const PinContainer = () => {
           borderRadius="0.5rem"
           padding="0.5rem"
           maxWidth="500px"
+          opacity={expanded.state ? 1 : 0}
         >
           <P>{pin.title}</P>
           <pre style={{ whiteSpace: 'pre-wrap' }}>
