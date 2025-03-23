@@ -28,7 +28,7 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
       bottom="0"
       borderColor={collapsed.state ? 'var(--brand-2)' : 'var(--brand-1)'}
       borderRadius="1rem"
-      borderWidth="2px"
+      borderWidth={collapsed.state ? '0px' : '2px'}
       borderStyle="dashed"
       overflow="hidden"
     >
@@ -56,7 +56,6 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
           onClick={() => {
             collapsed.toggle()
           }}
-          color={collapsed.state ? 'var(--brand-1)' : 'white'}
           textStyle={{
             color: collapsed.state ? 'var(--brand-1)' : 'white',
           }}

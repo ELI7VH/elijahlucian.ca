@@ -75,6 +75,7 @@ export const App = () => {
                         `Unpinned thought: ${thought?.title || 'Untitled'}`,
                         'info',
                       )
+                      index.set(index.state - 1)
                     } else {
                       user?.update({
                         pinned: [
@@ -86,6 +87,7 @@ export const App = () => {
                         `Pinned thought: ${thought?.title || 'Untitled'}`,
                         'success',
                       )
+                      index.set(index.state + 1)
                     }
                   }}
                   createdAt={thought?.createdAt ?? ''}

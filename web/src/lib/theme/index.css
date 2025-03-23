@@ -29,6 +29,7 @@
   --gray-6: #303030;
 
   --trans-black: rgba(0, 0, 0, 0.5);
+  --trans-black-1: rgba(0, 0, 0, 0.8);
   --trans-black-2: rgba(0, 0, 0, 0.2);
 
   --cool-bg: linear-gradient(
