@@ -86,6 +86,50 @@ export default () => {
     res.json(playlist)
   })
 
+  // hydrated user context shit
+
+  router.get('/me/pinned', isLoggedIn, async (req, res) => {
+    const user = res.locals.user
+
+    const pinnedIds = user.pinned
+
+    const pinned = await Metadata.find({
+      _id: { $in: pinnedIds },
+    })
+
+    res.json(pinned)
+  })
+
+  router.post('/me/pinned/:id', isLoggedIn, async (req, res) => {
+    const user = res.locals.user
+
+    if (user.pinned.includes(req.params.id)) {
+      res.status(400).json({ message: 'Already pinned' })
+      return
+    }
+
+    const pinned = await Metadata.findById(req.params.id)
+
+    if (!pinned) {
+      res.status(404).json({ message: 'Not found' })
+      return
+    }
+
+    user.pinned.push(req.params.id)
+    await user.save()
+
+    res.json(user)
+  })
+
+  router.delete('/me/pinned/:id', isLoggedIn, async (req, res) => {
+    const user = res.locals.user
+
+    user.pinned = user.pinned.filter((id) => id !== req.params.id)
+    await user.save()
+
+    res.json(user)
+  })
+
   // AUTH
 
   router.get('/auth/me', isLoggedIn, async (req, res) => {

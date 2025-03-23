@@ -1,12 +1,19 @@
-import { Box, FlexRow, H1, P, useUserContext } from '@/lib'
+import { Box, FlexCol, FlexRow, P } from '@/lib'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBadge } from './WidgetBadge'
+import { usePinned } from '@/lib/hooks/api/usePinned'
+
 export const PinContainer = () => {
-  const user = useUserContext()
   const expanded = useLocalState('pin-container-expanded', false)
+  const pinned = usePinned()
+  const selectedId = useLocalState('pin-container-selected-id', '')
+
+  // todo: free text search
+
+  const pin = pinned.data?.find((pin) => pin.id === selectedId.state)
 
   return (
-    <FlexRow
+    <FlexCol
       position="absolute"
       top="0"
       left="0"
@@ -16,10 +23,10 @@ export const PinContainer = () => {
       flexWrap="wrap"
       justifyContent="center"
       alignItems="center"
-      gap="0.5rem"
       pointerEvents={expanded.state ? 'auto' : 'none'}
       background={expanded.state ? 'var(--trans-black-1)' : 'transparent'}
       transition="all 0.3s ease-in-out"
+      gap="1rem"
     >
       <WidgetBadge
         left="0"
@@ -33,24 +40,41 @@ export const PinContainer = () => {
           expanded.set(!expanded.state)
         }}
       />
-
-      {user?.user?.pinned.map((id) => (
+      <FlexRow gap="0.5rem">
+        {pinned.data?.map((pin) => (
+          <Box
+            key={pin.id}
+            opacity={expanded.state ? 1 : 0}
+            border="1px solid var(--brand-1)"
+            background="#000"
+            borderRadius="0.5rem"
+            padding="0.5rem"
+            cursor="pointer"
+            userSelect="none"
+            onClick={() => {
+              selectedId.set(pin.id)
+            }}
+          >
+            <div title={pin.text}>
+              <P>{pin.title.slice(0)}</P>
+            </div>
+          </Box>
+        ))}
+      </FlexRow>
+      {pin && (
         <Box
-          key={id}
-          opacity={expanded.state ? 1 : 0}
-          border="1px solid var(--brand-1)"
           background="#000"
+          border="1px solid var(--brand-1)"
           borderRadius="0.5rem"
           padding="0.5rem"
-          cursor="pointer"
-          userSelect="none"
-          // onClick={() => {
-          //   user?.user?.unpin(pin)
-          // }}
+          maxWidth="500px"
         >
-          <P>{id.slice(-5)}</P>
+          <P>{pin.title}</P>
+          <pre style={{ whiteSpace: 'pre-wrap' }}>
+            <P>{pin.text}</P>
+          </pre>
         </Box>
-      ))}
-    </FlexRow>
+      )}
+    </FlexCol>
   )
 }
