@@ -1,10 +1,10 @@
 import { useApiContext } from '@/lib/providers'
 import { QueryKey, useQuery } from '@tanstack/react-query'
 import { useQueryFns } from '../useQuery'
-import { useForm } from '../useForm'
 import { keyBy, filter } from 'lodash'
 import { useDisclosure } from '../useDisclosure'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 export type BaseQueryProps<T> = {
   path: string
@@ -15,6 +15,7 @@ export type BaseQueryProps<T> = {
   filterBy?: keyof T
   noDefaultData?: boolean
   onCreate?: (data: T) => void
+  onUpdate?: (data: T) => void
 }
 
 export const useBaseQuery = <
@@ -23,15 +24,13 @@ export const useBaseQuery = <
 >({
   path,
   queryKey,
-  initialValues,
-  values,
   params,
-  onCreate,
   filterBy,
   noDefaultData,
+  onCreate,
 }: BaseQueryProps<T>) => {
   const api = useApiContext()
-  const form = useForm<T>({ initialValues, values })
+  const form = useForm<T>()
   const createDialog = useDisclosure()
   const editing = useDisclosure()
   const [search, setSearch] = useState<string>('')
@@ -47,7 +46,7 @@ export const useBaseQuery = <
   })
 
   const create = async (data?: Partial<T>) =>
-    await fns.create.mutateAsync({ ...form.values, ...data })
+    await fns.create.mutateAsync({ ...form.getValues(), ...data })
 
   const handleFormCreate = form.handleSubmit(async (values) => {
     const record = await create(values)
@@ -67,7 +66,7 @@ export const useBaseQuery = <
   const filtered =
     search && filterBy
       ? filter(query.data, (r) => {
-          // @ts-ignore
+          // @ts-expect-error typescript voodoo
           return (r[filterBy] as string)
             .toLowerCase()
             .includes(search.toLowerCase())

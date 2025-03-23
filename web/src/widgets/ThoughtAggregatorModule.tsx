@@ -5,30 +5,21 @@ import { FlexCol } from '@/lib/components/layout/Flex'
 import { WidgetBody } from './components/WidgetBody'
 import { FlexRow } from '@/lib/components/layout/Flex'
 import { P } from '@/lib/components/typography/P'
-import { useThought, useThoughts } from '@/lib/hooks/api/useThoughts'
-import { useToast } from '@/lib/hooks/useToast'
+import { useThoughts } from '@/lib/hooks/api/useThoughts'
 import { Button } from '@/lib/components/elements/Button'
-import { TextArea } from '@/lib/components/form/TextArea'
-import { Divider, Grid, Input, useSearchParams } from '@/lib'
+import { Box, Divider, Grid, useSearchParams } from '@/lib'
 import { toRelative } from '@/lib/magic'
 import { Filter } from 'bad-words'
 import { ThoughtEdit } from '@/lib/components/domain/thoughts/edit'
+import { ThoughtCreate } from '@/lib/components/domain/thoughts/create'
 
 export const ThoughtAggregatorModule = () => {
   const sp = useSearchParams()
   const collapsed = useLocalState('thought-aggregator-collapsed', true)
   const thoughts = useThoughts()
-  const { toast } = useToast()
+
   const filter = new Filter({ placeHolder: 'x' })
   const thoughtId = sp.get('thoughtId')
-  const thought = useThought(thoughtId)
-
-  const handleSubmit = thoughts.form.handleSubmit(async (values) => {
-    console.log(values)
-    await thoughts.create.mutateAsync(values)
-    thoughts.form.reset()
-    toast('Thought created')
-  })
 
   return (
     <WidgetContainer>
@@ -64,15 +55,19 @@ export const ThoughtAggregatorModule = () => {
                     textShadow="1px 1px 1px var(--text-dark-muted)"
                   >
                     {thought.title && (
-                      <P
+                      <Box
                         color="var(--text-muted)"
                         textTransform="uppercase"
                         fontWeight="light"
                         background="#000"
                         padding="0.25rem 0.5rem"
+                        cursor="pointer"
+                        onClick={() => {
+                          sp.set('thought-title', thought.title)
+                        }}
                       >
                         {thought.title}
-                      </P>
+                      </Box>
                     )}
                     <P>{filter.clean(thought.text)}</P>
                   </FlexRow>
@@ -101,30 +96,7 @@ export const ThoughtAggregatorModule = () => {
           {thoughtId ? (
             <ThoughtEdit />
           ) : (
-            <form onSubmit={handleSubmit}>
-              <Grid gap="0.5rem">
-                <FlexRow
-                  background="var(--trans-black-2)"
-                  padding="0.25rem 0.5rem"
-                  justifyContent="space-between"
-                >
-                  <P color="var(--text-light-muted)" fontSize="0.5rem">
-                    new, original thought
-                  </P>
-                </FlexRow>
-                <Input {...thoughts.form.bind('title')} />
-                <TextArea
-                  placeholder="Thought"
-                  {...thoughts.form.bind('text')}
-                  onSubmit={handleSubmit}
-                />
-                <FlexRow justifyContent="flex-end">
-                  <Button variant="text" size="small" type="submit">
-                    ►
-                  </Button>
-                </FlexRow>
-              </Grid>
-            </form>
+            <ThoughtCreate title={sp.get('thought-title')} />
           )}
         </FlexCol>
       </WidgetBody>

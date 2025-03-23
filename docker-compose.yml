@@ -12,3 +12,16 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASS}
+
+  chat-agent:
+    build: ./agent
+    depends_on:
+      - mongo
+    volumes:
+      - ./data:/app/data
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=mongodb://${DB_USER}:${DB_PASS}@mongo:27017/chat_database
+    stdin_open: true  # Keep STDIN open
+    tty: true        # Allocate a pseudo-TTY

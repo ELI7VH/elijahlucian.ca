@@ -11,8 +11,9 @@ export const BasicRecord = <T extends Record<string, unknown>>({
   data,
   fields,
 }: Props<T>) => {
-  if (!data) return null
   const { toast } = useToast()
+
+  if (!data) return null
 
   return (
     <Grid backgroundColor="rgba(0,0,0,0.9)" color="white" padding="1rem">

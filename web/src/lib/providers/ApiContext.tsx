@@ -12,7 +12,6 @@ type ApiContextType = {
   setCookie: (cookie: string | null) => void
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const ApiContext = createContext<ApiContextType | null>(null)
 
 type Props = {
@@ -89,7 +88,6 @@ export const ApiContextProvider = ({ children, baseURL = '/api' }: Props) => {
   )
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useApiContext = () => {
   const api = useContext(ApiContext)
   if (!api) {

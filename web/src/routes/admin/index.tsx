@@ -9,13 +9,13 @@ import {
   Link,
   P,
   Page,
-  useForm,
   useSearchParams,
 } from '@/lib'
 import { Song, useSongs } from '@/lib/hooks/api/useSongs'
 import { useToast } from '@/lib/hooks/useToast'
 import { UserChip } from '@/widgets/UserChip'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 export const AdminDashboard = () => {
   const songs = useSongs()
@@ -23,8 +23,8 @@ export const AdminDashboard = () => {
   const [file, setFile] = useState<File | null>(null)
   const { toast } = useToast()
 
-  const form = useForm<Song>({
-    initialValues: {
+  const form = useForm<Partial<Song>>({
+    values: {
       name: '',
       filename: '',
       mime: 'audio/mpeg',
@@ -43,20 +43,18 @@ export const AdminDashboard = () => {
     const name = file.name.split('.')[0]?.replace(/[^a-z0-9]/gi, ' ')
     const trimmedName = name.replace(/\s+/g, ' ')
 
-    form.update({
-      name: trimmedName.trim(),
-      filename: file.name,
-      mime: file.type,
-      size: file.size,
-    })
+    form.setValue('name', trimmedName.trim())
+    form.setValue('filename', file.name)
+    form.setValue('mime', file.type)
+    form.setValue('size', file.size)
 
     setFile(file)
   }
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    if (!form.values.name || !form.values.link) {
+    if (!values.name || !values.link) {
       toast('Please fill in all fields')
-      console.log('form', form.values)
+      console.log('form', values)
       return
     }
 
@@ -115,36 +113,50 @@ export const AdminDashboard = () => {
                       // s3Key,
                       // type,
                       // scope,
-                      ...json
+                      // ..._rest
                     } = JSON.parse(text)
 
-                    form.update({
-                      ...json,
-                      id,
-                      filename: filename || originalFilename,
-                    })
+                    form.setValue('id', id)
+                    form.setValue('filename', filename || originalFilename)
+                    form.setValue('originalFilename', originalFilename)
+                    form.setValue('bucket', 'songs')
+                    form.setValue('folder', 'songs')
+                    form.setValue('bucket', 'songs')
+                    form.setValue('folder', 'songs')
                   })
                 }}
               >
                 paste
               </Button>
             </FlexRow>
-            <Input placeholder="Song Name" {...form.bind('name')} required />
-            <Input placeholder="filename" {...form.bind('filename')} required />
-            <Input placeholder="mime" {...form.bind('mime')} required />
-            <Input placeholder="size" {...form.bind('size')} required />
+            <Input
+              placeholder="Song Name"
+              {...form.register('name')}
+              required
+            />
+            <Input
+              placeholder="filename"
+              {...form.register('filename')}
+              required
+            />
+            <Input placeholder="mime" {...form.register('mime')} required />
+            <Input placeholder="size" {...form.register('size')} required />
             <Grid gridTemplateColumns="1fr 1fr">
-              <Input placeholder="key" {...form.bind('key')} />
-              <Input placeholder="bpm" {...form.bind('bpm')} type="number" />
+              <Input placeholder="key" {...form.register('key')} />
+              <Input
+                placeholder="bpm"
+                {...form.register('bpm')}
+                type="number"
+              />
             </Grid>
-            <Input placeholder="link" {...form.bind('link')} required />
-            <Input placeholder="notes" {...form.bind('notes')} />
+            <Input placeholder="link" {...form.register('link')} required />
+            <Input placeholder="notes" {...form.register('notes')} />
           </Grid>
           <FlexRow justifyContent="end">
             <Button type="submit">Upload</Button>
           </FlexRow>
         </form>
-        <Json data={form.values} />
+        <Json data={form.getValues()} />
         <Divider />
         <UserChip />
         <Divider />

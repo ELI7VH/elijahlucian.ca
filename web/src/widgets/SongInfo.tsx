@@ -176,10 +176,10 @@ export const SongInfo = () => {
             />
             <TextArea
               value={song.data?.notes}
-              onBlur={async (notes) => {
+              onBlur={async (e) => {
                 await song.update.mutateAsync({
                   id: song.data?.id,
-                  notes,
+                  notes: e.target.value,
                 })
                 toast('notes updated')
               }}

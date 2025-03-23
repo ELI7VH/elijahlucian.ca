@@ -1,8 +1,8 @@
 import { useApiContext } from '@/lib/providers'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { keyBy } from 'lodash'
-import { useForm } from '../useForm'
 import { useQueryFns } from '../useQuery'
+import { useForm } from 'react-hook-form'
 
 export type Song = {
   id: string

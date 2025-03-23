@@ -33,9 +33,9 @@ export const Resources = () => {
         ))}
       />
       <form onSubmit={handleSubmit}>
-        <Input placeholder="path" {...resources.form.bind('path')} />
-        <Input placeholder="type" {...resources.form.bind('dbType')} />
-        <Input placeholder="scope" {...resources.form.bind('dbScope')} />
+        <Input placeholder="path" {...resources.form.register('path')} />
+        <Input placeholder="type" {...resources.form.register('dbType')} />
+        <Input placeholder="scope" {...resources.form.register('dbScope')} />
         <Button type="submit">Add</Button>
       </form>
     </FlexCol>

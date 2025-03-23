@@ -7,31 +7,24 @@ export const UserChip = () => {
 
   if (!user.user)
     return (
-      <Grid>
-        <Grid gridTemplateColumns="1fr 1fr">
-          <Input placeholder="username" {...user.loginForm.bind('username')} />
-          <Input
-            placeholder="password"
-            {...user.loginForm.bind('password')}
-            type="password"
-          />
+      <form onSubmit={user.handleLogin}>
+        <Grid>
+          <Grid gridTemplateColumns="1fr 1fr">
+            <Input
+              placeholder="username"
+              {...user.loginForm.register('username')}
+            />
+            <Input
+              placeholder="password"
+              {...user.loginForm.register('password')}
+              type="password"
+            />
+          </Grid>
+          <Button type="submit">
+            Sign In
+          </Button>
         </Grid>
-        <Button
-          onClick={async () => {
-            try {
-              await user.login({
-                username: user.loginForm.values.username || '',
-                password: user.loginForm.values.password || '',
-              })
-              toast('Signed in')
-            } catch {
-              toast('Invalid username or password')
-            }
-          }}
-        >
-          Sign In
-        </Button>
-      </Grid>
+      </form>
     )
 
   return (

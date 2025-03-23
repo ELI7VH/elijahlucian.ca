@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query'
 import { createContext, ReactNode, useContext } from 'react'
 import { User, UserConfig } from '../hooks/api/useUsers'
 import { useApiContext } from './ApiContext'
-import { useForm } from '../hooks/useForm'
 import { useToast } from '../hooks/useToast'
 import { useLocalDB } from '../hooks/useLocalDB'
+import { useForm } from 'react-hook-form'
 
 type UserContextType = {
   user: User | null
@@ -22,7 +22,6 @@ type LoginValues = {
   password: string
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const UserContext = createContext<UserContextType | null>(null)
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
@@ -30,7 +29,7 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
   const { toast } = useToast()
 
   const loginForm = useForm<LoginValues>({
-    initialValues: {
+    defaultValues: {
       username: '',
       password: '',
     },

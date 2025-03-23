@@ -54,7 +54,7 @@ export const PlaylistWidget = () => {
 
   const handlePlaylistCreate = async () => {
     await playlists.create.mutateAsync({
-      name: playlists.form.values.name,
+      name: playlists.form.getValues('name'),
     })
     toast('Playlist created')
     playlists.createDialog.close()
@@ -305,7 +305,10 @@ export const PlaylistWidget = () => {
       >
         <P>Create Playlist</P>
         <Input
-          {...playlists.form.bind('name')}
+          value={playlists.form.getValues('name')}
+          onChange={(e) => {
+            playlists.form.setValue('name', e.target.value)
+          }}
           placeholder="Playlist Name"
           style={{ padding: '0.33rem' }}
           onEnter={handlePlaylistCreate}

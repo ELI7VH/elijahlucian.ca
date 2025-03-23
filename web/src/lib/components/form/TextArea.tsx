@@ -1,37 +1,34 @@
-import { useEffect, useState } from 'react'
+import { forwardRef, ForwardedRef } from 'react'
 
 type Props = {
-  value?: string | number | boolean | null | string[] | undefined | any
+  value?: string | number | boolean | null | string[] | undefined
   placeholder?: string
-  onChange?: (e: any) => void
-  onBlur?: (value: string) => void
-  onEnter?: (e: any) => void
-  onSubmit?: (e: any) => void
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+  onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void
+  onEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
+  onSubmit?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
 } & Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onBlur'>
 
-export const TextArea = ({
-  value,
-  onChange,
-  onBlur,
-  onEnter,
-  onSubmit,
-  placeholder,
-  ...props
-}: Props) => {
-  const [localValue, setLocalValue] = useState(value || '')
-
-  useEffect(() => {
-    setLocalValue(value || '')
-  }, [value])
-
+export const TextArea = forwardRef(function TextArea(
+  {
+    value,
+    onChange,
+    onBlur,
+    onEnter,
+    onSubmit,
+    placeholder,
+    ...props
+  }: Props,
+  ref: ForwardedRef<HTMLTextAreaElement>
+) {
   return (
     <textarea
+      ref={ref}
       style={{ fontSize: '0.7rem', padding: '0.5rem' }}
       rows={6}
       placeholder={placeholder}
-      value={localValue}
+      value={value?.toString() ?? ''}
       onChange={(e) => {
-        setLocalValue(e.target.value)
         onChange?.(e)
       }}
       onKeyDown={(e) => {
@@ -43,8 +40,8 @@ export const TextArea = ({
           }
         }
       }}
-      onBlur={() => onBlur?.(localValue)}
+      onBlur={onBlur}
       {...props}
     />
   )
-}
+})

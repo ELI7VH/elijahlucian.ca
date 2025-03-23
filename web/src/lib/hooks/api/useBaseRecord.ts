@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { useApiContext, useForm, useQueryFns, useToast } from '../..'
+import { useApiContext, useQueryFns } from '../..'
+import { useForm, DefaultValues } from 'react-hook-form'
 
 type BaseRecordProps<T, R> = {
   id?: string
@@ -30,8 +31,7 @@ export function useBaseRecord<
   })
 
   const form = useForm<T>({
-    // @ts-expect-error - todo: idk..
-    values: query.data,
+    defaultValues: (query.data ? {...query.data} : {}) as DefaultValues<T>,
   })
 
   const update = (data: Partial<T>) =>
@@ -57,10 +57,5 @@ export function useBaseRecord<
         })
       : Promise.reject(`destroy: No id: ${props.path}`)
 
-  const handleFormUpdate = form.handleSubmit(() => {
-    update(form.updatedValues)
-    form.reset()
-  })
-
-  return { ...query, form, update, destroy, handleFormUpdate }
+  return { ...query, form, update, destroy }
 }

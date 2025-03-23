@@ -95,7 +95,7 @@ export function Table<T extends TableRecord>({
                   <tr key={row.id} style={{ ...style }}>
                     {columns.map((column, index) => (
                       <td
-                        // @ts-ignore
+                        // @ts-expect-error typescript voodoo
                         title={column.title ? column.title(row) : undefined}
                         key={`${column.key || `${i}+${index}`}-${
                           row.id

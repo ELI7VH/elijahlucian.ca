@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, H3, Link, Section, useToast } from '@/lib'
+import { Box, Flex, Grid, H3, Link, Section } from '@/lib'
 
 export const Home = () => {
   return (
