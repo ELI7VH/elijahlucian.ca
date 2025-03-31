@@ -21,6 +21,8 @@ services:
       - ./data:/app/data
     env_file:
       - .env
+    profiles:
+      - donotstart
     environment:
       - DATABASE_URL=mongodb://${DB_USER}:${DB_PASS}@mongo:27017/chat_database
     stdin_open: true  # Keep STDIN open

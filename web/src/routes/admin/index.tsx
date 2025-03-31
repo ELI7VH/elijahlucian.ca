@@ -5,7 +5,6 @@ import {
   Grid,
   H1,
   Input,
-  Json,
   Link,
   P,
   Page,
@@ -156,7 +155,7 @@ export const AdminDashboard = () => {
             <Button type="submit">Upload</Button>
           </FlexRow>
         </form>
-        <Json data={form.getValues()} />
+        {/* <Json data={form.getValues()} /> */}
         <Divider />
         <UserChip />
         <Divider />
