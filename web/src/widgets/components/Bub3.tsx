@@ -1,4 +1,4 @@
-import { Button } from '@/lib'
+import { Box, Button } from '@/lib'
 
 import { FlexCol, FlexRow, P } from '@/lib'
 import { toRelative } from '@/lib/magic'
@@ -38,8 +38,9 @@ export const Bub3 = ({
     <FlexRow
       key={id}
       gap="0.5rem"
-      padding="0.5rem 1rem"
+      padding="1rem 1rem"
       alignItems="center"
+      maxWidth="400px"
       justifyContent="space-between"
       background={highlight ? 'rgba(255,255,255,0.1)' : 'var(--brand-1)'}
       boxShadow="0.5rem 0.5rem 0 0 rgba(0, 0, 0, 0.9)"
@@ -57,7 +58,9 @@ export const Bub3 = ({
               {title}
             </P>
           )}
-          <P>{filter.clean(text)}</P>
+          <Box>
+            <pre style={{ whiteSpace: 'pre-wrap' }}>{filter.clean(text)}</pre>
+          </Box>
         </FlexRow>
         <FlexRow gap="0.25rem" justifyContent="flex-end">
           <P color="var(--text-dark-muted)">{toRelative(createdAt)}</P>
