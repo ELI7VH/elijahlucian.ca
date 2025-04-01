@@ -88,7 +88,7 @@ export const Radio = () => {
             text={
               <Grid gap="0.2rem">
                 {songs.data
-                  .slice(index.state - 3, index.state + 4)
+                  ?.slice(index.state - 3, index.state + 4)
                   .map((s, i) =>
                     index.state - 3 + i === index.state ? (
                       <P

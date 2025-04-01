@@ -68,7 +68,7 @@ export const Bubble = ({
     const bbs: string[] = []
 
     for (let i = 0; i < chars.length; i++) {
-      const sclice = chars.slice(i, i + j)
+      const sclice = chars?.slice(i, i + j)
       bbs.push(sclice.join(''))
     }
 

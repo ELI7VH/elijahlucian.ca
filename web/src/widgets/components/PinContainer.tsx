@@ -56,7 +56,7 @@ export const PinContainer = () => {
             }}
           >
             <div title={pin.text}>
-              <P>{pin.title.slice(0)}</P>
+              <P>{pin.title?.slice(0)}</P>
             </div>
           </Box>
         ))}
