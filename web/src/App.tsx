@@ -24,6 +24,7 @@ export const App = () => {
   const [started, setStarted] = useState(false)
   const thoughts = useThoughts()
   const user = useUserContext()
+  const [hideSite, setHideSite] = useState(false)
 
   const index = useLocalState('bub3-index', 0)
   const { toast } = useToast()
@@ -102,51 +103,61 @@ export const App = () => {
               )}
             </Box>
           </Box>
-          <Flex gap="1ch">
-            <Link to="/">
-              <H1>elijah lucian</H1>
-            </Link>
-            <Box cursor="pointer" onClick={() => index.set(0)}>
-              ☕︎
-            </Box>
-          </Flex>
-          <Divider />
-          <Routes>
-            <Route path="/null" element={<Null />} />
-            <Route
-              path="/"
-              element={
-                <Link to="/home">
-                  <Flex gap="1ch">
-                    <Box>➫</Box>
-                    <Box>enter</Box>
-                  </Flex>
+          {!hideSite && (
+            <>
+              <Flex gap="1ch">
+                <Box cursor="pointer" onClick={() => setHideSite(!hideSite)}>
+                  {'𝔁'}
+                </Box>
+                <Link to="/">
+                  <H1>elijah lucian</H1>
                 </Link>
-              }
-            />
-            <Route path="/home" element={<Home />} />
-          </Routes>
-          <Divider />
-          <FlexRow justifyContent="center" gap="1rem" flexWrap="wrap">
-            <Link
-              target="_blank"
-              to="https://music.youtube.com/playlist?list=PLMrGa3-RIUa6vT8mJFYsEHGhsrcnJ3kkM"
-            >
-              ▻ youtube (music)
-            </Link>
-            <Link
-              target="_blank"
-              to="https://open.spotify.com/artist/3DDcytjYeKW2oDq3tWZPVF"
-            >
-              ▻ spotify
-            </Link>
-            <Link target="_blank" to="https://www.instagram.com/elijahlucian">
-              ▻ instagram
-            </Link>
-            <Link target="_blank" to="https://linktr.ee/eli7vh">
-              ▻ linktree
-            </Link>
-          </FlexRow>
+                <Box cursor="pointer" onClick={() => index.set(0)}>
+                  ☕︎
+                </Box>
+              </Flex>
+              <Divider />
+              <Routes>
+                <Route path="/null" element={<Null />} />
+                <Route
+                  path="/"
+                  element={
+                    <Link to="/home">
+                      <Flex gap="1ch">
+                        <Box>➫</Box>
+                        <Box>enter</Box>
+                      </Flex>
+                    </Link>
+                  }
+                />
+                <Route path="/home" element={<Home />} />
+              </Routes>
+              <Divider />
+              <FlexRow justifyContent="center" gap="1rem" flexWrap="wrap">
+                <Link
+                  target="_blank"
+                  to="https://music.youtube.com/playlist?list=PLMrGa3-RIUa6vT8mJFYsEHGhsrcnJ3kkM"
+                >
+                  ▻ youtube (music)
+                </Link>
+                <Link
+                  target="_blank"
+                  to="https://open.spotify.com/artist/3DDcytjYeKW2oDq3tWZPVF"
+                >
+                  ▻ spotify
+                </Link>
+                <Link
+                  target="_blank"
+                  to="https://www.instagram.com/elijahlucian"
+                >
+                  ▻ instagram
+                </Link>
+                <Link target="_blank" to="https://linktr.ee/eli7vh">
+                  ▻ linktree
+                </Link>
+              </FlexRow>
+            </>
+          )}
         </FlexCol>
       </Page>
       <FlexRow justifyContent="end" padding="1rem" opacity={0.3} gap="1rem">
