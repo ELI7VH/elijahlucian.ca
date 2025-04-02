@@ -1,7 +1,6 @@
 import { useSearchParams } from '@/lib/hooks'
 import { useThought } from '@/lib/hooks/api/useThoughts'
 import { Grid } from '../../layout/Grid'
-import { Input } from '../../form/Input'
 import { TextArea } from '../../form/TextArea'
 import { Button } from '../../elements/Button'
 import { Flex, FlexRow } from '../../layout/Flex'
@@ -40,7 +39,7 @@ export const ThoughtEdit = () => {
               𝔁
             </Button>
           </Flex>
-          <Input {...thought.form.register('title')} />
+          <input {...thought.form.register('title')} />
           <TextArea {...thought.form.register('text')} />
           <FlexRow justifyContent="space-between">
             <Button

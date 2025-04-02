@@ -1,4 +1,4 @@
-import { Button, Grid, Input, Pre, useUserContext } from '@/lib'
+import { Button, Grid, Pre, useUserContext } from '@/lib'
 import { useToast } from '@/lib/hooks/useToast'
 import { useState } from 'react'
 
@@ -17,12 +17,12 @@ export const UserChip = () => {
       <form onSubmit={handleLogin}>
         <Grid>
           <Grid gridTemplateColumns="1fr 1fr">
-            <Input
+            <input
               placeholder="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-            <Input
+            <input
               placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

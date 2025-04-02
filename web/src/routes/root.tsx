@@ -9,11 +9,14 @@ import { Null } from './null'
 import { ThoughtAggregatorModule } from '@/widgets/ThoughtAggregatorModule'
 import { DankVision } from '@/widgets/DankVision'
 import { PinContainer } from '@/widgets/components/PinContainer'
+import { Grid } from '@/lib'
+import { useForm } from 'react-hook-form'
 
 export const RootRouter = () => {
   return (
     <>
       <Routes>
+        <Route path="/test" element={<Test />} />
         <Route path="/null" element={<Null />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/*" element={<App />} />
@@ -29,5 +32,17 @@ export const RootRouter = () => {
         {/* <PublicationManager />  */}
       </DesktopContainer>
     </>
+  )
+}
+
+const Test = () => {
+  const form = useForm({ defaultValues: { text: '' } })
+
+  return (
+    <Grid>
+      <h4> Test</h4>
+
+      <input {...form.register('text')} />
+    </Grid>
   )
 }

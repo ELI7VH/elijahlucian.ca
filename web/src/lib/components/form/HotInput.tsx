@@ -1,4 +1,4 @@
-import { Box, Input } from '@/lib/components'
+import { Box } from '@/lib/components'
 import { useEffect, useState } from 'react'
 
 type Props = {
@@ -48,7 +48,7 @@ export const HotInput = ({ value, onFinish, label }: Props) => {
       >
         {label}
       </Box>
-      <Input
+      <input
         style={{
           paddingTop: '12px',
         }}

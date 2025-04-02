@@ -3,7 +3,6 @@ import {
   Divider,
   FlexRow,
   H1,
-  Input,
   Link,
   P,
   Table,
@@ -108,7 +107,7 @@ export const PlaylistWidget = () => {
               </Button>
             </FlexRow>
             {search && <P>search: '{search}'</P>}
-            <Input
+            <input
               placeholder="search"
               style={{ padding: '0.33rem' }}
               value={search}
@@ -304,14 +303,18 @@ export const PlaylistWidget = () => {
         }}
       >
         <P>Create Playlist</P>
-        <Input
+        <input
           value={playlists.form.getValues('name')}
           onChange={(e) => {
             playlists.form.setValue('name', e.target.value)
           }}
           placeholder="Playlist Name"
           style={{ padding: '0.33rem' }}
-          onEnter={handlePlaylistCreate}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handlePlaylistCreate()
+            }
+          }}
         />
         <Button onClick={handlePlaylistCreate}>Create</Button>
       </Modal>

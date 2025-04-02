@@ -1,4 +1,4 @@
-import { Button, FlexCol, FlexRow, H1, Input, Json, P } from '@/lib'
+import { Button, FlexCol, FlexRow, H1, Json, P } from '@/lib'
 import { useResources } from '@/lib/hooks/api/useResources'
 import { useToast } from '@/lib/hooks/useToast'
 
@@ -33,9 +33,9 @@ export const Resources = () => {
         ))}
       />
       <form onSubmit={handleSubmit}>
-        <Input placeholder="path" {...resources.form.register('path')} />
-        <Input placeholder="type" {...resources.form.register('dbType')} />
-        <Input placeholder="scope" {...resources.form.register('dbScope')} />
+        <input placeholder="path" {...resources.form.register('path')} />
+        <input placeholder="type" {...resources.form.register('dbType')} />
+        <input placeholder="scope" {...resources.form.register('dbScope')} />
         <Button type="submit">Add</Button>
       </form>
     </FlexCol>

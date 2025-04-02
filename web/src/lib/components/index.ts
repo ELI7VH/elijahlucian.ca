@@ -1,5 +1,4 @@
 export * from './form/Checkbox'
-export * from './form/Input'
 export * from './form/Option'
 export * from './form/Select'
 export * from './form/HotInput'

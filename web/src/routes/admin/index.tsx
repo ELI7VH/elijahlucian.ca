@@ -4,7 +4,6 @@ import {
   FlexRow,
   Grid,
   H1,
-  Input,
   Link,
   P,
   Page,
@@ -91,7 +90,7 @@ export const AdminDashboard = () => {
       <Grid textAlign="center" gap="1rem">
         <P>Upload Song</P>
         {file && <P>{file.name}</P>}
-        <Input
+        <input
           type="file"
           accept="audio/*"
           onChange={(e) => handleAddFile(e.target.files)}
@@ -128,28 +127,28 @@ export const AdminDashboard = () => {
                 paste
               </Button>
             </FlexRow>
-            <Input
+            <input
               placeholder="Song Name"
               {...form.register('name')}
               required
             />
-            <Input
+            <input
               placeholder="filename"
               {...form.register('filename')}
               required
             />
-            <Input placeholder="mime" {...form.register('mime')} required />
-            <Input placeholder="size" {...form.register('size')} required />
+            <input placeholder="mime" {...form.register('mime')} required />
+            <input placeholder="size" {...form.register('size')} required />
             <Grid gridTemplateColumns="1fr 1fr">
-              <Input placeholder="key" {...form.register('key')} />
-              <Input
+              <input placeholder="key" {...form.register('key')} />
+              <input
                 placeholder="bpm"
                 {...form.register('bpm')}
                 type="number"
               />
             </Grid>
-            <Input placeholder="link" {...form.register('link')} required />
-            <Input placeholder="notes" {...form.register('notes')} />
+            <input placeholder="link" {...form.register('link')} required />
+            <input placeholder="notes" {...form.register('notes')} />
           </Grid>
           <FlexRow justifyContent="end">
             <Button type="submit">Upload</Button>

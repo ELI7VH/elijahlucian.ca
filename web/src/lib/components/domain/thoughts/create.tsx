@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Grid } from '../../layout/Grid'
 import { FlexRow } from '../../layout/Flex'
 import { P } from '../../typography/P'
-import { Input } from '../../form/Input'
 import { TextArea } from '../../form/TextArea'
 import { Button } from '../../elements/Button'
 import { useToast } from '@/lib/hooks/useToast'
@@ -42,7 +41,7 @@ export const ThoughtCreate = ({ title, text }: Props) => {
           new, original thought
         </P>
       </FlexRow>
-      <Input
+      <input
         placeholder="Title"
         value={formTitle}
         onChange={(e) => setFormTitle(e.target.value)}
