@@ -145,7 +145,7 @@ export const PlaylistWidget = () => {
                 All
               </Button>
             </FlexRow>
-            {playlist.state ? (
+            {playlist.state && songId ? (
               <Button
                 size="small"
                 variant="contained"
@@ -153,6 +153,8 @@ export const PlaylistWidget = () => {
                   const songId = sp.get('song-id')
 
                   if (!playlist.state || !songId) return
+
+                  // if song id is already in playlist, scroll to it
 
                   await playlists.update.mutateAsync({
                     id: playlist.state,
