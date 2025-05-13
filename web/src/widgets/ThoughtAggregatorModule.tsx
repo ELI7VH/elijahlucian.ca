@@ -22,7 +22,7 @@ export const ThoughtAggregatorModule = () => {
   const thoughtId = sp.get('thoughtId')
 
   return (
-    <WidgetContainer>
+    <WidgetContainer maxWidth="500px">
       <WidgetBadge
         name={collapsed.state ? 't' : 't.a.m'}
         onClick={() => collapsed.toggle()}
