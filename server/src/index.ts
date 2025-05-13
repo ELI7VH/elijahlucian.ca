@@ -3,6 +3,20 @@ import express from 'express'
 import { connectDb } from './db'
 import routes from './routes'
 import base from './routes/base'
+import { s3 } from './services/s3'
+import { User } from './db/models'
+import uploads from './routes/uploads'
+
+declare global {
+  namespace Express {
+    interface Request {
+      locals: {
+        user?: typeof User
+        userId?: string
+      }
+    }
+  }
+}
 
 const main = async () => {
   const app = express()
@@ -45,8 +59,12 @@ const main = async () => {
     })
   })
 
+  console.log('loading....')
+  const s3client = s3()
+
   app.use(await base())
   app.use(routes())
+  app.use(await uploads())
 
   app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`)

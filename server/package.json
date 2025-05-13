@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@aws-sdk/s3-request-presigner": "^3.779.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "mongoose": "^8.9.3",

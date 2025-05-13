@@ -5,10 +5,10 @@ export const Metadata = mongoose.model(
   new mongoose.Schema(
     {
       name: String,
-      metadata: { type: Object, default: {} },
-      // this will always represent a "larger collection", like a tree node.
+      metadata: { type: Object, default: {} }, // this will always represent a "larger collection", like a tree node.
+      upload: { type: Object, default: {} }, // all the upload metadata
       parent: String,
-      // scoping queries
+      // scoping queries - singular.
       type: { type: String, required: true },
       scope: String,
       items: { type: [mongoose.Schema.Types.Mixed], default: [] },
@@ -20,6 +20,7 @@ export const Metadata = mongoose.model(
       // regular shit
       public: { type: Boolean, default: false },
       deleted: { type: Boolean },
+      status: { type: String },
       // idk why i added these
       verified: { type: Boolean },
       model: String,

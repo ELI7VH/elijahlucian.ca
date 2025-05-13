@@ -11,6 +11,7 @@ import { DankVision } from '@/widgets/DankVision'
 import { PinContainer } from '@/widgets/components/PinContainer'
 import { Grid } from '@/lib'
 import { useForm } from 'react-hook-form'
+import { Uploadr } from '@/widgets/Uploadr'
 
 export const RootRouter = () => {
   return (
@@ -30,6 +31,7 @@ export const RootRouter = () => {
         {/* <IdeaRepository />  */}
         <DankVision />
         {/* <PublicationManager />  */}
+        <Uploadr />
       </DesktopContainer>
     </>
   )

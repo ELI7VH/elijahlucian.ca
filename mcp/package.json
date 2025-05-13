@@ -1,0 +1,24 @@
+{
+  "name": "lucian-mcp",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc && chmod 755 build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -1,6 +1,7 @@
 import { RequestHandler, Router } from 'express'
 import { Metadata, User } from '../db/models'
 import { isLoggedIn } from './middleware'
+import { s3 } from '../services/s3'
 
 export default () => {
   const router = Router()

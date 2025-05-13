@@ -6,6 +6,11 @@ type ApiContextType = {
   get<T>(url: string, params?: unknown): Promise<T>
   post<T, R = T>(url: string, body?: Partial<R>): Promise<T>
   patch<T, R = T>(url: string, body: Partial<T>): Promise<R>
+  put<T, R = T>(
+    url: string,
+    body: Partial<T>,
+    config?: AxiosRequestConfig,
+  ): Promise<R>
   destroy<T>(url: string): Promise<T>
   client: QueryClient
   axios: AxiosInstance
@@ -64,6 +69,15 @@ export const ApiContextProvider = ({ children, baseURL = '/api' }: Props) => {
     return res.data
   }
 
+  async function put<T, R = T>(
+    path: string,
+    body: Partial<T>,
+    config?: AxiosRequestConfig,
+  ) {
+    const res = await axios.put(path, body, config)
+    return res.data
+  }
+
   async function destroy(path: string, data?: unknown) {
     const res = await axios.delete(path, { data })
     return res.data
@@ -77,6 +91,7 @@ export const ApiContextProvider = ({ children, baseURL = '/api' }: Props) => {
           patch,
           post,
           destroy,
+          put,
           axios,
           setCookie,
           client: queryClient,

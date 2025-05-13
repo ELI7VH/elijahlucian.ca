@@ -1,0 +1,32 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+\
+# Project Structure Guide
+
+This document outlines the main components of the `elijahlucian.ca` workspace.
+
+## Key Directories
+
+*   `[server/](mdc:server)`: Contains the backend application code.
+*   `[web/](mdc:web)`: Contains the frontend web application code. Likely uses Vite ([vite.config.js](mdc:vite.config.js)).
+*   `[agent/](mdc:agent)`: Contains code related to AI agents.
+*   `[vr/](mdc:vr)`: Contains code related to VR features or components.
+*   `[data/](mdc:data)`: Likely stores data files or assets.
+
+## Important Files
+
+*   `[creative-journal.md](mdc:creative-journal.md)`: **Mandatory reading before coding.** Contains project ideas, notes, and potentially database schema documentation. Should be updated after major changes.
+*   `[README.md](mdc:README.md)`: General project information and setup instructions.
+*   `[docker-compose.yml](mdc:docker-compose.yml)`: Defines the services and infrastructure using Docker Compose.
+*   `[package.json](mdc:package.json)` (implied): Manages Node.js dependencies for frontend and/or backend.
+*   `[.cursorrules](mdc:.cursorrules)`: Defines general rules for AI interaction.
+
+## Configuration
+
+*   `[vite.config.js](mdc:vite.config.js)`: Configuration for the Vite build tool (likely for the `web/` directory).
+*   `[.eslintrc.js](mdc:.eslintrc.js)`: ESLint configuration for code linting.
+*   `[.prettierrc.yml](mdc:.prettierrc.yml)`: Prettier configuration for code formatting.
+*   `[.gitignore](mdc:.gitignore)`: Specifies intentionally untracked files that Git should ignore.

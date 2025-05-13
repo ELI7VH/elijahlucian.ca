@@ -1,5 +1,6 @@
 import { connectDb } from './db'
 import repl from 'repl'
+import { s3 } from './services/s3'
 
 export const it = async () => {
   const { mongoose, models } = await connectDb()
@@ -10,6 +11,7 @@ export const it = async () => {
     useGlobal: true,
   })
 
+  replServer.context.s3 = s3()
   replServer.context.db = mongoose
   replServer.context.models = models
 }

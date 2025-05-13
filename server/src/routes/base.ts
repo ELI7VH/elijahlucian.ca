@@ -31,6 +31,7 @@ export default async () => {
         ...req.body,
         type: resource.type,
         scope: resource.scope,
+        createdBy: req.locals.user,
       })
       res.json(item)
     })
