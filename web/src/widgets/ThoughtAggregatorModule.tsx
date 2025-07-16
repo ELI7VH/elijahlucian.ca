@@ -1,7 +1,7 @@
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetContainer } from './components/WidgetContainer'
-import { FlexCol } from '@/lib/components/layout/Flex'
+import { Flex, FlexCol } from '@/lib/components/layout/Flex'
 import { WidgetBody } from './components/WidgetBody'
 import { FlexRow } from '@/lib/components/layout/Flex'
 import { P } from '@/lib/components/typography/P'
@@ -12,6 +12,7 @@ import { toRelative } from '@/lib/magic'
 import { Filter } from 'bad-words'
 import { ThoughtEdit } from '@/lib/components/domain/thoughts/edit'
 import { ThoughtCreate } from '@/lib/components/domain/thoughts/create'
+import { useState } from 'react'
 
 export const ThoughtAggregatorModule = () => {
   const sp = useSearchParams()
@@ -20,6 +21,8 @@ export const ThoughtAggregatorModule = () => {
 
   const filter = new Filter({ placeHolder: 'x' })
   const thoughtId = sp.get('thoughtId')
+
+  const [i, setI] = useState(0)
 
   return (
     <WidgetContainer maxWidth="500px">
@@ -30,13 +33,33 @@ export const ThoughtAggregatorModule = () => {
       <WidgetBody collapsed={collapsed.state} background="background-image-2">
         <FlexCol gap="0.5rem">
           <Divider />
-          <Grid
-            maxHeight="40vh"
-            overflowY="auto"
-            background="rgba(0,0,0,0.1)"
-            // padding="0.5rem"
-          >
-            {thoughts.data?.map((thought, i) => (
+          <Flex justifyContent="space-between">
+            <Button
+              variant={i === 0 ? 'text' : 'ghost'}
+              size="small"
+              onClick={() => setI(i - 1)}
+              disabled={i === 0}
+            >
+              Prev
+            </Button>
+            <P>
+              {i + 1} / {Math.ceil(thoughts.data?.length ?? 0 / 3)}
+            </P>
+            <Button
+              variant={
+                i === Math.ceil(thoughts.data?.length ?? 0 / 3) - 1
+                  ? 'text'
+                  : 'ghost'
+              }
+              size="small"
+              onClick={() => setI(i + 1)}
+              disabled={i === Math.ceil(thoughts.data?.length ?? 0 / 3) - 1}
+            >
+              Next
+            </Button>
+          </Flex>
+          <Grid maxHeight="40vh" overflowY="auto" background="rgba(0,0,0,0.1)">
+            {thoughts.data?.slice(i * 3, (i + 1) * 3).map((thought, i) => (
               <FlexRow
                 key={thought.id}
                 gap="0.5rem"
