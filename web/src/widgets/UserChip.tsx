@@ -1,4 +1,4 @@
-import { Button, Grid, Pre, useUserContext } from '@/lib'
+import { Button, FlexRow, Grid, Pre, useUserContext } from '@/lib'
 import { useToast } from '@/lib/hooks/useToast'
 import { useState } from 'react'
 
@@ -8,15 +8,22 @@ export const UserChip = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = () => {
-    user.login({ username, password })
+  const handleLogin = async () => {
+    console.log('login', username, password)
+    await user.login({ username, password })
   }
 
   if (!user.user)
     return (
       <form onSubmit={handleLogin}>
-        <Grid>
-          <Grid gridTemplateColumns="1fr 1fr">
+        <Grid
+          gap="1rem"
+          padding="1rem"
+          background="var(--trans-black-1)"
+          borderRadius="0.2rem"
+          border="1px solid var(--gray-3)"
+        >
+          <Grid gridTemplateColumns="1fr 1fr" gap="1rem">
             <input
               placeholder="username"
               value={username}
@@ -29,7 +36,11 @@ export const UserChip = () => {
               type="password"
             />
           </Grid>
-          <Button type="submit">Sign In</Button>
+          <FlexRow justifyContent="end">
+            <Button type="submit" variant="highlighted">
+              Sign In
+            </Button>
+          </FlexRow>
         </Grid>
       </form>
     )

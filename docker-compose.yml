@@ -1,17 +1,43 @@
 volumes:
-  mongo-data:
+  mongo-db:
 
 services:
   mongo:
     image: mongo:latest
-    ports:
-      - 27017:27017
+    # ports:
+    #   - 27017:27017
     volumes:
-      - mongo-data:/data/db
+      - mongo-db:/data/db
       - .:/bak
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASS}
+
+  server:
+    build: ./server
+    ports:
+      - ${API_PORT}:${API_PORT}
+    env_file:
+      - .env
+      - ./server/.env
+    volumes:
+      - ./server/src:/server/src
+      - ./server/package.json:/server/package.json
+    depends_on:
+      - mongo
+
+  web:
+    build: ./web
+    volumes:
+      - ./web/src:/web/src
+      - ./web/package.json:/web/package.json
+      - ./web/vite.config.ts:/web/vite.config.ts
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    env_file:
+      - .env
+    depends_on:
+      - server
 
   chat-agent:
     build: ./agent
@@ -25,5 +51,5 @@ services:
       - donotstart
     environment:
       - DATABASE_URL=mongodb://${DB_USER}:${DB_PASS}@mongo:27017/chat_database
-    stdin_open: true  # Keep STDIN open
-    tty: true        # Allocate a pseudo-TTY
+    stdin_open: true # Keep STDIN open
+    tty: true # Allocate a pseudo-TTY

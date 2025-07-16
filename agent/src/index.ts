@@ -28,6 +28,9 @@ export const agent = async () => {
     console.log('image', id)
   }
 
+  // create mp4 stop motion
+  // consolidate video clips into a single video
+
   const handleMessage = async (message: string) => {
     // smartly handle message, put into context, add to related record, or just based on tag cloud
 

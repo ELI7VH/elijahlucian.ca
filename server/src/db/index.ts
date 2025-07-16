@@ -10,7 +10,10 @@ export const connectDb = async () => {
   if (!uri) {
     throw new Error('DB_URI is not set')
   }
-  const mongoose = await Mongoose.connect(uri)
+
+  const mongoose = await Mongoose.connect(uri, {
+    serverSelectionTimeoutMS: 5000,
+  })
 
   console.log('connected to db!')
 

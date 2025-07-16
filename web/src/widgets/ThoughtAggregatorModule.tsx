@@ -48,8 +48,11 @@ export const ThoughtAggregatorModule = () => {
                     ? 'rgba(255,255,255,0.1)'
                     : ''
                 }
+                _hover={{
+                  background: 'rgba(0,0,0,0.1)',
+                }}
               >
-                <FlexCol gap="0.25rem">
+                <FlexCol gap="0.25rem" width="100%">
                   <FlexRow
                     gap="1rem"
                     textShadow="1px 1px 1px var(--text-dark-muted)"
@@ -69,10 +72,10 @@ export const ThoughtAggregatorModule = () => {
                         {thought.title}
                       </Box>
                     )}
-                    <P>{filter.clean(thought.text)}</P>
+                    <P lineBreak="anywhere">{filter.clean(thought.text)}</P>
                   </FlexRow>
                   <FlexRow gap="0.25rem" justifyContent="flex-end">
-                    <P color="var(--text-dark-muted)">
+                    <P color="var(--text-dark-muted)" fontSize="0.75rem">
                       {toRelative(thought.createdAt)}
                     </P>
                   </FlexRow>

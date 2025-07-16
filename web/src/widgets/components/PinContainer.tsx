@@ -8,8 +8,6 @@ export const PinContainer = () => {
   const pinned = usePinned()
   const selectedId = useLocalState('pin-container-selected-id', '')
 
-  // todo: free text search
-
   const pin = pinned.data?.find((pin) => pin.id === selectedId.state)
 
   return (
@@ -32,15 +30,16 @@ export const PinContainer = () => {
         left="0"
         bottom="2rem"
         top="auto"
+        backgroundColor="var(--brand-6)"
         textStyle={{
-          color: expanded.state ? 'white' : 'var(--brand-1)',
+          color: expanded.state ? 'white' : 'var(--brand-6)',
         }}
         name={expanded.state ? 'Pins' : 'P'}
         onClick={() => {
           expanded.set(!expanded.state)
         }}
       />
-      <FlexRow gap="0.5rem">
+      <FlexRow gap="0.5rem" flexWrap="wrap">
         {pinned.data?.map((pin) => (
           <Box
             key={pin.id}

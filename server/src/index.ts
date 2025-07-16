@@ -66,8 +66,8 @@ const main = async () => {
   app.use(routes())
   app.use(await uploads())
 
-  app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`)
+  app.listen(process.env.API_PORT, () => {
+    console.log(`Server is running on port ${process.env.API_PORT}`)
   })
 }
 

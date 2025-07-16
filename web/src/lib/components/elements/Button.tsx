@@ -52,7 +52,7 @@ export const Button = ({
         fontSize: size === 'small' ? '0.5rem' : '1rem',
         borderRadius: '0.25rem',
         cursor: 'pointer',
-        pointerEvents: 'all',
+        // pointerEvents: 'all',
         ...sx,
       }}
       {...props}

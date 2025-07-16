@@ -37,9 +37,12 @@ export const PlaylistWidget = () => {
     onSet: () => sp.set('search'),
   })
 
-  if (songs.isLoading) return <div>Loading...</div>
-  if (songs.error) return <div>Error: {songs.error.message}</div>
-  if (!songs.data) return <div>no data?</div>
+  if (songs.isLoading) return null
+  if (songs.error) {
+    console.error(songs.error)
+    return null
+  }
+  if (!songs.data) return null
 
   const filtered = search
     ? songs.data.filter((s) => {

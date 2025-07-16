@@ -17,7 +17,6 @@ import { useEffect, useRef, useState } from 'react'
 import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetBody } from './components/WidgetBody'
 import { WidgetContainer } from './components/WidgetContainer'
-// import { useNavigate } from 'react-router-dom'
 
 export const Radio = () => {
   const songs = useSongs()
@@ -25,7 +24,6 @@ export const Radio = () => {
   const collapsed = useLocalState('radio-collapsed', false)
   const [history, setHistory] = useState<number[]>([])
 
-  // const songPosition = useLocalState('radio-song-position', 0)
   const repeat = useLocalState('radio-repeat', false)
   const shuffle = useLocalState('radio-shuffle', false)
 
@@ -34,7 +32,6 @@ export const Radio = () => {
 
   const index = useLocalState('radio-index', 0)
   const queueId = sp.get('queue-id')
-  // const navigate = useNavigate()
 
   useEffect(() => {
     if (!queueId || !audioRef.current) return

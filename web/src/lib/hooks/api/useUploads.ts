@@ -25,7 +25,7 @@ export const useUploads = () => {
   const query = useQuery({
     queryKey: ['uploads'],
     queryFn: () => api.get<Upload[]>('/uploads'),
-    enabled: false,
+    // enabled: false,
   })
 
   const put = (path: string, file: File) => {
