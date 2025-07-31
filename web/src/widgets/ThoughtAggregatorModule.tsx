@@ -13,6 +13,7 @@ import { Filter } from 'bad-words'
 import { ThoughtEdit } from '@/lib/components/domain/thoughts/edit'
 import { ThoughtCreate } from '@/lib/components/domain/thoughts/create'
 import { useState } from 'react'
+import { uniq } from 'lodash'
 
 export const ThoughtAggregatorModule = () => {
   const sp = useSearchParams()
@@ -124,6 +125,32 @@ export const ThoughtAggregatorModule = () => {
           ) : (
             <ThoughtCreate title={sp.get('thought-title')} />
           )}
+          <Divider />
+          <Flex gap="0.5rem" flexWrap="wrap">
+            {uniq(thoughts.data?.map((thought) => thought.title)).map(
+              (title, i) => (
+                <Box
+                  background="var(--trans-black-2)"
+                  padding="0.25rem 0.5rem"
+                  cursor="pointer"
+                  onClick={() => {
+                    sp.set('thought-title', title)
+                  }}
+                  key={`${title}-${i}`}
+                >
+                  <div
+                    style={{
+                      fontSize: '0.75rem',
+                      fontFamily: 'var(--font-mono)',
+                    }}
+                    title={title}
+                  >
+                    {title.slice(0, 1)}
+                  </div>
+                </Box>
+              ),
+            )}
+          </Flex>
         </FlexCol>
       </WidgetBody>
     </WidgetContainer>
