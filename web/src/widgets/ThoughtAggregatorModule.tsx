@@ -25,8 +25,13 @@ export const ThoughtAggregatorModule = () => {
 
   const [i, setI] = useState(0)
 
+  const title = sp.get('thought-title')
+  const filteredThoughts = thoughts.data?.filter(
+    (thought) => !title || thought.title === title,
+  )
+
   const pageSize = 3
-  const pages = Math.ceil((thoughts.data?.length ?? 0) / pageSize)
+  const pages = Math.ceil((filteredThoughts?.length ?? 0) / pageSize)
   const page = Math.floor(i / pageSize)
 
   return (
@@ -60,7 +65,7 @@ export const ThoughtAggregatorModule = () => {
             </Button>
           </Flex>
           <Grid maxHeight="40vh" overflowY="auto" background="rgba(0,0,0,0.1)">
-            {thoughts.data?.slice(i * 3, (i + 1) * 3).map((thought, i) => (
+            {filteredThoughts?.slice(i * 3, (i + 1) * 3)?.map((thought, i) => (
               <FlexRow
                 key={thought.id}
                 gap="0.5rem"
@@ -120,11 +125,7 @@ export const ThoughtAggregatorModule = () => {
             ))}
           </Grid>
           <Divider />
-          {thoughtId ? (
-            <ThoughtEdit />
-          ) : (
-            <ThoughtCreate title={sp.get('thought-title')} />
-          )}
+          {thoughtId ? <ThoughtEdit /> : <ThoughtCreate title={title} />}
           <Divider />
           <Flex gap="0.5rem" flexWrap="wrap">
             {uniq(thoughts.data?.map((thought) => thought.title))
@@ -136,6 +137,7 @@ export const ThoughtAggregatorModule = () => {
                   cursor="pointer"
                   onClick={() => {
                     sp.set('thought-title', title)
+                    setI(0)
                   }}
                   key={`${title}-${i}`}
                 >

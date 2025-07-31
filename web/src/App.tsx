@@ -9,6 +9,7 @@ import {
   Grid,
   H1,
   Page,
+  useSearchParams,
   useUserContext,
 } from './lib'
 import { useEffect } from 'react'
@@ -24,6 +25,7 @@ export const App = () => {
   const [started, setStarted] = useState(false)
   const thoughts = useThoughts()
   const user = useUserContext()
+  const sp = useSearchParams()
   const [hideSite, setHideSite] = useState(false)
 
   const index = useLocalState('bub3-index', 0)
@@ -38,7 +40,11 @@ export const App = () => {
   // todo: grow the text on the home page
   // todo: ui sound effects, because we're making a fucking banger here.
 
-  const thought = thoughts.data?.[index.state]
+  const thoughtId = sp.get('thought-id')
+
+  const thought = thoughtId
+    ? thoughts.data?.find((thought) => thought.id == thoughtId)
+    : thoughts.data?.[index.state]
 
   return (
     <Grid
