@@ -145,7 +145,7 @@ export const ThoughtAggregatorModule = () => {
                     }}
                     title={title}
                   >
-                    {title.slice(0, 1)}
+                    {title?.slice(0, 1) ?? '-'}
                   </div>
                 </Box>
               ),
