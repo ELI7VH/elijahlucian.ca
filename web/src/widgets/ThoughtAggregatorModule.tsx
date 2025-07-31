@@ -25,6 +25,10 @@ export const ThoughtAggregatorModule = () => {
 
   const [i, setI] = useState(0)
 
+  const pageSize = 3
+  const pages = Math.ceil((thoughts.data?.length ?? 0) / pageSize)
+  const page = Math.floor(i / pageSize)
+
   return (
     <WidgetContainer maxWidth="500px">
       <WidgetBadge
@@ -44,17 +48,13 @@ export const ThoughtAggregatorModule = () => {
               Prev
             </Button>
             <P>
-              {i + 1} / {Math.ceil(thoughts.data?.length ?? 0 / 3)}
+              {i + 1} / {pages}
             </P>
             <Button
-              variant={
-                i === Math.ceil(thoughts.data?.length ?? 0 / 3) - 1
-                  ? 'text'
-                  : 'ghost'
-              }
+              variant={i === pages - 1 ? 'text' : 'ghost'}
               size="small"
               onClick={() => setI(i + 1)}
-              disabled={i === Math.ceil(thoughts.data?.length ?? 0 / 3) - 1}
+              disabled={i === pages - 1}
             >
               Next
             </Button>
