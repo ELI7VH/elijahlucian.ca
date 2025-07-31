@@ -1,26 +1,30 @@
 import { useSearchParams } from '@/lib/hooks'
 import { useThought } from '@/lib/hooks/api/useThoughts'
 import { Grid } from '../../layout/Grid'
-import { TextArea } from '../../form/TextArea'
 import { Button } from '../../elements/Button'
 import { Flex, FlexRow } from '../../layout/Flex'
 import { P } from '../../typography/P'
+import { useForm } from 'react-hook-form'
 
 export const ThoughtEdit = () => {
   const sp = useSearchParams()
   const thoughtId = sp.get('thoughtId')
   const thought = useThought(thoughtId)
 
+  const form = useForm({
+    values: thought.data,
+  })
+
   if (thought.isLoading) return <P>loading...</P>
   if (!thoughtId) return null
 
-  const handleUpdate = thought.form.handleSubmit(async (values) => {
+  const handleUpdate = async (values: any) => {
     thought.update(values)
-  })
+  }
 
   return (
     <Grid gap="1rem">
-      <form onSubmit={handleUpdate}>
+      <form onSubmit={form.handleSubmit(handleUpdate)}>
         <Grid gap="0.5rem">
           <Flex
             background="var(--trans-black-2)"
@@ -39,8 +43,16 @@ export const ThoughtEdit = () => {
               𝔁
             </Button>
           </Flex>
-          <input {...thought.form.register('title')} />
-          <TextArea {...thought.form.register('text')} />
+          <input {...form.register('title')} />
+          <textarea
+            rows={6}
+            style={{
+              fontSize: '0.7rem',
+              fontFamily: 'var(--font-mono)',
+              padding: '0.5rem 0.75rem',
+            }}
+            {...form.register('text')}
+          />
           <FlexRow justifyContent="space-between">
             <Button
               variant="text"

@@ -17,7 +17,7 @@ export default async () => {
       const items = await Metadata.find({
         type: resource.type,
         scope: resource.scope,
-      })
+      }).sort({ createdAt: -1 })
       res.json(items)
     })
 
