@@ -127,8 +127,9 @@ export const ThoughtAggregatorModule = () => {
           )}
           <Divider />
           <Flex gap="0.5rem" flexWrap="wrap">
-            {uniq(thoughts.data?.map((thought) => thought.title)).map(
-              (title, i) => (
+            {uniq(thoughts.data?.map((thought) => thought.title))
+              .filter(Boolean)
+              .map((title, i) => (
                 <Box
                   background="var(--trans-black-2)"
                   padding="0.25rem 0.5rem"
@@ -145,11 +146,10 @@ export const ThoughtAggregatorModule = () => {
                     }}
                     title={title}
                   >
-                    {title?.slice(0, 1) ?? '-'}
+                    {title.slice(0, 1)}
                   </div>
                 </Box>
-              ),
-            )}
+              ))}
           </Flex>
         </FlexCol>
       </WidgetBody>
