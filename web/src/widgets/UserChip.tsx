@@ -72,7 +72,11 @@ export const UserChip = () => {
         Sign Out
       </Button>
       {user.user.admin && <Link to="/admin">Admin Panel</Link>}
-      {user.user.admin && <Json data={user.user} />}
+      {user.user.admin && (
+        <Grid maxHeight="50vh" overflow="auto" gap="1rem">
+          <Json data={user.user} />
+        </Grid>
+      )}
     </Grid>
   )
 }
