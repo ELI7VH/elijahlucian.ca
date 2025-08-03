@@ -1,4 +1,4 @@
-import { Button, FlexRow, Grid, Pre, useUserContext } from '@/lib'
+import { Button, FlexRow, Grid, Link, Pre, useUserContext } from '@/lib'
 import { useToast } from '@/lib/hooks/useToast'
 import { useState } from 'react'
 
@@ -56,6 +56,7 @@ export const UserChip = () => {
       >
         Sign Out
       </Button>
+      {user.user.admin && <Link to="/admin">Admin Panel</Link>}
     </Grid>
   )
 }

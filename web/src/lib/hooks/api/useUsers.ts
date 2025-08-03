@@ -10,6 +10,7 @@ export type UserConfig = {
 
 export type User = {
   id: string
+  admin: boolean
   name: string
   username: string
   email: string

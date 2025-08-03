@@ -17,3 +17,14 @@ export const useAdmin = () => {
 
   return query
 }
+
+export const useStatic = (key?: string) => {
+  const api = useApiContext()
+
+  const query = useQuery({
+    queryKey: ['admin', 'static', key],
+    queryFn: () => api.get<Admin>(`/static${key ? `/${key}` : ''}`),
+  })
+
+  return query
+}

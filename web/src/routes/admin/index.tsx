@@ -1,9 +1,10 @@
 import { Divider, FlexRow, Grid, H1, Json, Link, Page } from '@/lib'
-import { useAdmin } from '@/lib/hooks/api/useAdmin'
+import { useAdmin, useStatic } from '@/lib/hooks/api/useAdmin'
 import { UserChip } from '@/widgets/UserChip'
 
 export const AdminDashboard = () => {
   const admin = useAdmin()
+  const staticObjects = useStatic()
 
   return (
     <Page

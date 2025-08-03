@@ -9,8 +9,7 @@ import { Null } from './null'
 import { ThoughtAggregatorModule } from '@/widgets/ThoughtAggregatorModule'
 import { DankVision } from '@/widgets/DankVision'
 import { PinContainer } from '@/widgets/components/PinContainer'
-import { Grid, useUserContext } from '@/lib'
-import { useForm } from 'react-hook-form'
+import { useUserContext } from '@/lib'
 import { Filez } from '@/widgets/Filez'
 import { Scan } from './tools/scan'
 import { UserContainer } from '@/widgets/components/UserContainer'
@@ -22,7 +21,6 @@ export const RootRouter = () => {
   return (
     <>
       <Routes>
-        <Route path="/test" element={<Test />} />
         <Route
           path="/null"
           element={user.user ? <Null /> : <Navigate to="/" />}
@@ -48,17 +46,5 @@ export const RootRouter = () => {
         <Filez />
       </DesktopContainer>
     </>
-  )
-}
-
-const Test = () => {
-  const form = useForm({ defaultValues: { text: '' } })
-
-  return (
-    <Grid>
-      <h4> Test</h4>
-
-      <input {...form.register('text')} />
-    </Grid>
   )
 }

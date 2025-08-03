@@ -2,9 +2,15 @@ import { Box, Grid } from '@/lib'
 import { WidgetBadge } from './WidgetBadge'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { UserChip } from '../UserChip'
+import { useHotkey } from '@/lib/hooks/api/useHotkey'
 
 export const UserContainer = () => {
   const collapsed = useLocalState('user-container-collapsed', true)
+  useHotkey(
+    (e) => e.key === 'u' && (e.ctrlKey || e.metaKey),
+    collapsed.toggle,
+    [collapsed.state],
+  )
 
   return (
     <Grid

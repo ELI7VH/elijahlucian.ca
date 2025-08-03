@@ -20,10 +20,11 @@ import { groupBy } from 'lodash'
 
 export const Filez = () => {
   const collapsed = useLocalState('filez-collapsed', true)
-  const uploads = useUploads()
-  const toast = useToast()
   const page = useLocalState('filez-page', 1)
   const items = useLocalState('filez-items', 10)
+
+  const uploads = useUploads()
+  const toast = useToast()
 
   const handleUpload = async (files: File[]) => {
     if (!files.length) {

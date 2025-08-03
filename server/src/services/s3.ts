@@ -1,5 +1,6 @@
 import {
   DeleteObjectCommand,
+  ListObjectsCommand,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3'
@@ -54,5 +55,13 @@ export const s3 = () => {
     await spaces.send(command)
   }
 
-  return { spaces, signedUrl, deleteObject }
+  const listObjects = async () => {
+    const command = new ListObjectsCommand({
+      Bucket: process.env.SPACES_BUCKET,
+    })
+    const response = await spaces.send(command)
+    return response.Contents
+  }
+
+  return { spaces, signedUrl, deleteObject, listObjects }
 }

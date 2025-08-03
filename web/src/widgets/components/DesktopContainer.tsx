@@ -2,12 +2,19 @@ import { Box, FlexCol, Grid } from '@/lib'
 import { PropsWithChildren } from 'react'
 import { WidgetBadge } from './WidgetBadge'
 import { useLocalState } from '@/lib/hooks/useLocalState'
+import { useHotkey } from '@/lib/hooks/api/useHotkey'
 
 export const DesktopContainer = ({ children }: PropsWithChildren) => {
   // user can place shit in the container
   // load user widgets from local storage
   const collapsed = useLocalState('desktop-collapsed', true)
   // const autoplay = useLocalState('autoplay', true)
+
+  useHotkey(
+    (e) => e.key === 'd' && (e.ctrlKey || e.metaKey),
+    collapsed.toggle,
+    [collapsed.state],
+  )
 
   // GRID VIEW
   // MAP THINGS TO DIFFERENT AREAS... DUH

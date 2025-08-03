@@ -2,13 +2,17 @@ import { Box, FlexCol, FlexRow, P } from '@/lib'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBadge } from './WidgetBadge'
 import { usePinned } from '@/lib/hooks/api/usePinned'
+import { useHotkey } from '@/lib/hooks/api/useHotkey'
 
 export const PinContainer = () => {
   const expanded = useLocalState('pin-container-expanded', false)
   const pinned = usePinned()
   const selectedId = useLocalState('pin-container-selected-id', '')
-
   const pin = pinned.data?.find((pin) => pin.id === selectedId.state)
+
+  useHotkey((e) => e.key === 'p' && (e.ctrlKey || e.metaKey), expanded.toggle, [
+    expanded.state,
+  ])
 
   return (
     <FlexCol

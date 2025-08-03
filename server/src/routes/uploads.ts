@@ -45,6 +45,13 @@ export default async () => {
     res.json(updated)
   })
 
+  router.get('/static', async (req, res) => {
+    const s3Client = s3()
+    const objects = await s3Client.listObjects()
+
+    res.json(objects)
+  })
+
   router.get('/uploads', isLoggedIn, async (req, res) => {
     const records = await Metadata.find({
       type: 'upload',
