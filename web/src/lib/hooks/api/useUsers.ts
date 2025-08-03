@@ -23,6 +23,9 @@ export type User = {
   localConfig: UserConfig
   createdAt: string
   updatedAt: string
+
+  telegramId?: string
+  patreonId?: string
 }
 
 export function useUsers() {

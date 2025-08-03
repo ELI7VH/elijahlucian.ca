@@ -14,6 +14,9 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
     (e) => e.key === 'd' && (e.ctrlKey || e.metaKey),
     collapsed.toggle,
     [collapsed.state],
+    () => {
+      collapsed.set(true)
+    },
   )
 
   // GRID VIEW

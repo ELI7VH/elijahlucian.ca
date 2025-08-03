@@ -8,8 +8,11 @@ export const UserContainer = () => {
   const collapsed = useLocalState('user-container-collapsed', true)
   useHotkey(
     (e) => e.key === 'u' && (e.ctrlKey || e.metaKey),
-    collapsed.toggle,
+    () => collapsed.toggle(),
     [collapsed.state],
+    () => {
+      collapsed.set(true)
+    },
   )
 
   return (

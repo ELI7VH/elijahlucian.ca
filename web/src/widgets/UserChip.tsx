@@ -1,4 +1,13 @@
-import { Button, FlexRow, Grid, Link, Pre, useUserContext } from '@/lib'
+import {
+  Button,
+  FlexRow,
+  Grid,
+  HotInput,
+  Json,
+  Link,
+  Pre,
+  useUserContext,
+} from '@/lib'
 import { useToast } from '@/lib/hooks/useToast'
 import { useState } from 'react'
 
@@ -48,6 +57,12 @@ export const UserChip = () => {
   return (
     <Grid gap="1rem">
       <Pre>{user.user?.username}</Pre>
+      <HotInput
+        value={user.user?.telegramId || ''}
+        onFinish={async (value) => {
+          await user.update({ telegramId: value })
+        }}
+      />
       <Button
         onClick={async () => {
           await user.logout()
@@ -57,6 +72,7 @@ export const UserChip = () => {
         Sign Out
       </Button>
       {user.user.admin && <Link to="/admin">Admin Panel</Link>}
+      {user.user.admin && <Json data={user.user} />}
     </Grid>
   )
 }

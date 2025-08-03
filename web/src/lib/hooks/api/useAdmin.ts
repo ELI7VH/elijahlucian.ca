@@ -1,5 +1,5 @@
 import { useApiContext } from '@/lib/providers/ApiContext'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 type Admin = {
   s3: {
@@ -18,13 +18,32 @@ export const useAdmin = () => {
   return query
 }
 
+type StaticObject = {
+  id: string
+  Key: string
+  LastModified: string
+  ETag: string
+  Size: number
+  StorageClass: string
+  Owner: {
+    DisplayName: string
+    ID: string
+  }
+  record?: any
+}
+
 export const useStatic = (key?: string) => {
   const api = useApiContext()
 
   const query = useQuery({
     queryKey: ['admin', 'static', key],
-    queryFn: () => api.get<Admin>(`/static${key ? `/${key}` : ''}`),
+    queryFn: () => api.get<StaticObject[]>(`/static${key ? `/${key}` : ''}`),
   })
 
-  return query
+  const deleteStaticObject = useMutation({
+    mutationFn: (key: string) => api.destroy(`/static?key=${key}`),
+    onSuccess: () => query.refetch(),
+  })
+
+  return { ...query, deleteStaticObject }
 }

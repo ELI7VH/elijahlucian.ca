@@ -120,6 +120,8 @@ export default () => {
       metadata: res.locals.user.metadata,
       starred: res.locals.user.starred,
       pinned: res.locals.user.pinned,
+      telegramId: res.locals.user.telegramId,
+      patreonId: res.locals.user.patreonId,
     })
   })
 

@@ -45,11 +45,35 @@ export default async () => {
     res.json(updated)
   })
 
-  router.get('/static', async (req, res) => {
+  router.get('/static', isAdmin, async (req, res) => {
     const s3Client = s3()
-    const objects = await s3Client.listObjects()
 
-    res.json(objects)
+    const key = req.query.key as string
+    const objects = await s3Client.listObjects(key)
+
+    const records = await Metadata.find({
+      type: 'upload',
+    })
+    const recordsMap = new Map(records.map((r) => [r.metadata.key, r]))
+
+    res.json(
+      objects.map((o) => ({
+        id: o.Key,
+        ...o,
+        record: recordsMap.get(o.Key)?.toJSON(),
+      })),
+    )
+  })
+
+  router.delete('/static', isAdmin, async (req, res) => {
+    if (await Metadata.findOne({ 'metadata.key': req.query.key })) {
+      res.status(400).json({ error: 'Record exists' })
+      return
+    }
+
+    const key = req.query.key as string
+    await s3Client.deleteObject(key)
+    res.json({ message: 'Object deleted' })
   })
 
   router.get('/uploads', isLoggedIn, async (req, res) => {

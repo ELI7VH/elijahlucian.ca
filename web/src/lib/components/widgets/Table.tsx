@@ -12,6 +12,7 @@ type Props<T> = Omit<InlineDivStyle, 'columns'> & {
     style?: React.TdHTMLAttributes<HTMLTableCellElement>['style']
     title?: (value: T) => React.ReactNode
   }[]
+  rowExtra?: (value: T, index: number) => React.ReactNode
   emptyMessage?: string
   header?: React.ReactNode
   editing?: boolean
@@ -27,6 +28,7 @@ export function Table<T extends TableRecord>({
   header,
   editing,
   footer,
+  rowExtra,
   ...style
 }: Props<T>) {
   return (

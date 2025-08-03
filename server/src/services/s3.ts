@@ -55,9 +55,11 @@ export const s3 = () => {
     await spaces.send(command)
   }
 
-  const listObjects = async () => {
+  const listObjects = async (key?: string) => {
     const command = new ListObjectsCommand({
       Bucket: process.env.SPACES_BUCKET,
+      Prefix: key,
+      MaxKeys: 9999,
     })
     const response = await spaces.send(command)
     return response.Contents

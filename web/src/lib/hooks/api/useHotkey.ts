@@ -4,6 +4,7 @@ export const useHotkey = (
   keycheck: (e: KeyboardEvent) => boolean,
   callback: () => void,
   deps: any[] = [],
+  onEscape?: () => void,
 ) => {
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -15,6 +16,8 @@ export const useHotkey = (
           keycheck,
         )
         callback()
+      } else if (e.key === 'Escape') {
+        onEscape?.()
       }
     }
     window.addEventListener('keydown', handleKey)
