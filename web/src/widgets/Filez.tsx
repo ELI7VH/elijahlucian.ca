@@ -1,4 +1,14 @@
-import { Box, Button, Divider, Grid, HotInput, P, Table, useToast } from '@/lib'
+import {
+  Box,
+  Button,
+  Divider,
+  FlexRow,
+  Grid,
+  HotInput,
+  P,
+  Table,
+  useToast,
+} from '@/lib'
 import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetContainer } from './components/WidgetContainer'
 import { WidgetBody } from './components/WidgetBody'
@@ -11,6 +21,8 @@ export const Uploadr = () => {
   const collapsed = useLocalState('uploadr-collapsed', true)
   const uploads = useUploads()
   const toast = useToast()
+  const page = useLocalState('uploadr-page', 1)
+  const items = useLocalState('uploadr-items', 10)
 
   const handleUpload = async (files: File[]) => {
     if (!files.length) {
@@ -73,7 +85,40 @@ export const Uploadr = () => {
         <FileGrabbr onSubmit={handleUpload} />
         <Divider />
         <Table
-          data={uploads.data?.slice(0, 10)}
+          header={
+            <FlexRow justifyContent="space-between" padding="0.25rem">
+              <Button
+                variant="ghost"
+                size="small"
+                onClick={() => page.set(page.state - 1)}
+              >
+                Prev
+              </Button>
+              <FlexRow alignItems="center" gap="1rem">
+                <P>Page {page.state}</P>
+                <HotInput
+                  width="5ch"
+                  value={items.state.toString()}
+                  onFinish={(value) => {
+                    items.set(Number(value))
+                    page.set(1)
+                  }}
+                />
+                <P>Items per page</P>
+              </FlexRow>
+              <Button
+                variant="ghost"
+                size="small"
+                onClick={() => page.set(page.state + 1)}
+              >
+                Next
+              </Button>
+            </FlexRow>
+          }
+          data={uploads.data?.slice(
+            (page.state - 1) * items.state,
+            page.state * items.state,
+          )}
           columns={[
             {
               key: 'name',
