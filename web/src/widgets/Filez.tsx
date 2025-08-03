@@ -48,22 +48,22 @@ export const Uploadr = () => {
 
           return upload
         } catch (error) {
-          console.error('error', error)
-
-          // delete the upload
           await uploads.destroy.mutateAsync(upload.id)
+          toast.toast(`${upload.name} failed! ${error}`, 'error')
 
           return null
         }
       }),
     )
 
-    console.log('uploaded ->', uploaded)
-
-    // update the song with the signed response and update status
-
-    // sp.set('upload-id', upload.id)
-    toast.toast(`${uploaded?.filter(Boolean).length} files uploaded`, 'success')
+    if (uploaded.filter(Boolean).length) {
+      toast.toast(
+        `${uploaded.filter(Boolean).length} files uploaded`,
+        'success',
+      )
+    } else {
+      toast.toast('No files uploaded 😵', 'error')
+    }
   }
 
   return (

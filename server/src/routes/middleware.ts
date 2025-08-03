@@ -43,5 +43,7 @@ export const isAdmin: RequestHandler = async (req, res, next) => {
   console.log('admin user', user.id)
 
   res.locals.user = user
+  res.locals.userId = user.id
+
   next()
 }

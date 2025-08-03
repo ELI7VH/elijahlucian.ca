@@ -124,8 +124,8 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
             <Button
               variant="contained"
               onClick={async () => {
+                toast.toast(`${files.length} files submitting...`)
                 await onSubmit?.(files)
-                toast.toast('Files submitted', 'success')
               }}
             >
               ✓

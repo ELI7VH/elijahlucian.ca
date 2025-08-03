@@ -11,27 +11,33 @@ export default async () => {
   router.post('/uploads', isAdmin, async (req, res) => {
     const { name, mime, filename, type } = req.body
 
-    console.log(res.locals)
-
-    const key = [req.body.bucket, res.locals.userId, req.body.filename].join(
-      '/',
-    )
-
-    const signedUrl = await s3Client.signedUrl(key, type)
-
     const record = await Metadata.create({
       type: 'upload',
       status: 'pending',
       name,
       metadata: {
-        signedUrl,
         filename,
         mime,
       },
       user: res.locals.user,
     })
 
-    res.json(record)
+    console.log('locals ->', res.locals)
+
+    const key = [res.locals.userId, record.id, req.body.filename].join('/')
+
+    const signedUrl = await s3Client.signedUrl(key, type)
+
+    console.log('signedUrl ->', signedUrl)
+
+    await Metadata.updateOne(
+      { _id: record._id },
+      { $set: { metadata: { ...record.metadata, signedUrl } } },
+    )
+
+    const updated = await Metadata.findById(record._id)
+
+    res.json(updated)
   })
 
   router.get('/uploads', isLoggedIn, async (req, res) => {

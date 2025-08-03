@@ -3,7 +3,6 @@ import express from 'express'
 import { connectDb } from './db'
 import routes from './routes'
 import base from './routes/base'
-import { s3 } from './services/s3'
 import { User } from './db/models'
 import uploads from './routes/uploads'
 
@@ -58,9 +57,6 @@ const main = async () => {
       message: 'Server is running!',
     })
   })
-
-  console.log('loading....')
-  const s3client = s3()
 
   app.use(await base())
   app.use(routes())
