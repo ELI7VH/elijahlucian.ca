@@ -8,7 +8,7 @@ type Upload = {
   link: string
   filename: string
   status: string
-  metadata: {
+  metadata?: {
     signedUrl: string
     bucket: string
     key: string

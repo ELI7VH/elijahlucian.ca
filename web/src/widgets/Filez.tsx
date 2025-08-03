@@ -39,6 +39,11 @@ export const Uploadr = () => {
           size: file.size,
         })
 
+        if (!upload.metadata) {
+          toast.toast(`${upload.name} failed!`, 'error')
+          return null
+        }
+
         const url = upload.metadata.signedUrl
         try {
           const staticResponse = await uploads.put(url, file)
@@ -149,7 +154,7 @@ export const Uploadr = () => {
                 fontSize: '12px',
                 width: '10ch',
               },
-              render: (f) => f.metadata.mime,
+              render: (f) => f.metadata?.mime || '-',
             },
             {
               label: 'Size',
@@ -158,7 +163,8 @@ export const Uploadr = () => {
                 fontSize: '12px',
                 width: '15ch',
               },
-              render: (f) => toMaxDenom(f.metadata.size),
+              render: (f) =>
+                f.metadata?.size ? toMaxDenom(f.metadata.size) : '-',
             },
             {
               key: 'status',
