@@ -26,6 +26,8 @@ export const AdminDashboard = () => {
 
   const toast = useToast()
 
+  console.log(import.meta.env.VITE_CDN_URL)
+
   return (
     <Page
       maxWidth="700px"
@@ -122,7 +124,9 @@ export const AdminDashboard = () => {
                 textAlign: 'left',
               },
               render: (value) => (
-                <Link to={`${import.meta.env.VITE_CDN_URL}/${value.Key}`}>
+                <Link
+                  to={`https://${import.meta.env.VITE_CDN_URL}/${value.Key}`}
+                >
                   {value.Key}
                 </Link>
               ),
