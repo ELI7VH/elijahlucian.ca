@@ -22,6 +22,7 @@ export const AdminDashboard = () => {
   const search = useLocalState('admin-static-search', '')
   const page = useLocalState('admin-static-page', 0)
   const pageSize = useLocalState('admin-static-page-size', 100)
+  const deletable = useLocalState('admin-static-deletable', false)
 
   const toast = useToast()
 
@@ -52,13 +53,54 @@ export const AdminDashboard = () => {
         <Table
           minHeight="20vh"
           header={
-            <FlexRow justifyContent="between">
+            <FlexRow justifyContent="space-between" gap="1rem">
               <input
+                width="10ch"
                 type="search"
                 value={search.state}
                 onChange={(e) => search.set(e.target.value)}
                 placeholder="Search"
               />
+              <FlexRow gap="0.5rem">
+                <P>Deletable</P>
+                <input
+                  type="checkbox"
+                  checked={deletable.state}
+                  onChange={(e) => deletable.set(e.target.checked)}
+                  placeholder="Deletable"
+                />
+              </FlexRow>
+              <FlexRow gap="0.5rem">
+                <input
+                  width="10ch"
+                  value={pageSize.state}
+                  onChange={(e) => pageSize.set(Number(e.target.value))}
+                  placeholder="Page Size"
+                />
+                <Button
+                  disabled={page.state === 0}
+                  size="small"
+                  onClick={() => page.set(page.state - 1)}
+                >
+                  Prev
+                </Button>
+                <P fontSize="0.5rem" textAlign="center">
+                  Page {page.state + 1}
+                </P>
+                <Button
+                  disabled={
+                    !!staticObjects.data?.length &&
+                    page.state ===
+                      Math.ceil(
+                        (staticObjects.data?.length || 0) / pageSize.state,
+                      )
+                  }
+                  size="small"
+                  onClick={() => page.set(page.state + 1)}
+                >
+                  Next
+                </Button>
+              </FlexRow>
             </FlexRow>
           }
           fontSize="0.5rem"
@@ -104,6 +146,7 @@ export const AdminDashboard = () => {
                   'Y'
                 ) : (
                   <Button
+                    disabled={!deletable.state}
                     size="small"
                     onClick={async () => {
                       try {
