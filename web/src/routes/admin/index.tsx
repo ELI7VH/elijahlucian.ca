@@ -122,7 +122,7 @@ export const AdminDashboard = () => {
                 textAlign: 'left',
               },
               render: (value) => (
-                <Link to={`https://dev.cdn.elijahlucian.ca/${value.Key}`}>
+                <Link to={`${import.meta.env.VITE_CDN_URL}/${value.Key}`}>
                   {value.Key}
                 </Link>
               ),
