@@ -12,13 +12,18 @@ type Upload = {
     signedUrl: string
     bucket: string
     key: string
+    size: number
+    mime: string
   }
+  createdAt: string
+  updatedAt: string
 }
 
 type CreateUpload = {
   name: string
   filename: string
   mime: string
+  size: number
 }
 
 type UseUploadsParams = {

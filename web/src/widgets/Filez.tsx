@@ -5,6 +5,7 @@ import { WidgetBody } from './components/WidgetBody'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { useUploads } from '@/lib/hooks/api/useUploads'
 import { FileGrabbr } from './components/FileGrabbr'
+import { toMaxDenom, toRelative } from '@/lib/magic'
 
 export const Uploadr = () => {
   const collapsed = useLocalState('uploadr-collapsed', true)
@@ -23,6 +24,7 @@ export const Uploadr = () => {
           name: file.name,
           filename: file.name,
           mime: file.type,
+          size: file.size,
         })
 
         const url = upload.metadata.signedUrl
@@ -77,7 +79,7 @@ export const Uploadr = () => {
               key: 'name',
               label: 'Name',
               style: {
-                width: '25ch',
+                width: '15ch',
               },
               render: (f) => (
                 <HotInput
@@ -96,6 +98,24 @@ export const Uploadr = () => {
               ),
             },
             {
+              label: 'Type',
+              style: {
+                textAlign: 'center',
+                fontSize: '12px',
+                width: '10ch',
+              },
+              render: (f) => f.metadata.mime,
+            },
+            {
+              label: 'Size',
+              style: {
+                textAlign: 'center',
+                fontSize: '12px',
+                width: '15ch',
+              },
+              render: (f) => toMaxDenom(f.metadata.size, 2),
+            },
+            {
               key: 'status',
               style: {
                 width: '10ch',
@@ -108,7 +128,7 @@ export const Uploadr = () => {
             {
               key: 'link',
               style: {
-                width: '30ch',
+                width: '15ch',
                 maxWidth: '30ch',
                 fontSize: '12px',
                 overflow: 'hidden',
@@ -123,9 +143,18 @@ export const Uploadr = () => {
                   rel="noopener noreferrer"
                   title={upload.link}
                 >
-                  {upload.link}
+                  {upload.link.split('/').pop()}
                 </a>
               ),
+            },
+            {
+              key: 'createdAt',
+              label: 'Created',
+              style: {
+                width: '10ch',
+                fontSize: '12px',
+              },
+              render: (upload) => toRelative(upload.createdAt),
             },
             {
               label: 'Actions',

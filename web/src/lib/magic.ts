@@ -33,10 +33,10 @@ export const cn = (...classes: string[]) => {
 
 // file size shit
 
+export const toKb = (bytes: number) => Math.round((bytes / 1024) * 100) / 100
 export const toMb = (bytes: number) =>
-  Math.round((bytes / 1024 / 1024) * 10) / 10
+  Math.round((bytes / 1024 / 1024) * 100) / 100
 
-export const toKb = (bytes: number) => Math.round(bytes / 1024)
 export const toGb = (bytes: number) =>
   // Math.round(bytes / 1024 / 1024 / 1024)
   Math.round((bytes / 1024 / 1024 / 1024) * 100) / 100

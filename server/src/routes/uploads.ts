@@ -9,7 +9,7 @@ export default async () => {
   const router = Router()
 
   router.post('/uploads', isAdmin, async (req, res) => {
-    const { name, mime, filename, type } = req.body
+    const { name, mime, filename, type, size } = req.body
 
     const record = await Metadata.create({
       type: 'upload',
@@ -18,6 +18,7 @@ export default async () => {
       metadata: {
         filename,
         mime,
+        size,
       },
       user: res.locals.user,
     })
@@ -47,7 +48,7 @@ export default async () => {
   router.get('/uploads', isLoggedIn, async (req, res) => {
     const records = await Metadata.find({
       type: 'upload',
-    })
+    }).sort({ createdAt: -1 })
     res.json(records)
   })
 
