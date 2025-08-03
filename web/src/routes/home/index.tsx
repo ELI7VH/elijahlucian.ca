@@ -31,6 +31,11 @@ export const Home = () => {
           <P>
             If you like to try new things, you've found one of those places.
           </P>
+          <P>
+            This site gets updated very often, so come back, and just peruse.
+            Give yourself a minute to relax and take a break from the
+            doomscroll.
+          </P>
           <Flex gap="1rem" justifyContent="end">
             <Box>
               <Link to="/null">♨︎</Link>
