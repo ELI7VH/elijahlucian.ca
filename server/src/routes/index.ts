@@ -167,7 +167,10 @@ export default () => {
   router.get('/config', isAdmin, async (req, res) => {
     res.json({
       s3: {
-        bucket: process.env.S3_BUCKET,
+        test: 'test',
+        bucket: process.env.SPACES_BUCKET,
+        region: process.env.SPACES_REGION,
+        api_port: process.env.API_PORT,
       },
     })
   })
