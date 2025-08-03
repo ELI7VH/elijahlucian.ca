@@ -11,7 +11,7 @@ import { DankVision } from '@/widgets/DankVision'
 import { PinContainer } from '@/widgets/components/PinContainer'
 import { Grid } from '@/lib'
 import { useForm } from 'react-hook-form'
-import { Uploadr } from '@/widgets/Uploadr'
+import { Uploadr } from '@/widgets/Filez'
 import { Scan } from './tools/scan'
 import { UserContainer } from '@/widgets/components/UserContainer'
 

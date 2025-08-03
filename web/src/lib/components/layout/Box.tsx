@@ -9,6 +9,8 @@ export type BoxProps = {
   _hover?: InlineDivStyle
   onMouseEnter?: () => void
   onMouseLeave?: () => void
+  onDrop?: (e: React.DragEvent<HTMLDivElement>) => void
+  ref?: React.RefObject<HTMLDivElement>
 } & InlineDivStyle
 
 export const Box = ({
@@ -17,6 +19,7 @@ export const Box = ({
   _hover,
   onMouseEnter,
   onMouseLeave,
+  ref,
   ...style
 }: BoxProps) => {
   const hovering = useDisclosure()
@@ -30,6 +33,7 @@ export const Box = ({
       }}
       onMouseEnter={onMouseEnter || hovering.open}
       onMouseLeave={onMouseLeave || hovering.close}
+      ref={ref}
     >
       {children}
     </div>

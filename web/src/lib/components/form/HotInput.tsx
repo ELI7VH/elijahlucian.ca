@@ -5,9 +5,10 @@ type Props = {
   value: string
   onFinish: (value: string) => void
   label?: string
+  width?: string
 }
 
-export const HotInput = ({ value, onFinish, label }: Props) => {
+export const HotInput = ({ value, onFinish, label, width }: Props) => {
   const [inputValue, setInputValue] = useState(value)
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export const HotInput = ({ value, onFinish, label }: Props) => {
         position="absolute"
         top="-7px"
         left="10px"
+        width={width}
         backgroundColor="white"
         padding="0 6px"
         fontSize="12px"
@@ -49,6 +51,7 @@ export const HotInput = ({ value, onFinish, label }: Props) => {
         {label}
       </Box>
       <input
+        width={width}
         style={{
           paddingTop: '12px',
         }}

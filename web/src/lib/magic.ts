@@ -30,3 +30,20 @@ export const toRelative = (date: Date | string) => {
 export const cn = (...classes: string[]) => {
   return classes.filter(Boolean).join(' ')
 }
+
+// file size shit
+
+export const toMb = (bytes: number) =>
+  Math.round((bytes / 1024 / 1024) * 10) / 10
+
+export const toKb = (bytes: number) => Math.round(bytes / 1024)
+export const toGb = (bytes: number) =>
+  // Math.round(bytes / 1024 / 1024 / 1024)
+  Math.round((bytes / 1024 / 1024 / 1024) * 100) / 100
+
+export const toMaxDenom = (bytes: number) => {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${toKb(bytes)} KB`
+  if (bytes < 1024 * 1024 * 1024) return `${toMb(bytes)} MB`
+  return `${toGb(bytes)} GB`
+}
