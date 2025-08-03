@@ -26,7 +26,7 @@ export const Uploadr = () => {
         </Box>
         <FileGrabbr onSubmit={handleSubmit} />
         <Divider />
-        {uploads.data?.map((upload) => (
+        {uploads.data?.slice(0, 10).map((upload) => (
           <Box key={upload.id}>{upload.name}</Box>
         ))}
       </WidgetBody>
