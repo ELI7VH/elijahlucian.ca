@@ -113,7 +113,7 @@ export const Uploadr = () => {
                 fontSize: '12px',
                 width: '15ch',
               },
-              render: (f) => toMaxDenom(f.metadata.size, 2),
+              render: (f) => toMaxDenom(f.metadata.size),
             },
             {
               key: 'status',
