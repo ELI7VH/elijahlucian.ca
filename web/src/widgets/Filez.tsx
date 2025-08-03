@@ -16,13 +16,14 @@ import { useLocalState } from '@/lib/hooks/useLocalState'
 import { useUploads } from '@/lib/hooks/api/useUploads'
 import { FileGrabbr } from './components/FileGrabbr'
 import { toMaxDenom, toRelative } from '@/lib/magic'
+import { groupBy } from 'lodash'
 
-export const Uploadr = () => {
-  const collapsed = useLocalState('uploadr-collapsed', true)
+export const Filez = () => {
+  const collapsed = useLocalState('filez-collapsed', true)
   const uploads = useUploads()
   const toast = useToast()
-  const page = useLocalState('uploadr-page', 1)
-  const items = useLocalState('uploadr-items', 10)
+  const page = useLocalState('filez-page', 1)
+  const items = useLocalState('filez-items', 10)
 
   const handleUpload = async (files: File[]) => {
     if (!files.length) {
@@ -238,6 +239,17 @@ export const Uploadr = () => {
               ),
             },
           ]}
+          footer={
+            <FlexRow gap="0.5rem" padding="0.25rem" justifyContent="center">
+              {Object.entries(groupBy(uploads.data, 'metadata.mime')).map(
+                ([mime, files]) => (
+                  <P key={mime}>
+                    {mime} ({files.length})
+                  </P>
+                ),
+              )}
+            </FlexRow>
+          }
         />
       </WidgetBody>
     </WidgetContainer>

@@ -1,6 +1,6 @@
 import { InlineDivStyle } from '@/lib/types'
 import { Grid } from '../layout/Grid'
-import { FlexCol } from '../layout/Flex'
+import { FlexCol, FlexRow } from '../layout/Flex'
 
 type Props<T> = Omit<InlineDivStyle, 'columns'> & {
   data?: T[]
@@ -15,6 +15,7 @@ type Props<T> = Omit<InlineDivStyle, 'columns'> & {
   emptyMessage?: string
   header?: React.ReactNode
   editing?: boolean
+  footer?: React.ReactNode
 }
 
 type TableRecord = Record<string, any> & { id: string | number }
@@ -25,6 +26,7 @@ export function Table<T extends TableRecord>({
   emptyMessage,
   header,
   editing,
+  footer,
   ...style
 }: Props<T>) {
   return (
@@ -118,6 +120,7 @@ export function Table<T extends TableRecord>({
               : emptyMessage}
           </tbody>
         </table>
+        {footer && <FlexCol>{footer}</FlexCol>}
         <FlexCol
           gridArea="1/1/1/1"
           bg="background-image-2"

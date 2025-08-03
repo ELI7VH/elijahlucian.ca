@@ -15,7 +15,6 @@ import {
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Home } from './routes/home'
-import { Null } from './routes/null'
 import { Bub3 } from './widgets/components/Bub3'
 import { useThoughts } from './lib/hooks/api/useThoughts'
 import { useLocalState } from './lib/hooks/useLocalState'
