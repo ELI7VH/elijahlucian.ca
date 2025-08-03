@@ -51,7 +51,8 @@ export const Button = ({
         padding: size === 'small' ? '0.25rem 0.5rem' : '0.5rem 1rem',
         fontSize: size === 'small' ? '0.5rem' : '1rem',
         borderRadius: '0.25rem',
-        cursor: 'pointer',
+        cursor: props.disabled ? 'not-allowed' : 'pointer',
+        opacity: props.disabled ? 0.5 : 1,
         // pointerEvents: 'all',
         ...sx,
       }}

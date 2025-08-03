@@ -93,14 +93,18 @@ export const Uploadr = () => {
           header={
             <FlexRow justifyContent="space-between" padding="0.25rem">
               <Button
-                variant="ghost"
                 size="small"
                 onClick={() => page.set(page.state - 1)}
+                disabled={page.state === 1}
               >
                 Prev
               </Button>
               <FlexRow alignItems="center" gap="1rem">
                 <P>Page {page.state}</P>
+                <P>of</P>
+                <P>
+                  {Math.ceil((uploads.data?.length || 0) / items.state) || 1}
+                </P>
                 <HotInput
                   width="5ch"
                   value={items.state.toString()}
@@ -112,9 +116,12 @@ export const Uploadr = () => {
                 <P>Items per page</P>
               </FlexRow>
               <Button
-                variant="ghost"
                 size="small"
                 onClick={() => page.set(page.state + 1)}
+                disabled={
+                  !!uploads.data?.length &&
+                  page.state === Math.ceil(uploads.data.length / items.state)
+                }
               >
                 Next
               </Button>
