@@ -1,14 +1,14 @@
 import { Router } from 'express'
 import { s3 } from '../services/s3'
 import { Metadata } from '../db/models'
-import { isLoggedIn } from './middleware'
+import { isAdmin, isLoggedIn } from './middleware'
 
 export default async () => {
   const s3Client = s3()
 
   const router = Router()
 
-  router.post('/uploads', isLoggedIn, async (req, res) => {
+  router.post('/uploads', isAdmin, async (req, res) => {
     const { name, mime, filename, type } = req.body
 
     console.log(res.locals)
@@ -46,10 +46,15 @@ export default async () => {
     res.json(record)
   })
 
-  router.patch('/uploads/:id', isLoggedIn, async (req, res) => {
+  router.patch('/uploads/:id', isAdmin, async (req, res) => {
     const record = await Metadata.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     })
+    res.json(record)
+  })
+
+  router.delete('/uploads/:id', isAdmin, async (req, res) => {
+    const record = await Metadata.findByIdAndDelete(req.params.id)
     res.json(record)
   })
 

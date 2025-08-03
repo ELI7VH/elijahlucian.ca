@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
 import {
   Box,
   Clock,
@@ -124,7 +124,6 @@ export const App = () => {
               </Flex>
               <Divider />
               <Routes>
-                <Route path="/null" element={<Null />} />
                 <Route
                   path="/"
                   element={

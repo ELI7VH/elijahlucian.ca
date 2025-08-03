@@ -1,33 +1,9 @@
-import { RequestHandler, Router } from 'express'
+import { Router } from 'express'
 import { Metadata, User } from '../db/models'
-import { isLoggedIn } from './middleware'
-import { s3 } from '../services/s3'
+import { isAdmin, isLoggedIn } from './middleware'
 
 export default () => {
   const router = Router()
-
-  const isAdmin: RequestHandler = async (req, res, next) => {
-    const auth = req.headers.authorization
-
-    if (!auth) {
-      console.log('auth', auth)
-      res.status(401).json({ message: 'Require Authorization' })
-      return
-    }
-
-    const user = await User.findOne({ cookie: auth })
-
-    if (!user || !user.admin) {
-      console.log('auth', auth, 'userid', user?.id, 'admin', user?.admin)
-      res.status(401).json({ message: 'Nice Try, HACKER!' })
-      return
-    }
-
-    console.log('admin user', user.id)
-
-    res.locals.user = user
-    next()
-  }
 
   router.get('/songs', async (req, res) => {
     const songs = await Metadata.find({ type: 'upload', scope: 'music' })
@@ -186,6 +162,14 @@ export default () => {
     await user.save()
 
     res.json({ message: 'Logged out' })
+  })
+
+  router.get('/config', isAdmin, async (req, res) => {
+    res.json({
+      s3: {
+        bucket: process.env.S3_BUCKET,
+      },
+    })
   })
 
   return router

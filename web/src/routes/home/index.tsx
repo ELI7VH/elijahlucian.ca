@@ -1,6 +1,17 @@
-import { Box, Flex, FlexCol, Grid, H3, Link, Section } from '@/lib'
+import {
+  Box,
+  Flex,
+  FlexCol,
+  Grid,
+  H3,
+  Link,
+  Section,
+  useUserContext,
+} from '@/lib'
 
 export const Home = () => {
+  const user = useUserContext()
+
   return (
     <Section width="100%">
       <Grid

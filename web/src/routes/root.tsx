@@ -1,5 +1,5 @@
 import { App } from '@/App'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { AdminDashboard } from './admin'
 import { DesktopContainer } from '@/widgets/components/DesktopContainer'
 import { Radio } from '@/widgets/Radio'
@@ -9,21 +9,28 @@ import { Null } from './null'
 import { ThoughtAggregatorModule } from '@/widgets/ThoughtAggregatorModule'
 import { DankVision } from '@/widgets/DankVision'
 import { PinContainer } from '@/widgets/components/PinContainer'
-import { Grid } from '@/lib'
+import { Grid, useUserContext } from '@/lib'
 import { useForm } from 'react-hook-form'
 import { Uploadr } from '@/widgets/Filez'
 import { Scan } from './tools/scan'
 import { UserContainer } from '@/widgets/components/UserContainer'
 
 export const RootRouter = () => {
+  const user = useUserContext()
   // todo: Layercontext
 
   return (
     <>
       <Routes>
         <Route path="/test" element={<Test />} />
-        <Route path="/null" element={<Null />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route
+          path="/null"
+          element={user.user ? <Null /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/admin"
+          element={user.user ? <AdminDashboard /> : <Navigate to="/" />}
+        />
         <Route path="/tools/scan" element={<Scan />} />
         <Route path="/*" element={<App />} />
       </Routes>

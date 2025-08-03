@@ -6,6 +6,7 @@ type Upload = {
   name: string
   link: string
   filename: string
+  status: string
   metadata: {
     signedUrl: string
     bucket: string
@@ -42,7 +43,25 @@ export const useUploads = () => {
     onSuccess: () => query.refetch(),
   })
 
-  return { ...query, create, put }
+  const update = useMutation({
+    mutationFn: (data: Partial<Upload>) =>
+      api.patch<Upload>(`/uploads/${data.id}`, data),
+    onSuccess: () => query.refetch(),
+  })
+
+  const destroy = useMutation({
+    mutationFn: (id: string) => api.destroy(`/uploads/${id}`),
+    onSuccess: () => query.refetch(),
+  })
+
+  const data = query.data?.map((record) => ({
+    ...record,
+    update: (data: Partial<Upload>) =>
+      update.mutateAsync({ id: record.id, ...data }),
+    destroy: () => destroy.mutateAsync(record.id),
+  }))
+
+  return { ...query, create, put, destroy, update, data }
 }
 
 export const useUpload = (id: string) => {
