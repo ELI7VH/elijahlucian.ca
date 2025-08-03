@@ -1,6 +1,7 @@
 .env
 .env.local
 .env.prod
+.s3cmd
 
 node_modules
 

@@ -37,22 +37,9 @@ export const HotInput = ({ value, onFinish, label, width }: Props) => {
 
   return (
     <Box position="relative">
-      <Box
-        position="absolute"
-        top="-7px"
-        left="10px"
-        width={width}
-        backgroundColor="white"
-        padding="0 6px"
-        fontSize="12px"
-        border="1px solid var(--brand-1)"
-        boxShadow="1px -1px 0 var(--brand-2)"
-      >
-        {label}
-      </Box>
       <input
-        width={width}
         style={{
+          width,
           paddingTop: '12px',
         }}
         value={inputValue}

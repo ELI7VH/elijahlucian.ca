@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 type Props = {
   onFiles?: (files: File[]) => void
   onClear?: () => void
-  onSubmit?: (files: File[]) => Promise<void>
+  onSubmit?: (files: File[]) => Promise<boolean[] | any>
 }
 
 export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
@@ -125,7 +125,8 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
               variant="contained"
               onClick={async () => {
                 toast.toast(`${files.length} files submitting...`)
-                await onSubmit?.(files)
+                const results = await onSubmit?.(files)
+                setFiles((prev) => prev.filter((f, i) => !results?.[i]))
               }}
             >
               ✓

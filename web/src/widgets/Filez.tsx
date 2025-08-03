@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, P, Table, useToast } from '@/lib'
+import { Box, Button, Divider, Grid, HotInput, P, Table, useToast } from '@/lib'
 import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetContainer } from './components/WidgetContainer'
 import { WidgetBody } from './components/WidgetBody'
@@ -12,18 +12,8 @@ export const Uploadr = () => {
   const toast = useToast()
 
   const handleUpload = async (files: File[]) => {
-    console.log('files', files)
     if (!files.length) {
       toast.toast('Please select a file')
-      return
-    }
-
-    // check for dupes.
-    const dupes = files.filter((file) =>
-      uploads.data?.some((upload) => upload.name === file.name),
-    )
-    if (dupes.length) {
-      toast.toast('File already exists, check the list', 'warning')
       return
     }
 
@@ -43,7 +33,7 @@ export const Uploadr = () => {
           // update the upload with the signed response and update status
           await uploads.update.mutateAsync({
             id: upload.id,
-            status: 'uploaded',
+            status: '✓',
           })
 
           return upload
@@ -61,6 +51,8 @@ export const Uploadr = () => {
         `${uploaded.filter(Boolean).length} files uploaded`,
         'success',
       )
+
+      return uploaded.map((upload) => !!upload)
     } else {
       toast.toast('No files uploaded 😵', 'error')
     }
@@ -81,10 +73,68 @@ export const Uploadr = () => {
         <Table
           data={uploads.data?.slice(0, 10)}
           columns={[
-            { key: 'name', label: 'Name' },
-            { key: 'status', label: 'Status' },
+            {
+              key: 'name',
+              label: 'Name',
+              style: {
+                width: '25ch',
+              },
+              render: (f) => (
+                <HotInput
+                  // width="15ch"
+                  value={f.name}
+                  onFinish={async (name) => {
+                    if (name === f.name) return
+
+                    await uploads.update.mutateAsync({
+                      id: f.id,
+                      name,
+                    })
+                    toast.toast('File name updated', 'success')
+                  }}
+                />
+              ),
+            },
+            {
+              key: 'status',
+              style: {
+                width: '10ch',
+                textAlign: 'center',
+                // fontSize: '12px',
+                padding: 0,
+              },
+              label: 'Status',
+            },
+            {
+              key: 'link',
+              style: {
+                width: '30ch',
+                maxWidth: '30ch',
+                fontSize: '12px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              },
+              label: 'Link',
+              render: (upload) => (
+                <a
+                  href={upload.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={upload.link}
+                >
+                  {upload.link}
+                </a>
+              ),
+            },
             {
               label: 'Actions',
+              style: {
+                width: '5ch',
+                textAlign: 'center',
+                fontSize: '12px',
+                padding: '0',
+              },
               render: (upload) => (
                 <Box>
                   <Button
@@ -95,7 +145,7 @@ export const Uploadr = () => {
                     }}
                     size="small"
                   >
-                    Delete
+                    x
                   </Button>
                 </Box>
               ),

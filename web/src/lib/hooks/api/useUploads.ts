@@ -1,5 +1,6 @@
 import { useApiContext } from '@/lib/providers/ApiContext'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import Axios, { AxiosProgressEvent } from 'axios'
 
 type Upload = {
   id: string
@@ -20,8 +21,14 @@ type CreateUpload = {
   mime: string
 }
 
-export const useUploads = () => {
+type UseUploadsParams = {
+  abortController?: AbortSignal
+  onUploadProgress?: (progress: AxiosProgressEvent) => void
+}
+
+export const useUploads = (params?: UseUploadsParams) => {
   const api = useApiContext()
+  const s3Axios = Axios.create()
 
   const query = useQuery({
     queryKey: ['uploads'],
@@ -30,7 +37,11 @@ export const useUploads = () => {
   })
 
   const put = (path: string, file: File) => {
-    return api.put(path, file, {
+    return s3Axios.put(path, file, {
+      signal: params?.abortController,
+      onUploadProgress: (progress) => {
+        params?.onUploadProgress?.(progress)
+      },
       headers: {
         'Cache-Control': 'public,max-age=31536000,immutable',
         'x-amz-acl': 'public-read',

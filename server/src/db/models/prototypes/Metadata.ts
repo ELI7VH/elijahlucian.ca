@@ -8,6 +8,7 @@ export const Metadata = mongoose.model(
       metadata: { type: Object, default: {} }, // this will always represent a "larger collection", like a tree node.
       upload: { type: Object, default: {} }, // all the upload metadata
       parent: String,
+      link: String,
       // scoping queries - singular.
       type: { type: String, required: true },
       scope: String,

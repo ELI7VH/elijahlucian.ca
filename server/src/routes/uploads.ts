@@ -13,7 +13,7 @@ export default async () => {
 
     const record = await Metadata.create({
       type: 'upload',
-      status: 'pending',
+      status: '☮',
       name,
       metadata: {
         filename,
@@ -22,17 +22,21 @@ export default async () => {
       user: res.locals.user,
     })
 
-    console.log('locals ->', res.locals)
-
-    const key = [res.locals.userId, record.id, req.body.filename].join('/')
+    const key = [mime, res.locals.userId, record.id, req.body.filename].join(
+      '/',
+    )
 
     const signedUrl = await s3Client.signedUrl(key, type)
-
-    console.log('signedUrl ->', signedUrl)
+    const link = `https://${process.env.SPACES_CDN}/${key}`
 
     await Metadata.updateOne(
       { _id: record._id },
-      { $set: { metadata: { ...record.metadata, signedUrl } } },
+      {
+        $set: {
+          metadata: { ...record.metadata, signedUrl, key },
+          link,
+        },
+      },
     )
 
     const updated = await Metadata.findById(record._id)
@@ -60,8 +64,21 @@ export default async () => {
   })
 
   router.delete('/uploads/:id', isAdmin, async (req, res) => {
-    const record = await Metadata.findByIdAndDelete(req.params.id)
-    res.json(record)
+    const record = await Metadata.findById(req.params.id)
+
+    if (!record) {
+      res.status(404).json({ error: 'Record not found' })
+      return
+    }
+
+    console.log('record.metadata.key ->', record.metadata.key)
+
+    if (record.metadata.key) {
+      await s3Client.deleteObject(record.metadata.key)
+    }
+
+    const result = await Metadata.findByIdAndDelete(req.params.id)
+    res.json(result)
   })
 
   return router

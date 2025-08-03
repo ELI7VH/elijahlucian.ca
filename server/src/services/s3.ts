@@ -24,6 +24,7 @@ export const s3 = () => {
   //https://lawnz-dev.tor1.digitaloceanspaces.com
 
   const spaces = new S3Client({
+    forcePathStyle: false,
     region,
     endpoint: `https://${region}.${host}`,
     credentials: {
@@ -33,8 +34,6 @@ export const s3 = () => {
   })
 
   const signedUrl = async (key: string, type: string) => {
-    console.log('key ->', key)
-
     const command = new PutObjectCommand({
       Bucket: process.env.SPACES_BUCKET,
       Key: key,
@@ -42,16 +41,18 @@ export const s3 = () => {
       ContentType: type,
     })
 
-    // https://lawnz-dev.tor1.digitaloceanspaces.com//688f95d3a2761bca05c25965/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=DO004JNCCMJ6T4AKBKAC%2F20250803%2Ftor1%2Fs3%2Faws4_request&X-Amz-Date=20250803T170107Z&X-Amz-Expires=300&X-Amz-Signature=4c68d7ff9ba50c870b301173ea8cae5c8fa9eec6a0a959b394662de0102e4c5b&X-Amz-SignedHeaders=host&x-amz-acl=public-read&x-amz-checksum-crc32=AAAAAA%3D%3D&x-amz-sdk-checksum-algorithm=CRC32&x-id=PutObject
-
-    const signedUrl = await getSignedUrl(spaces, command, {
-      expiresIn: 60 * 5, // 5 minutes
-    })
-
-    console.log('signedUrl ->', signedUrl)
+    const signedUrl = await getSignedUrl(spaces, command, { expiresIn: 60 * 5 }) // 5 minutes
 
     return signedUrl
   }
 
-  return { spaces, signedUrl }
+  const deleteObject = async (key: string) => {
+    const command = new DeleteObjectCommand({
+      Bucket: process.env.SPACES_BUCKET,
+      Key: key,
+    })
+    await spaces.send(command)
+  }
+
+  return { spaces, signedUrl, deleteObject }
 }
