@@ -15,12 +15,8 @@ export const Home = () => {
 
   return (
     <Section width="100%">
-      <Grid
-        maxWidth="100%"
-        gridTemplateColumns="repeat(auto-fill, minmax(20rem, 1fr))"
-        gap="1rem"
-      >
-        <FlexCol gap="1rem" textAlign="center">
+      <Grid maxWidth="100%" gap="1rem" justifyContent="center">
+        <FlexCol gap="1rem" textAlign="center" maxWidth="500px">
           <P>
             I'm gonna be real with you, this is an art project. Do not expect
             any kind of professional experience, or you will be hugely
