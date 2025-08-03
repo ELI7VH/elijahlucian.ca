@@ -47,9 +47,13 @@ export const AdminDashboard = () => {
         </Box>
         <Divider />
       </Grid>
-      <P>Static Objects ({staticObjects.data?.length})</P>
+      <FlexRow justifyContent="space-between">
+        <P>Static Objects ({staticObjects.data?.length})</P>
+        <Button size="small" onClick={() => staticObjects.refetch()}>
+          Refresh
+        </Button>
+      </FlexRow>
       <Grid gap="1rem" maxHeight="50vh" overflow="auto">
-        <Button onClick={() => staticObjects.refetch()}>Refresh</Button>
         <Table
           minHeight="20vh"
           header={
