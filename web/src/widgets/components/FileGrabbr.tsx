@@ -33,11 +33,11 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
     const handleDataTransferItems = (items: DataTransferItemList) => {
       for (const item of items) {
         // interesting...
-        console.log('dataTransfer item:', item)
+        // console.log('dataTransfer item:', item)
 
         if (item.kind === 'file') {
           const file = item.getAsFile()
-          console.log('dataTransfer file:', file)
+          // console.log('dataTransfer file:', file)
 
           // why would this be null? .. stupid
           if (!file) continue
@@ -86,8 +86,6 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
   // todo. animated response tothe control v
   // hover to show preview
   // or maybe click -> modal.
-
-  console.log('files', files)
 
   return (
     <div
