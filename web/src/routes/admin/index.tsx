@@ -26,8 +26,6 @@ export const AdminDashboard = () => {
 
   const toast = useToast()
 
-  console.log(import.meta.env.VITE_CDN_URL)
-
   return (
     <Page
       maxWidth="700px"
