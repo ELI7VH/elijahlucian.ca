@@ -49,7 +49,7 @@ export const App = () => {
     mappings: [
       [
         (e) => e.key === 'ArrowRight' && e.shiftKey,
-        () => index.set(index.state + 1),
+        () => index.set((index.state + 1) % (thoughts.data?.length ?? 0)),
       ],
       [
         (e) => e.key === 'ArrowLeft' && e.shiftKey,
@@ -111,13 +111,20 @@ export const App = () => {
                     }
                   }}
                   createdAt={thought?.createdAt ?? ''}
-                  onDestroy={() => {
-                    toast(
-                      `Thought dismissed: ${thought?.title || 'Untitled'}`,
-                      'warning',
-                    )
-                    index.set(index.state + 1)
-                  }}
+                  onPrev={
+                    index.state > 0
+                      ? () => {
+                          index.set(index.state - 1)
+                        }
+                      : undefined
+                  }
+                  onNext={
+                    index.state < (thoughts.data?.length ?? 0) - 1
+                      ? () => {
+                          index.set(index.state + 1)
+                        }
+                      : undefined
+                  }
                 />
               )}
             </Box>

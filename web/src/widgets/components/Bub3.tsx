@@ -1,4 +1,4 @@
-import { Box, Button } from '@/lib'
+import { Box, Button, Divider, Grid } from '@/lib'
 
 import { FlexCol, FlexRow, P } from '@/lib'
 import { useHotkeyMap } from '@/lib/hooks/api/useHotkeyMap'
@@ -11,8 +11,9 @@ type Props = {
   title: string
   text: string
   createdAt: string
-  onDestroy?: () => void
   onPin?: () => void
+  onPrev?: () => void
+  onNext?: () => void
   pinned?: boolean
   highlight?: boolean
 }
@@ -22,8 +23,9 @@ export const Bub3 = ({
   title,
   text,
   createdAt,
-  onDestroy,
   onPin,
+  onPrev,
+  onNext,
   pinned,
   highlight,
 }: Props) => {
@@ -70,6 +72,7 @@ export const Bub3 = ({
       padding="1rem 1rem"
       alignItems="center"
       maxWidth="50vw"
+      minWidth="50vw"
       fontSize={`${size.state}rem`}
       textWrap="pretty"
       justifyContent="space-between"
@@ -77,8 +80,8 @@ export const Bub3 = ({
       boxShadow="0.5rem 0.5rem 0 0 rgba(0, 0, 0, 0.9)"
       // transform={`scale(${size.state})`}
     >
-      <FlexCol gap="0.25rem">
-        <FlexRow gap="1rem" textShadow="1px 1px 1px var(--text-dark-muted)">
+      <FlexCol gap="1rem" width="100%">
+        <FlexRow>
           {title && (
             <P
               color="var(--text-muted)"
@@ -90,6 +93,9 @@ export const Bub3 = ({
               {title}
             </P>
           )}
+        </FlexRow>
+        <Divider />
+        <FlexRow gap="1rem" textShadow="1px 1px 1px var(--text-dark-muted)">
           <Box>
             <pre
               style={{
@@ -100,20 +106,55 @@ export const Bub3 = ({
             </pre>
           </Box>
         </FlexRow>
-        <FlexRow gap="0.25rem" justifyContent="flex-end">
-          <P color="var(--text-dark-muted)">{toRelative(createdAt)}</P>
-        </FlexRow>
+        <Divider />
+        <Grid gridTemplateColumns="1fr 1fr 1fr" gap="0.25rem">
+          <FlexRow></FlexRow>
+          <FlexRow gap="0.25rem" justifyContent="center">
+            {/* todo: controls component */}
+            <Button
+              variant="text"
+              size="small"
+              onClick={onPrev}
+              disabled={!onPrev}
+            >
+              <span
+                style={{
+                  transform: 'scaleX(-1)',
+                  display: 'inline-block',
+                }}
+              >
+                ➢
+              </span>
+            </Button>
+            <Button
+              variant={pinned ? 'highlighted' : 'text'}
+              size="small"
+              onClick={onPin}
+            >
+              {pinned ? '⩘' : '⩗'}
+            </Button>
+            <Button
+              variant="text"
+              size="small"
+              onClick={onNext}
+              disabled={!onNext}
+            >
+              <span
+                style={{
+                  display: 'inline-block',
+                }}
+              >
+                ➢
+              </span>
+            </Button>
+          </FlexRow>
+          <FlexRow justifyContent="flex-end">
+            <P color="var(--text-dark-muted)" fontSize="0.75rem">
+              {toRelative(createdAt)}
+            </P>
+          </FlexRow>
+        </Grid>
       </FlexCol>
-      <Button
-        variant={pinned ? 'highlighted' : 'text'}
-        size="small"
-        onClick={onPin}
-      >
-        {pinned ? '⩘' : '⩗'}
-      </Button>
-      <Button variant="text" size="small" onClick={onDestroy}>
-        𝔁
-      </Button>
     </FlexRow>
   )
 }
