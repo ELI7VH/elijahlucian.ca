@@ -13,6 +13,10 @@ export const Home = () => {
             youtube.
           </P>
           <P>
+            Also, because this is a personal art project, accessibility is not a
+            priority, so proceed at your own risk.
+          </P>
+          <P>
             If you like to try new things, you've found one of those places.
           </P>
           <P>

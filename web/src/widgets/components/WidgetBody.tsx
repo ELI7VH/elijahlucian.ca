@@ -27,6 +27,7 @@ export const WidgetBody = ({
         height={collapsed ? '1px' : 'auto'}
         borderRadius="1rem"
         padding={collapsed ? '0' : '1rem 1rem'}
+        boxShadow="var(--box-shadow-1)"
         {...props}
       >
         {children}

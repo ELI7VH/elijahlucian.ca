@@ -1,6 +1,7 @@
 import { Link, Route, Routes } from 'react-router-dom'
 import {
   Box,
+  Button,
   Clock,
   Divider,
   Flex,
@@ -8,6 +9,7 @@ import {
   FlexRow,
   Grid,
   H1,
+  HotkeyButton,
   Page,
   useSearchParams,
   useUserContext,
@@ -24,8 +26,8 @@ export const App = () => {
   const [started, setStarted] = useState(false)
   const thoughts = useThoughts({ params: { sort: { createdAt: 1 } } })
   const user = useUserContext()
-  const sp = useSearchParams()
   const [hideSite, setHideSite] = useState(false)
+  const hiddenThoughts = useLocalState('hidden-thoughts', false)
 
   const index = useLocalState('thoughts-index', 0)
   const { toast } = useToast()
@@ -37,15 +39,11 @@ export const App = () => {
   }, [])
 
   // todo: ui sound effects, because we're making a fucking banger here.
-
-  const thoughtId = sp.get('thought-id')
-
-  const thought = thoughtId
-    ? thoughts.data?.find((thought) => thought.id == thoughtId)
-    : thoughts.data?.[index.state]
+  const thought = hiddenThoughts.state ? null : thoughts.data?.[index.state]
 
   return (
     <Grid
+      ariaLabel="elijah lucian's personal website, accessibility is not a priority, proceed at your own risk"
       height="100vh"
       maxHeight="100vh"
       overflowY="auto"
@@ -114,16 +112,30 @@ export const App = () => {
           </Box>
           {!hideSite && (
             <>
-              <Flex gap="1ch">
-                <Box cursor="pointer" onClick={() => setHideSite(!hideSite)}>
-                  {'𝔁'}
-                </Box>
+              <FlexRow>
                 <Link to="/">
                   <H1>elijah lucian</H1>
                 </Link>
-                <Box cursor="pointer" onClick={() => index.set(0)}>
+              </FlexRow>
+              <Flex gap="1ch">
+                <Button
+                  variant="text"
+                  onClick={() => {
+                    setHideSite(!hideSite)
+                    toast('notice: hiding site content until next reload')
+                  }}
+                  title="Toggle site visibility"
+                >
+                  {'𝔁'}
+                </Button>
+
+                <HotkeyButton
+                  onClick={hiddenThoughts.toggle}
+                  hotkey={(e) => e.key === 'h' && (e.ctrlKey || e.metaKey)}
+                  hotkeyLabel="Toggle hidden thoughts (ctrl + h)"
+                >
                   ☕︎
-                </Box>
+                </HotkeyButton>
               </Flex>
               <Divider />
               <Routes>

@@ -69,6 +69,10 @@
   --box-shadow: var(--box-shadow-depth) var(--box-shadow-depth)
     var(--box-shadow-haze) var(--box-shadow-size) var(--gray-6);
 
+  --box-shadow-1: var(--box-shadow-depth) var(--box-shadow-depth)
+    var(--box-shadow-haze) var(--box-shadow-size) var(--trans-black-2);
+
+
   --box-shadow-2: calc(var(--box-shadow-depth) / 2)
     calc(var(--box-shadow-depth) / 2) calc(var(--box-shadow-haze) / 2)
     calc(var(--box-shadow-size) / 2) var(--gray-6);

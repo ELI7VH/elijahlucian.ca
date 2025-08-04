@@ -39,7 +39,7 @@ export const ThoughtAggregatorModule = () => {
         name={collapsed.state ? 't' : 't.a.m'}
         onClick={() => collapsed.toggle()}
       />
-      <WidgetBody collapsed={collapsed.state} background="background-image-2">
+      <WidgetBody collapsed={collapsed.state}>
         <FlexCol gap="0.5rem">
           <Divider />
           <Flex justifyContent="space-between">

@@ -17,7 +17,7 @@ export const useHotkey = ({ keycheck, callback, deps, onEscape }: Props) => {
         e.preventDefault()
         e.stopPropagation()
         console.info(
-          'ACCESSIBILITY: your browser will ignore this hotkey:',
+          'ACCESSIBILITY WARNING: your browser is ignoring this hotkey:',
           keycheck,
         )
         callback()
