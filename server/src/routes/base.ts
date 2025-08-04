@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { Metadata } from '../db/models/prototypes/Metadata'
-import { isLoggedIn } from './middleware'
+import { isAdmin, isLoggedIn } from './middleware'
 import { SortOrder } from 'mongoose'
 
 export default async () => {
@@ -34,6 +34,11 @@ export default async () => {
         console.error(e)
         res.status(500).json({ message: 'you fucked up' })
       }
+    })
+
+    router.post(`/${resource.path}/search`, isAdmin, async (req, res) => {
+      const items = await Metadata.find(req.body.query).sort(req.body.sort)
+      res.json(items)
     })
 
     router.get(`/${resource.path}/:id`, async (req, res) => {
