@@ -1,4 +1,4 @@
-import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { Link, Route, Routes } from 'react-router-dom'
 import {
   Box,
   Clock,
@@ -27,7 +27,7 @@ export const App = () => {
   const sp = useSearchParams()
   const [hideSite, setHideSite] = useState(false)
 
-  const index = useLocalState('bub3-index', 0)
+  const index = useLocalState('thoughts-index', 0)
   const { toast } = useToast()
 
   useEffect(() => {
@@ -36,7 +36,6 @@ export const App = () => {
     }, 1000)
   }, [])
 
-  // todo: grow the text on the home page
   // todo: ui sound effects, because we're making a fucking banger here.
 
   const thoughtId = sp.get('thought-id')

@@ -28,4 +28,6 @@ export const useHotkey = ({ keycheck, callback, deps, onEscape }: Props) => {
     window.addEventListener('keydown', handleKey)
     return () => window.removeEventListener('keydown', handleKey)
   }, deps)
+
+  return {}
 }

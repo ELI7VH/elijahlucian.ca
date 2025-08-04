@@ -1,7 +1,6 @@
 import { Box, Button } from '@/lib'
 
 import { FlexCol, FlexRow, P } from '@/lib'
-import { useHotkey } from '@/lib/hooks/api/useHotkey'
 import { useHotkeyMap } from '@/lib/hooks/api/useHotkeyMap'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { toRelative } from '@/lib/magic'

@@ -14,6 +14,11 @@ export const useThoughts = () => {
   return useBaseQuery<Thought>({
     path: '/thoughts',
     queryKey: ['thoughts'],
+    params: {
+      sort: {
+        createdAt: 1,
+      },
+    },
   })
 }
 

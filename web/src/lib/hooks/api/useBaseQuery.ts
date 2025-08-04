@@ -6,12 +6,16 @@ import { useDisclosure } from '../useDisclosure'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+type Sort = {
+  [key: string]: 1 | -1
+}
+
 export type BaseQueryProps<T> = {
   path: string
   queryKey: QueryKey
   initialValues?: Partial<T>
   values?: Partial<T>
-  params?: Partial<T>
+  params?: any
   filterBy?: keyof T
   noDefaultData?: boolean
   onCreate?: (data: T) => void
@@ -39,6 +43,8 @@ export const useBaseQuery = <
     path,
     queryKey,
   })
+
+  console.log('params', params)
 
   const query = useQuery({
     queryKey: fns.queryKey,

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { Metadata } from '../db/models/prototypes/Metadata'
 import { isLoggedIn } from './middleware'
+import { SortOrder } from 'mongoose'
 
 export default async () => {
   const router = Router()
@@ -14,11 +15,25 @@ export default async () => {
 
   resources.forEach((resource) => {
     router.get(`/${resource.path}`, async (req, res) => {
-      const items = await Metadata.find({
-        type: resource.type,
-        scope: resource.scope,
-      }).sort({ createdAt: -1 })
-      res.json(items)
+      try {
+        const sortParams = req.query.sort as
+          | { [key: string]: string }
+          | undefined
+        const sort = {
+          createdAt: sortParams?.createdAt
+            ? (parseInt(sortParams.createdAt) as SortOrder)
+            : -1,
+        }
+
+        const items = await Metadata.find({
+          type: resource.type,
+          scope: resource.scope,
+        }).sort(sort)
+        res.json(items)
+      } catch (e) {
+        console.error(e)
+        res.status(500).json({ message: 'you fucked up' })
+      }
     })
 
     router.get(`/${resource.path}/:id`, async (req, res) => {
