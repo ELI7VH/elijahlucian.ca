@@ -6,8 +6,8 @@ export const Divider = (props: Props) => {
   return (
     <div
       style={{
-        height: '2px',
-        maxHeight: '2px',
+        height: '4px',
+        maxHeight: '4px',
         width: '100%',
         margin: '0',
         backgroundColor: 'var(--brand-1-dark)',

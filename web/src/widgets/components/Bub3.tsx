@@ -13,6 +13,7 @@ type Props = {
   onPin?: () => void
   onPrev?: () => void
   onNext?: () => void
+  fullScreen?: boolean
   pinned?: boolean
   highlight?: boolean
 }
@@ -27,6 +28,7 @@ export const Bub3 = ({
   onNext,
   pinned,
   highlight,
+  fullScreen,
 }: Props) => {
   const filter = new Filter({ placeHolder: 'x' })
   const size = useLocalState('bub3-size', 1)
@@ -44,8 +46,8 @@ export const Bub3 = ({
       gap="0.5rem"
       padding="1rem"
       alignItems="center"
-      maxWidth="85vw"
-      minWidth="50vw"
+      maxWidth={fullScreen ? '90vw' : '85vw'}
+      minWidth={fullScreen ? '90vw' : '50vw'}
       fontSize={`${size.state}rem`}
       textWrap="pretty"
       justifyContent="space-between"

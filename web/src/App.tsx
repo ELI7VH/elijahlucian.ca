@@ -57,6 +57,7 @@ export const App = () => {
             <Box position="relative" top="-2rem">
               {thought && (
                 <Bub3
+                  fullScreen={hideSite}
                   id={`app-bub3-${thought?.id}`}
                   title={thought?.title ?? ''}
                   text={thought?.text ?? ''}
