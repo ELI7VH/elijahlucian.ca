@@ -65,11 +65,7 @@ export const ApiContextProvider = ({ children, baseURL = '/api' }: Props) => {
     return res.data
   }
 
-  async function put<T>(
-    path: string,
-    body: unknown,
-    config?: AxiosRequestConfig,
-  ) {
+  async function put(path: string, body: unknown, config?: AxiosRequestConfig) {
     const res = await axios.put(path, body, config)
     return res.data
   }

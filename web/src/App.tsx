@@ -11,7 +11,6 @@ import {
   H1,
   HotkeyButton,
   Page,
-  useSearchParams,
   useUserContext,
 } from './lib'
 import { useEffect } from 'react'

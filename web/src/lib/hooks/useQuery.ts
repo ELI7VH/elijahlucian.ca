@@ -7,11 +7,9 @@ type QueryFnsProps = {
   path: string
 }
 
-export function useQueryFns<
-  T extends { id: string },
-  Create = T,
-  Update extends { id: string } = T,
->(props: QueryFnsProps) {
+export function useQueryFns<T extends { id: string }, Create = T>(
+  props: QueryFnsProps,
+) {
   const api = useApiContext()
 
   const onSuccess = () => {
@@ -25,15 +23,14 @@ export function useQueryFns<
   }
 
   const create = useMutation({
-    mutationFn: (data: Partial<Create>) =>
-      api.post<T, Create>(props.path, data),
+    mutationFn: (data: Partial<Create>) => api.post<T>(props.path, data),
     onSuccess,
     onError,
   })
 
   const update = useMutation({
     mutationFn: (data: Partial<T>) =>
-      api.patch<T, Update>(`${props.path}/${data.id}`, data),
+      api.patch<T>(`${props.path}/${data.id}`, data),
     onSuccess,
     onError,
   })
