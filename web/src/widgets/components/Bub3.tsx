@@ -44,7 +44,7 @@ export const Bub3 = ({
       gap="0.5rem"
       padding="1rem"
       alignItems="center"
-      maxWidth="50vw"
+      maxWidth="85vw"
       minWidth="50vw"
       fontSize={`${size.state}rem`}
       textWrap="pretty"
@@ -95,10 +95,10 @@ export const Bub3 = ({
             <HotkeyButton
               size="small"
               onClick={() => {
-                if (size.state <= 0.5) return
-                size.set(size.state - 0.1)
+                if (size.state <= 0.3) return
+                size.set(size.state - 0.2)
               }}
-              disabled={size.state <= 0.5}
+              disabled={size.state <= 0.3}
               hotkey={(e) => e.key === '_' && e.shiftKey}
               hotkeyLabel="Decrease size (shift + _)"
             >
@@ -116,7 +116,7 @@ export const Bub3 = ({
               size="small"
               onClick={() => {
                 if (size.state >= 3) return
-                size.set(size.state + 0.1)
+                size.set(size.state + 0.2)
               }}
               disabled={size.state >= 3}
               hotkey={(e) => e.key === '+' && e.shiftKey}
