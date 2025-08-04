@@ -22,17 +22,16 @@ export const ThoughtAggregatorModule = () => {
 
   const filter = new Filter({ placeHolder: 'x' })
   const thoughtId = sp.get('thoughtId')
+  const title = sp.get('thought-title')
 
   const [i, setI] = useState(0)
 
-  const title = sp.get('thought-title')
   const filteredThoughts = thoughts.data?.filter(
     (thought) => !title || thought.title === title,
   )
 
   const pageSize = 3
   const pages = Math.ceil((filteredThoughts?.length ?? 0) / pageSize)
-  const page = Math.floor(i / pageSize)
 
   return (
     <WidgetContainer maxWidth="500px">

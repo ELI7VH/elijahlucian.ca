@@ -4,13 +4,9 @@ import { createContext, ReactNode, useContext } from 'react'
 
 type ApiContextType = {
   get<T>(url: string, params?: unknown): Promise<T>
-  post<T, R = T>(url: string, body?: Partial<R>): Promise<T>
-  patch<T, R = T>(url: string, body: Partial<T>): Promise<R>
-  put<T, R = T>(
-    url: string,
-    body: Partial<T>,
-    config?: AxiosRequestConfig,
-  ): Promise<R>
+  post<T>(url: string, body?: unknown): Promise<T>
+  patch<T>(url: string, body: unknown): Promise<T>
+  put<T>(url: string, body: unknown, config?: AxiosRequestConfig): Promise<T>
   destroy<T>(url: string): Promise<T>
   client: QueryClient
   axios: AxiosInstance
@@ -55,23 +51,23 @@ export const ApiContextProvider = ({ children, baseURL = '/api' }: Props) => {
     const res = await axios.get<T>(path, { params })
     return res.data
   }
-  async function patch<T, R = T>(path: string, body?: Partial<T>) {
-    const res = await axios.patch<T, AxiosResponse<R>>(path, body)
+  async function patch<T>(path: string, body?: unknown) {
+    const res = await axios.patch<T, AxiosResponse<T>>(path, body)
     return res.data
   }
 
-  async function post<T, R = T>(
+  async function post<T>(
     path: string,
-    body?: Partial<T>,
+    body?: unknown,
     config?: AxiosRequestConfig,
   ) {
-    const res = await axios.post<T, AxiosResponse<R>>(path, body || {}, config)
+    const res = await axios.post<T, AxiosResponse<T>>(path, body || {}, config)
     return res.data
   }
 
-  async function put<T, R = T>(
+  async function put<T>(
     path: string,
-    body: Partial<T>,
+    body: unknown,
     config?: AxiosRequestConfig,
   ) {
     const res = await axios.put(path, body, config)

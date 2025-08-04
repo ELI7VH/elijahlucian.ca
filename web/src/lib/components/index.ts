@@ -5,6 +5,7 @@ export * from './form/HotInput'
 export * from './form/TextArea'
 
 export * from './elements/Button'
+export * from './elements/HotkeyButton'
 export * from './elements/Link'
 export * from './elements/Divider'
 export * from './elements/Loading'

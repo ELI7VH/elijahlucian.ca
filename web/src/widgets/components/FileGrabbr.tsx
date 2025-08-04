@@ -21,8 +21,11 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
+
     const files = e.dataTransfer.files
-    setFiles(Array.from(files))
+    const filesArray = Array.from(files)
+    setFiles(filesArray)
+    onFiles?.(filesArray)
   }
 
   useEffect(() => {

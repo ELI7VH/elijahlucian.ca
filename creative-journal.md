@@ -1,3 +1,43 @@
+## Recent Updates
+
+### HotkeyButton Component (2024-12-19)
+
+Created a new `HotkeyButton` component that combines the existing `Button` component with hotkey functionality using the `useHotkey` hook. This component:
+
+- Provides visual feedback when hotkeys are pressed (scale animation)
+- Supports both click and hotkey interactions
+- Automatically handles hotkey event prevention and propagation
+- Includes proper TypeScript typing and accessibility features
+
+**Location**: `web/src/lib/components/elements/HotkeyButton.tsx`
+
+**Usage**:
+
+```typescript
+<HotkeyButton
+  variant="text"
+  size="small"
+  onClick={handleClick}
+  hotkey={(e) => e.key === 'ArrowLeft' && e.shiftKey}
+  hotkeyLabel="Previous (shift + left arrow)"
+>
+  ➢
+</HotkeyButton>
+```
+
+**Features**:
+
+- Animated button press feedback on hotkey activation
+- Configurable animation duration and style
+- Proper event handling and accessibility
+- Seamless integration with existing Button component API
+
+**Replaced**:
+
+- Removed `useHotkeyMap` usage from `App.tsx` and `Bub3.tsx`
+- Replaced regular `Button` components with `HotkeyButton` where hotkey functionality was needed
+- Added size control hotkeys to `Bub3` component (shift + +, shift + \_, =)
+
 ## Database Schema
 
 ### User Model (`server/src/db/models/User.ts`)

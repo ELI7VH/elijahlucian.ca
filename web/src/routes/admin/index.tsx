@@ -160,7 +160,7 @@ export const AdminDashboard = () => {
                           value.Key,
                         )
                         toast.toast('Object deleted', 'success')
-                      } catch (error) {
+                      } catch {
                         toast.toast('Failed to delete object', 'error')
                       }
                     }}

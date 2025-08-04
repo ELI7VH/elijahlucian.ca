@@ -8,7 +8,7 @@ type Props = {
   width?: string
 }
 
-export const HotInput = ({ value, onFinish, label, width }: Props) => {
+export const HotInput = ({ value, onFinish, width }: Props) => {
   const [inputValue, setInputValue] = useState(value)
 
   useEffect(() => {

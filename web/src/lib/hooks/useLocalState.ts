@@ -26,7 +26,7 @@ export const useLocalState = <T>(
     // console.log('useLocalState', key, value)
 
     localStorage.setItem(key, JSON.stringify(value ?? initialValue))
-    setState((prev) => {
+    setState(() => {
       return value
     })
     config?.onSet?.(value)
@@ -35,7 +35,7 @@ export const useLocalState = <T>(
   const rm = () => {
     // console.log('useLocalState', key, 'rm')
     localStorage.removeItem(key)
-    setState((prev) => {
+    setState(() => {
       return initialValue
     })
     config?.onRm?.()

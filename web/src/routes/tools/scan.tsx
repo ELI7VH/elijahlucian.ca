@@ -1,10 +1,10 @@
 import { Box, Grid } from '@/lib'
-import { useForm } from 'react-hook-form'
 
 export const Scan = () => {
-  const form = useForm()
-
-  // todo. let people scan their galaxies
+  // todo. a widget let people scan their galaxies
+  // uses camera api
+  // does some math
+  // returns a daily fortune unique to their galaxy
 
   return (
     <Grid height="100vh">

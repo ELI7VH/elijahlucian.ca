@@ -1,7 +1,6 @@
-import { Box, Button, Divider, Grid } from '@/lib'
+import { Box, Divider, Grid, HotkeyButton } from '@/lib'
 
 import { FlexCol, FlexRow, P } from '@/lib'
-import { useHotkeyMap } from '@/lib/hooks/api/useHotkeyMap'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { toRelative } from '@/lib/magic'
 import { Filter } from 'bad-words'
@@ -39,37 +38,11 @@ export const Bub3 = ({
   // like noise or smth. but maybe time / music based. (component)
   // as in the component is the generative ambience background component.
 
-  useHotkeyMap({
-    mappings: [
-      [
-        (e) => e.key === '+' && e.shiftKey,
-        () => {
-          if (size.state >= 3) return
-          size.set(size.state + 0.1)
-        },
-      ],
-      [
-        (e) => e.key === '_' && e.shiftKey,
-        () => {
-          if (size.state <= 0.5) return
-          size.set(size.state - 0.1)
-        },
-      ],
-      [
-        (e) => e.key === '=',
-        () => {
-          size.set(1)
-        },
-      ],
-    ],
-    deps: [size.state],
-  })
-
   return (
     <FlexRow
-      key={id}
+      // key={id}
       gap="0.5rem"
-      padding="1rem 1rem"
+      padding="1rem"
       alignItems="center"
       maxWidth="50vw"
       minWidth="50vw"
@@ -81,23 +54,32 @@ export const Bub3 = ({
       // transform={`scale(${size.state})`}
     >
       <FlexCol gap="1rem" width="100%">
-        <FlexRow>
-          {title && (
-            <P
-              color="var(--text-muted)"
-              textTransform="uppercase"
-              fontWeight="light"
-              background="#000"
-              padding="0.25rem 0.5rem"
-            >
-              {title}
-            </P>
-          )}
+        <FlexRow gap="1rem" justifyContent="space-between">
+          <P
+            key={`bub3-title-${id}`}
+            color="var(--text-muted)"
+            textTransform="uppercase"
+            fontWeight="light"
+            background="#000"
+            padding="0.25rem 0.5rem"
+          >
+            {title || '🂧'}
+          </P>
+          <HotkeyButton
+            variant={pinned ? 'highlighted' : 'text'}
+            size="small"
+            onClick={onPin}
+            hotkey={(e) => e.key === '|' && e.shiftKey}
+            hotkeyLabel="Pin (shift + |)"
+          >
+            {pinned ? '⩘' : '⩗'}
+          </HotkeyButton>
         </FlexRow>
         <Divider />
         <FlexRow gap="1rem" textShadow="1px 1px 1px var(--text-dark-muted)">
           <Box>
             <pre
+              key={`bub3-text-${id}`}
               style={{
                 whiteSpace: 'pre-wrap',
               }}
@@ -108,14 +90,51 @@ export const Bub3 = ({
         </FlexRow>
         <Divider />
         <Grid gridTemplateColumns="1fr 1fr 1fr" gap="0.25rem">
-          <FlexRow></FlexRow>
-          <FlexRow gap="0.25rem" justifyContent="center">
-            {/* todo: controls component */}
-            <Button
-              variant="text"
+          <FlexRow gap="0.25rem" justifyContent="flex-start">
+            {/* Size controls */}
+            <HotkeyButton
               size="small"
+              onClick={() => {
+                if (size.state <= 0.5) return
+                size.set(size.state - 0.1)
+              }}
+              disabled={size.state <= 0.5}
+              hotkey={(e) => e.key === '_' && e.shiftKey}
+              hotkeyLabel="Decrease size (shift + _)"
+            >
+              -
+            </HotkeyButton>
+            <HotkeyButton
+              size="small"
+              onClick={() => size.set(1)}
+              hotkey={(e) => e.key === '='}
+              hotkeyLabel="Reset size (=)"
+            >
+              =
+            </HotkeyButton>
+            <HotkeyButton
+              size="small"
+              onClick={() => {
+                if (size.state >= 3) return
+                size.set(size.state + 0.1)
+              }}
+              disabled={size.state >= 3}
+              hotkey={(e) => e.key === '+' && e.shiftKey}
+              hotkeyLabel="Increase size (shift + +)"
+            >
+              +
+            </HotkeyButton>
+          </FlexRow>
+          <FlexRow gap="0.25rem" justifyContent="center">
+            {/* Navigation controls */}
+            <HotkeyButton
+              size="small"
+              id="bub3-prev"
+              key="bub3-prev"
               onClick={onPrev}
               disabled={!onPrev}
+              hotkey={(e) => e.key === 'ArrowLeft' && e.shiftKey}
+              hotkeyLabel="Previous (shift + left arrow)"
             >
               <span
                 style={{
@@ -125,19 +144,15 @@ export const Bub3 = ({
               >
                 ➢
               </span>
-            </Button>
-            <Button
-              variant={pinned ? 'highlighted' : 'text'}
+            </HotkeyButton>
+            <HotkeyButton
               size="small"
-              onClick={onPin}
-            >
-              {pinned ? '⩘' : '⩗'}
-            </Button>
-            <Button
-              variant="text"
-              size="small"
+              id="bub3-next"
+              key="bub3-next"
               onClick={onNext}
               disabled={!onNext}
+              hotkey={(e) => e.key === 'ArrowRight' && e.shiftKey}
+              hotkeyLabel="Next (shift + right arrow)"
             >
               <span
                 style={{
@@ -146,7 +161,7 @@ export const Bub3 = ({
               >
                 ➢
               </span>
-            </Button>
+            </HotkeyButton>
           </FlexRow>
           <FlexRow justifyContent="flex-end">
             <P color="var(--text-dark-muted)" fontSize="0.75rem">

@@ -1,6 +1,6 @@
 import { InlineDivStyle } from '@/lib/types'
 import { Grid } from '../layout/Grid'
-import { FlexCol, FlexRow } from '../layout/Flex'
+import { FlexCol } from '../layout/Flex'
 
 type Props<T> = Omit<InlineDivStyle, 'columns'> & {
   data?: T[]
@@ -28,7 +28,6 @@ export function Table<T extends TableRecord>({
   header,
   editing,
   footer,
-  rowExtra,
   ...style
 }: Props<T>) {
   return (
