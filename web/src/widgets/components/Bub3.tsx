@@ -39,18 +39,26 @@ export const Bub3 = ({
 
   useHotkeyMap({
     mappings: [
-      {
-        keycheck: (e) => e.key === '+' && e.shiftKey,
-        callback: () => {
+      [
+        (e) => e.key === '+' && e.shiftKey,
+        () => {
+          if (size.state >= 3) return
           size.set(size.state + 0.1)
         },
-      },
-      {
-        keycheck: (e) => e.key === '_' && e.shiftKey,
-        callback: () => {
+      ],
+      [
+        (e) => e.key === '_' && e.shiftKey,
+        () => {
+          if (size.state <= 0.5) return
           size.set(size.state - 0.1)
         },
-      },
+      ],
+      [
+        (e) => e.key === '=',
+        () => {
+          size.set(1)
+        },
+      ],
     ],
     deps: [size.state],
   })
@@ -64,7 +72,6 @@ export const Bub3 = ({
       maxWidth="50vw"
       fontSize={`${size.state}rem`}
       textWrap="pretty"
-      // lineBreak="anywhere"
       justifyContent="space-between"
       background={highlight ? 'rgba(255,255,255,0.1)' : 'var(--brand-1)'}
       boxShadow="0.5rem 0.5rem 0 0 rgba(0, 0, 0, 0.9)"
@@ -84,7 +91,13 @@ export const Bub3 = ({
             </P>
           )}
           <Box>
-            <pre style={{ whiteSpace: 'pre-wrap' }}>{filter.clean(text)}</pre>
+            <pre
+              style={{
+                whiteSpace: 'pre-wrap',
+              }}
+            >
+              {filter.clean(text)}
+            </pre>
           </Box>
         </FlexRow>
         <FlexRow gap="0.25rem" justifyContent="flex-end">

@@ -19,6 +19,7 @@ import { Bub3 } from './widgets/components/Bub3'
 import { useThoughts } from './lib/hooks/api/useThoughts'
 import { useLocalState } from './lib/hooks/useLocalState'
 import { useToast } from './lib/hooks/useToast'
+import { useHotkeyMap } from './lib/hooks/api/useHotkeyMap'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
@@ -43,6 +44,20 @@ export const App = () => {
   const thought = thoughtId
     ? thoughts.data?.find((thought) => thought.id == thoughtId)
     : thoughts.data?.[index.state]
+
+  useHotkeyMap({
+    mappings: [
+      [
+        (e) => e.key === 'ArrowRight' && e.shiftKey,
+        () => index.set(index.state + 1),
+      ],
+      [
+        (e) => e.key === 'ArrowLeft' && e.shiftKey,
+        () => index.set(index.state - 1),
+      ],
+    ],
+    deps: [index.state],
+  })
 
   return (
     <Grid

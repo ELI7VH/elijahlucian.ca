@@ -28,8 +28,6 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
   useEffect(() => {
     if (!ref.current) return
 
-    ref.current.focus()
-
     const handleDataTransferItems = (items: DataTransferItemList) => {
       for (const item of items) {
         // interesting...
@@ -65,6 +63,7 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
 
     // listen for ctrl v
     const handlePaste = (e: ClipboardEvent) => {
+      if (!ref.current?.contains(document.activeElement)) return
       e.preventDefault()
 
       // console.log('clipboardData:', e.clipboardData)
