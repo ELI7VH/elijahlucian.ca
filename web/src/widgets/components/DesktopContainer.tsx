@@ -10,14 +10,14 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
   const collapsed = useLocalState('desktop-collapsed', true)
   // const autoplay = useLocalState('autoplay', true)
 
-  useHotkey(
-    (e) => e.key === 'd' && (e.ctrlKey || e.metaKey),
-    collapsed.toggle,
-    [collapsed.state],
-    () => {
+  useHotkey({
+    keycheck: (e) => e.key === 'd' && (e.ctrlKey || e.metaKey),
+    callback: collapsed.toggle,
+    deps: [collapsed.state],
+    onEscape: () => {
       collapsed.set(true)
     },
-  )
+  })
 
   // GRID VIEW
   // MAP THINGS TO DIFFERENT AREAS... DUH

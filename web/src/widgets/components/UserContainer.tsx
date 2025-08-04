@@ -6,14 +6,14 @@ import { useHotkey } from '@/lib/hooks/api/useHotkey'
 
 export const UserContainer = () => {
   const collapsed = useLocalState('user-container-collapsed', true)
-  useHotkey(
-    (e) => e.key === 'u' && (e.ctrlKey || e.metaKey),
-    () => collapsed.toggle(),
-    [collapsed.state],
-    () => {
+  useHotkey({
+    keycheck: (e) => e.key === 'u' && (e.ctrlKey || e.metaKey),
+    callback: collapsed.toggle,
+    deps: [collapsed.state],
+    onEscape: () => {
       collapsed.set(true)
     },
-  )
+  })
 
   return (
     <Grid

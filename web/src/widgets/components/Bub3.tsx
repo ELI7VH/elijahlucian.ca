@@ -1,6 +1,9 @@
 import { Box, Button } from '@/lib'
 
 import { FlexCol, FlexRow, P } from '@/lib'
+import { useHotkey } from '@/lib/hooks/api/useHotkey'
+import { useHotkeyMap } from '@/lib/hooks/api/useHotkeyMap'
+import { useLocalState } from '@/lib/hooks/useLocalState'
 import { toRelative } from '@/lib/magic'
 import { Filter } from 'bad-words'
 
@@ -26,6 +29,7 @@ export const Bub3 = ({
   highlight,
 }: Props) => {
   const filter = new Filter({ placeHolder: 'x' })
+  const size = useLocalState('bub3-size', 1)
 
   // todo: scale to new size.
   // todo: replace swears with the cool dos shit
@@ -34,19 +38,38 @@ export const Bub3 = ({
   // like noise or smth. but maybe time / music based. (component)
   // as in the component is the generative ambience background component.
 
+  useHotkeyMap({
+    mappings: [
+      {
+        keycheck: (e) => e.key === '+' && e.shiftKey,
+        callback: () => {
+          size.set(size.state + 0.1)
+        },
+      },
+      {
+        keycheck: (e) => e.key === '_' && e.shiftKey,
+        callback: () => {
+          size.set(size.state - 0.1)
+        },
+      },
+    ],
+    deps: [size.state],
+  })
+
   return (
     <FlexRow
       key={id}
       gap="0.5rem"
       padding="1rem 1rem"
       alignItems="center"
-      maxWidth="400px"
-      fontSize="0.8rem"
+      maxWidth="50vw"
+      fontSize={`${size.state}rem`}
       textWrap="pretty"
-      lineBreak="anywhere"
+      // lineBreak="anywhere"
       justifyContent="space-between"
       background={highlight ? 'rgba(255,255,255,0.1)' : 'var(--brand-1)'}
       boxShadow="0.5rem 0.5rem 0 0 rgba(0, 0, 0, 0.9)"
+      // transform={`scale(${size.state})`}
     >
       <FlexCol gap="0.25rem">
         <FlexRow gap="1rem" textShadow="1px 1px 1px var(--text-dark-muted)">

@@ -10,14 +10,14 @@ export const PinContainer = () => {
   const selectedId = useLocalState('pin-container-selected-id', '')
   const pin = pinned.data?.find((pin) => pin.id === selectedId.state)
 
-  useHotkey(
-    (e) => e.key === 'p' && (e.ctrlKey || e.metaKey),
-    expanded.toggle,
-    [expanded.state],
-    () => {
+  useHotkey({
+    keycheck: (e) => e.key === 'p' && (e.ctrlKey || e.metaKey),
+    callback: expanded.toggle,
+    deps: [expanded.state],
+    onEscape: () => {
       expanded.set(false)
     },
-  )
+  })
 
   return (
     <FlexCol

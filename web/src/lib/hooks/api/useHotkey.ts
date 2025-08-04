@@ -1,11 +1,16 @@
 import { useEffect } from 'react'
 
-export const useHotkey = (
-  keycheck: (e: KeyboardEvent) => boolean,
-  callback: () => void,
-  deps: any[] = [],
-  onEscape?: () => void,
-) => {
+type Props = {
+  keycheck: (e: KeyboardEvent) => boolean
+  callback: () => void
+  deps: any[]
+  onEscape?: () => void
+}
+
+/**
+ * A single hotkey can be mapped to a single callback.
+ */
+export const useHotkey = ({ keycheck, callback, deps, onEscape }: Props) => {
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (keycheck(e)) {
