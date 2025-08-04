@@ -22,7 +22,7 @@ import { useToast } from './lib/hooks/useToast'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
-  const thoughts = useThoughts()
+  const thoughts = useThoughts({ params: { sort: { createdAt: 1 } } })
   const user = useUserContext()
   const sp = useSearchParams()
   const [hideSite, setHideSite] = useState(false)

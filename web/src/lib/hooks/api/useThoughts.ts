@@ -1,4 +1,4 @@
-import { useBaseQuery } from './useBaseQuery'
+import { BaseQueryProps, useBaseQuery } from './useBaseQuery'
 import { useBaseRecord } from './useBaseRecord'
 
 type Thought = {
@@ -10,15 +10,11 @@ type Thought = {
   items: string[]
 }
 
-export const useThoughts = () => {
+export const useThoughts = (props?: Partial<BaseQueryProps<Thought>>) => {
   return useBaseQuery<Thought>({
     path: '/thoughts',
     queryKey: ['thoughts'],
-    params: {
-      sort: {
-        createdAt: 1,
-      },
-    },
+    params: props?.params,
   })
 }
 
