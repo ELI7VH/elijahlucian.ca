@@ -4,6 +4,7 @@ import { FlexCol, FlexRow, P } from '@/lib'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { toRelative } from '@/lib/magic'
 import { Filter } from 'bad-words'
+import { useEffect, useState } from 'react'
 
 type Props = {
   id: string
@@ -13,9 +14,9 @@ type Props = {
   onPin?: () => void
   onPrev?: () => void
   onNext?: () => void
-  fullScreen?: boolean
   pinned?: boolean
   highlight?: boolean
+  onStart?: () => void
 }
 
 export const Bub3 = ({
@@ -28,10 +29,11 @@ export const Bub3 = ({
   onNext,
   pinned,
   highlight,
-  fullScreen,
+  onStart,
 }: Props) => {
   const filter = new Filter({ placeHolder: 'x' })
   const size = useLocalState('bub3-size', 1)
+  const [started, setStarted] = useState(false)
 
   // todo: scale to new size.
   // todo: replace swears with the cool dos shit
@@ -40,14 +42,21 @@ export const Bub3 = ({
   // like noise or smth. but maybe time / music based. (component)
   // as in the component is the generative ambience background component.
 
+  useEffect(() => {
+    onStart?.()
+    setStarted(true)
+  }, [])
+
   return (
     <FlexRow
       // key={id}
+      opacity={started ? 1 : 0}
+      transition="all 0.5s ease-in"
       gap="0.5rem"
       padding="1rem"
       alignItems="center"
-      maxWidth="80vw"
-      minWidth={fullScreen ? '80vw' : '50vw'}
+      maxWidth="100%"
+      minWidth="600px"
       fontSize={`${size.state}rem`}
       textWrap="pretty"
       justifyContent="space-between"

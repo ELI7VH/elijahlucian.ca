@@ -13,6 +13,7 @@ import { useUserContext } from '@/lib'
 import { Filez } from '@/widgets/Filez'
 import { Scan } from './tools/scan'
 import { UserContainer } from '@/widgets/components/UserContainer'
+import { Layerz } from '@/widgets/components/Layerz'
 
 export const RootRouter = () => {
   const user = useUserContext()
@@ -32,19 +33,20 @@ export const RootRouter = () => {
         <Route path="/tools/scan" element={<Scan />} />
         <Route path="/*" element={<App />} />
       </Routes>
-
-      <UserContainer />
-      <PinContainer />
-      <DesktopContainer>
-        <Radio />
-        <PlaylistWidget />
-        <SongInfo />
-        <ThoughtAggregatorModule />
-        {/* <IdeaRepository />  */}
-        <DankVision />
-        {/* <PublicationManager />  */}
-        <Filez />
-      </DesktopContainer>
+      <Layerz>
+        <UserContainer />
+        <PinContainer />
+        <DesktopContainer>
+          <Radio />
+          <PlaylistWidget />
+          <SongInfo />
+          <ThoughtAggregatorModule />
+          {/* <IdeaRepository />  */}
+          <DankVision />
+          {/* <PublicationManager />  */}
+          <Filez />
+        </DesktopContainer>
+      </Layerz>
     </>
   )
 }

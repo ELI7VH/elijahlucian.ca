@@ -20,6 +20,7 @@ import { Bub3 } from './widgets/components/Bub3'
 import { useThoughts } from './lib/hooks/api/useThoughts'
 import { useLocalState } from './lib/hooks/useLocalState'
 import { useToast } from './lib/hooks/useToast'
+import { useBangerz } from './lib/hooks/useBangerz'
 
 export const App = () => {
   const [started, setStarted] = useState(false)
@@ -27,6 +28,7 @@ export const App = () => {
   const user = useUserContext()
   const [hideSite, setHideSite] = useState(false)
   const hiddenThoughts = useLocalState('hidden-thoughts', false)
+  const bangerz = useBangerz()
 
   const index = useLocalState('thoughts-index', 0)
   const { toast } = useToast()
@@ -48,17 +50,19 @@ export const App = () => {
       overflowY="auto"
       gridTemplateRows="auto  1fr auto"
     >
-      <FlexRow justifyContent="center" padding="1rem" gap="1rem">
+      <FlexRow justifyContent="center" padding="2rem" gap="1rem">
         <Clock />
       </FlexRow>
       <Page>
         <FlexCol justifyContent="center" alignItems="center" gap="1rem">
-          <Box opacity={started ? 1 : 0} transition="all 0.5s ease-in">
+          <Box key={`app-bub3-${thought?.id}-${index.state}`}>
             <Box position="relative" top="-2rem">
               {thought && (
                 <Bub3
-                  fullScreen={hideSite}
-                  id={`app-bub3-${thought?.id}`}
+                  onStart={() => {
+                    bangerz.play()
+                  }}
+                  id={`app-bub3-${thought?.id}-${index.state}`}
                   title={thought?.title ?? ''}
                   text={thought?.text ?? ''}
                   pinned={user?.user?.pinned?.includes(`${thought?.id}`)}
@@ -180,7 +184,7 @@ export const App = () => {
           )}
         </FlexCol>
       </Page>
-      <FlexRow justifyContent="end" padding="1rem" opacity={0.3} gap="1rem">
+      <FlexRow justifyContent="end" padding="2rem" opacity={0.3} gap="1rem">
         <Flex>
           <Link to="https://nextgenart.elijahlucian.ca">▻ pretty things</Link>
         </Flex>

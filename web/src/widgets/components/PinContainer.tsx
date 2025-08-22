@@ -33,15 +33,19 @@ export const PinContainer = () => {
       pointerEvents={expanded.state ? 'auto' : 'none'}
       background={expanded.state ? 'var(--trans-black-1)' : 'transparent'}
       transition="all 0.3s ease-in-out"
+      borderColor="var(--brand-2)"
+      borderRadius="1rem"
+      borderStyle="dashed"
+      borderWidth={expanded.state ? '2px' : '0px'}
       gap="1rem"
     >
       <WidgetBadge
         left="0"
         bottom="2rem"
         top="auto"
-        backgroundColor="var(--brand-6)"
+        backgroundColor="var(--brand-2)"
         textStyle={{
-          color: expanded.state ? 'white' : 'var(--brand-6)',
+          color: expanded.state ? 'white' : 'var(--brand-2)',
         }}
         name={expanded.state ? 'Pins' : 'P'}
         onClick={() => {
@@ -53,7 +57,7 @@ export const PinContainer = () => {
           <Box
             key={pin.id}
             opacity={expanded.state ? 1 : 0}
-            border="1px solid var(--brand-1)"
+            border="1px solid var(--brand-2)"
             background="#000"
             borderRadius="0.5rem"
             padding="0.5rem"
@@ -72,7 +76,7 @@ export const PinContainer = () => {
       {pin && (
         <Box
           background="#000"
-          border="1px solid var(--brand-1)"
+          border="1px solid var(--brand-2)"
           borderRadius="0.5rem"
           padding="0.5rem"
           maxWidth="500px"
