@@ -11,6 +11,15 @@ export const dankStylez = (props: InlineDivStyle) => {
   }
 }
 
+export const toAudioDuration = (seconds: number) => {
+  const mm = Math.floor(seconds / 60)
+  const ss = Math.floor(seconds % 60)
+    .toString()
+    .padStart(2, '0')
+
+  return `${mm}:${ss}`
+}
+
 export const now = () => new Date()
 
 export const toFormat = (date: Date | string) =>

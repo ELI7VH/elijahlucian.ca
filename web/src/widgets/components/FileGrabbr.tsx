@@ -1,31 +1,45 @@
 import { Box, Button, FlexRow, Grid, HotInput, P, useToast } from '@/lib'
+import { AudioPlayr } from '@/lib/components/widgets/AudioPlayr'
+import { useBool } from '@/lib/hooks/useBool'
 import { toMaxDenom } from '@/lib/magic'
 import { useEffect, useRef, useState } from 'react'
 
 type Props = {
-  onFiles?: (files: File[]) => void
   onClear?: () => void
   onSubmit?: (files: File[]) => Promise<boolean[] | any>
+  children?: React.ReactNode
 }
 
-export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
+type Preview = {
+  file: File
+  src: string
+}
+
+export const FileGrabbr = ({ onClear, onSubmit, children }: Props) => {
   // file drag and drop
   // or
   // ctrl v
   // detects text or image or video or audio or link
   // selects upload component, navigates to it, inserting payload into the component -> handles rest
 
-  const [files, setFiles] = useState<File[]>([])
+  const [previews, setPreviews] = useState<Preview[]>([])
   const ref = useRef<HTMLDivElement | null>(null)
   const toast = useToast()
+  const hovering = useBool()
+  const focused = useBool()
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
 
     const files = e.dataTransfer.files
     const filesArray = Array.from(files)
-    setFiles(filesArray)
-    onFiles?.(filesArray)
+
+    const previews = filesArray.map((file) => ({
+      file,
+      src: URL.createObjectURL(file),
+    }))
+
+    setPreviews(previews)
   }
 
   useEffect(() => {
@@ -33,23 +47,12 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
 
     const handleDataTransferItems = (items: DataTransferItemList) => {
       for (const item of items) {
-        // interesting...
-        // console.log('dataTransfer item:', item)
-
         if (item.kind === 'file') {
           const file = item.getAsFile()
-          // console.log('dataTransfer file:', file)
-
-          // why would this be null? .. stupid
           if (!file) continue
 
-          // if (files.find((f) => f.name === file.name)) {
-          //   toast.toast('File already exists', 'warning')
-          //   return
-          // }
-
-          setFiles((prev) => {
-            return [...prev, file]
+          setPreviews((prev) => {
+            return [...prev, { file, src: URL.createObjectURL(file) }]
           })
         }
         if (item.kind === 'string') {
@@ -58,21 +61,9 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
       }
     }
 
-    // const handleFiles = (files: FileList) => {
-    //   for (const file of files) {
-    //     console.log('files file:', file)
-    //   }
-    // }
-
     // listen for ctrl v
     const handlePaste = (e: ClipboardEvent) => {
-      if (!ref.current?.contains(document.activeElement)) return
       e.preventDefault()
-
-      // console.log('clipboardData:', e.clipboardData)
-
-      // const files = e.clipboardData?.files
-      // if (files?.length) handleFiles(files)
 
       const items = e.clipboardData?.items
       if (items?.length) handleDataTransferItems(items)
@@ -85,37 +76,49 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
     }
   }, [])
 
-  // todo. animated response tothe control v
+  // todo: animated response to the control v
   // hover to show preview
   // or maybe click -> modal.
 
   return (
     <div
+      tabIndex={42}
       autoFocus
+      onClick={focused.tt}
+      onFocus={focused.tt}
+      onBlur={focused.ff}
       ref={ref}
       style={{
-        border: '1px solid var(--border-color)',
+        border: focused.state
+          ? '1px solid white'
+          : '1px solid var(--trans-black-2)',
         borderRadius: '1rem',
-        width: '100%',
+        backgroundColor: hovering.state
+          ? 'var(--trans-black-2)'
+          : 'var(--trans-black)',
       }}
+      onMouseEnter={hovering.tt}
+      onMouseLeave={hovering.ff}
       onDrop={handleDrop}
     >
-      <Grid gap="1rem">
-        {files.length > 0 ? (
-          <FlexRow justifyContent="space-between">
-            <FlexRow gap="0.5rem" alignItems="center">
+      <Grid gap="1rem" padding="1rem" width="100%">
+        {previews.length > 0 ? (
+          <FlexRow justifyContent="space-between" width="100%">
+            <FlexRow gap="0.5rem" alignItems="center" width="100%">
               <P>
-                {files.length} {files.length === 1 ? 'file' : 'files'}
+                {previews.length} {previews.length === 1 ? 'file' : 'files'}
               </P>
               <P>-</P>
               <P>
                 Total Size:{' '}
-                {toMaxDenom(files.reduce((acc, file) => acc + file.size, 0))}
+                {toMaxDenom(
+                  previews.reduce((acc, file) => acc + file.file.size, 0),
+                )}
               </P>
               <Button
                 size="small"
                 onClick={() => {
-                  setFiles([])
+                  setPreviews([])
                   onClear?.()
                   toast.toast('Files cleared', 'success')
                 }}
@@ -126,21 +129,23 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
             <Button
               variant="contained"
               onClick={async () => {
-                toast.toast(`${files.length} files submitting...`)
-                const results = await onSubmit?.(files)
-                setFiles((prev) => prev.filter((f, i) => !results?.[i]))
+                toast.toast(`${previews.length} files submitting...`)
+                const results = await onSubmit?.(previews.map((p) => p.file))
+                setPreviews((prev) => prev.filter((f, i) => !results?.[i]))
               }}
             >
               ✓
             </Button>
           </FlexRow>
-        ) : (
+        ) : focused.state ? (
           <P>Ctrl V that shit</P>
+        ) : (
+          <P>Click this shit</P>
         )}
         <FlexRow gap="1rem" flexWrap="wrap" alignItems="start">
-          {files.map((file, i) => (
+          {previews.map((preview, i) => (
             <Grid
-              key={`file-${i}`}
+              key={preview.file.name}
               gap="1rem"
               border="1px solid"
               borderColor="border-color"
@@ -153,33 +158,38 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
                 justifyContent="space-between"
               >
                 <HotInput
-                  width={`${file.name.length + 1}ch`}
-                  value={file.name}
+                  // width={`${preview.file.name.length + 1}ch`}
+                  value={preview.file.name}
                   onFinish={(v) => {
-                    setFiles((prev) => {
+                    setPreviews((prev) => {
                       const newFiles = [...prev]
-                      newFiles[i] = new File([file], v, { type: file.type })
+                      newFiles[i] = {
+                        file: new File([preview.file], v, {
+                          type: preview.file.type,
+                        }),
+                        src: preview.src,
+                      }
                       return newFiles
                     })
                   }}
                 />
                 <Button
                   onClick={() =>
-                    setFiles((prev) => prev.filter((f, fi) => fi !== i))
+                    setPreviews((prev) => prev.filter((f, fi) => fi !== i))
                   }
                 >
                   <P>X</P>
                 </Button>
               </FlexRow>
               <FlexRow gap="0.5rem">
-                <P>{toMaxDenom(file.size)}</P>
-                <P>{file.type}</P>
+                <P>{toMaxDenom(preview.file.size)}</P>
+                <P>{preview.file.type}</P>
               </FlexRow>
-              {file.type.includes('image') && (
+              {preview.file.type.includes('image') && (
                 <Thumbnail>
                   <img
-                    src={URL.createObjectURL(file)}
-                    alt={file.name}
+                    src={preview.src}
+                    alt={preview.file.name}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -188,7 +198,7 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
                   />
                 </Thumbnail>
               )}
-              {file.type.includes('video') && (
+              {preview.file.type.includes('video') && (
                 <Thumbnail>
                   <video
                     style={{
@@ -196,7 +206,7 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
                       height: '100%',
                       objectFit: 'cover',
                     }}
-                    src={URL.createObjectURL(file)}
+                    src={preview.src}
                     autoPlay
                     muted
                     loop
@@ -204,32 +214,33 @@ export const FileGrabbr = ({ onFiles, onClear, onSubmit }: Props) => {
                   />
                 </Thumbnail>
               )}
-              {file.type.includes('audio') && (
+              {preview.file.type.includes('audio') && (
                 <Thumbnail>
-                  <audio src={URL.createObjectURL(file)} controls />
+                  <AudioPlayr key={preview.file.name} src={preview.src} />
                 </Thumbnail>
               )}
-              {file.type.includes('text') && (
+              {preview.file.type.includes('text') && (
                 <Thumbnail>
-                  <P>{file.name}</P>
+                  <P>{preview.file.name}</P>
                 </Thumbnail>
               )}
-              {file.type.includes('application') && (
+              {preview.file.type.includes('application') && (
                 <Thumbnail>
-                  <P>{file.name}</P>
+                  <P>{preview.file.name}</P>
                 </Thumbnail>
               )}
             </Grid>
           ))}
         </FlexRow>
       </Grid>
+      {children}
     </div>
   )
 }
 
 const Thumbnail = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Box width="200px" height="200px">
+    <Box maxWidth="200px" maxHeight="200px" width="100%" height="100%">
       {children}
     </Box>
   )

@@ -85,14 +85,12 @@ export const Filez = () => {
         onClick={() => collapsed.toggle()}
       />
       <WidgetBody collapsed={collapsed.state} background="background-image-2">
-        <Box>
-          <P>Filez ({uploads.data?.length})</P>
-        </Box>
-        <FileGrabbr onSubmit={handleUpload} />
+        <FileGrabbr onSubmit={handleUpload}></FileGrabbr>
         <Divider />
         <Table
           header={
             <FlexRow justifyContent="space-between" padding="0.25rem">
+              <P>Filez ({uploads.data?.length})</P>
               <Button
                 size="small"
                 onClick={() => page.set(page.state - 1)}

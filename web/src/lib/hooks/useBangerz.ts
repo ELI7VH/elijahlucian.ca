@@ -27,7 +27,7 @@ export const useBangerz = () => {
         }),
       )
 
-      console.log('sounds', arrayBuffers)
+      // console.log('sounds', arrayBuffers)
 
       banger.current = new MultiBanger({
         arrayBuffers,
@@ -36,7 +36,7 @@ export const useBangerz = () => {
           console.error('error', error)
         },
         onLoaded: () => {
-          console.log('loaded')
+          // console.log('loaded')
         },
       })
     }
@@ -45,7 +45,7 @@ export const useBangerz = () => {
   }, [])
 
   const play = useCallback(() => {
-    console.log('playing')
+    // console.log('playing')
     banger.current?.play()
   }, [banger.current])
 
