@@ -56,7 +56,6 @@ export const Bub3 = ({
       padding="1rem"
       alignItems="center"
       maxWidth="100%"
-      minWidth="500px"
       fontSize={`${size.state}rem`}
       textWrap="pretty"
       justifyContent="space-between"
