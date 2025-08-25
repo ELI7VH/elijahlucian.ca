@@ -1,10 +1,10 @@
-import { Flex, FlexRow } from '@/lib/components/layout/Flex'
+import { FlexRow } from '@/lib/components/layout/Flex'
 import { WidgetContainer } from './components/WidgetContainer'
 import { WidgetBadge } from './components/WidgetBadge'
 import { WidgetBody } from './components/WidgetBody'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { keyBy } from 'lodash'
-import { P, Button, Divider, Checkbox, Grid, Box } from '@/lib'
+import { P, Button, Divider, Grid } from '@/lib'
 
 const useDankvisionChannels = () => {
   const data = [
@@ -194,17 +194,6 @@ export const DankVision = () => {
             </span>
           </Button>
         </FlexRow>
-        {/* <Divider /> */}
-        {/* <FlexRow justifyContent="space-between">
-          <Flex alignItems="center" gap="0.5rem">
-            <Checkbox
-              id="autoplay"
-              checked={autoplay.state}
-              onChange={() => autoplay.toggle()}
-            />
-            <label htmlFor="autoplay">Autoplay</label>
-          </Flex>
-        </FlexRow> */}
       </WidgetBody>
     </WidgetContainer>
   )
