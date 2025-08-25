@@ -15,8 +15,8 @@ services:
 
   server:
     build: ./server
-    ports:
-      - ${API_PORT}:${API_PORT}
+    # ports:
+    #   - ${API_PORT}:${API_PORT}
     env_file:
       - .env
       - ./server/.env

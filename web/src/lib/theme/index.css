@@ -238,6 +238,14 @@ input[type='checkbox'] {
   }
 }
 
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
 
 textarea {
   background-color: var(--gray-0);
