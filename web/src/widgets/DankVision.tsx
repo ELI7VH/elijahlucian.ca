@@ -132,7 +132,7 @@ export const DankVision = () => {
               loading...
               {/* <P>todo: tv static. random things. </P> */}
             </Grid>
-            {show && (
+            {!collapsed.state && show && (
               <iframe
                 key={show.src}
                 style={{
