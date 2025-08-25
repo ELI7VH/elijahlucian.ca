@@ -14,6 +14,7 @@ import { Filez } from '@/widgets/Filez'
 import { Scan } from './tools/scan'
 import { UserContainer } from '@/widgets/components/UserContainer'
 import { Layerz } from '@/widgets/components/Layerz'
+import { GameContainer } from '@/widgets/components/GameContainer'
 
 export const RootRouter = () => {
   const user = useUserContext()
@@ -34,6 +35,7 @@ export const RootRouter = () => {
         <Route path="/*" element={<App />} />
       </Routes>
       <Layerz>
+        <GameContainer />
         <UserContainer />
         <PinContainer />
         <DesktopContainer>
