@@ -17,5 +17,12 @@ export const useSearchParams = () => {
     })
   }
 
-  return { get, set }
+  const rm = (key: string) => {
+    setSearchParams((prev) => {
+      prev.delete(key)
+      return prev
+    })
+  }
+
+  return { get, set, rm }
 }

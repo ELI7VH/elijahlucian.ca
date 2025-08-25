@@ -126,31 +126,46 @@ export const ThoughtAggregatorModule = () => {
           <Divider />
           {thoughtId ? <ThoughtEdit /> : <ThoughtCreate title={title} />}
           <Divider />
-          <Flex gap="0.5rem" flexWrap="wrap">
-            {uniq(thoughts.data?.map((thought) => thought.title))
-              .filter(Boolean)
-              .map((title, i) => (
-                <Box
-                  background="var(--trans-black-2)"
-                  padding="0.25rem 0.5rem"
-                  cursor="pointer"
-                  onClick={() => {
-                    sp.set('thought-title', title)
-                    setI(0)
-                  }}
-                  key={`${title}-${i}`}
-                >
-                  <div
-                    style={{
-                      fontSize: '0.75rem',
-                      fontFamily: 'var(--font-mono)',
+          <Flex gap="0.5rem" flexWrap="wrap" justifyContent="space-between">
+            <Flex>
+              {uniq(thoughts.data?.map((thought) => thought.title))
+                .filter(Boolean)
+                .map((title, i) => (
+                  <Box
+                    background="var(--trans-black-2)"
+                    _hover={{
+                      background: 'var(--trans-black-1)',
                     }}
-                    title={title}
+                    padding="0.25rem 0.5rem"
+                    cursor="pointer"
+                    onClick={() => {
+                      sp.set('thought-title', title)
+                      setI(0)
+                    }}
+                    key={`${title}-${i}`}
                   >
-                    {title.slice(0, 1)}
-                  </div>
-                </Box>
-              ))}
+                    <div
+                      style={{
+                        fontSize: '0.75rem',
+                        fontFamily: 'var(--font-mono)',
+                      }}
+                      title={title}
+                    >
+                      {title.slice(0, 1)}
+                    </div>
+                  </Box>
+                ))}
+            </Flex>
+            <Button
+              variant="text"
+              size="small"
+              onClick={() => {
+                sp.rm('thought-title')
+                setI(0)
+              }}
+            >
+              clear
+            </Button>
           </Flex>
         </FlexCol>
       </WidgetBody>
