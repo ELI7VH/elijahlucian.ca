@@ -5,6 +5,7 @@ import { WidgetBadge } from './WidgetBadge'
 import { useHotkey } from '@/lib/hooks/api/useHotkey'
 import { useEffect, useRef } from 'react'
 import { mapXY } from '@dank-inc/lewps'
+import { SuperMouse } from '@dank-inc/super-mouse'
 
 export const GameContainer = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -33,6 +34,10 @@ export const GameContainer = () => {
       }
     })
 
+    const mouse = new SuperMouse({
+      element: canvasRef.current,
+    })
+
     const update = () => {
       if (!canvasRef.current) return
       const ctx = canvasRef.current.getContext('2d')
@@ -52,7 +57,12 @@ export const GameContainer = () => {
         pixel.h += Math.random() * 5
 
         ctx.fillStyle = `hsla(${pixel.h}, ${pixel.s}%, ${pixel.l}%, 1)`
-        ctx.fillRect(pixel.x * width, pixel.y * height, 8, 8)
+        ctx.fillRect(pixel.x * width - 4, pixel.y * height - 4, 8, 8)
+      }
+
+      if (mouse.onElement) {
+        ctx.fillStyle = `hsla(${mouse.scrollY}, 50%, 50%, 1)`
+        ctx.fillRect(mouse.u * width - 8, mouse.v * height - 8, 16, 16)
       }
 
       requestAnimationFrame(update)
