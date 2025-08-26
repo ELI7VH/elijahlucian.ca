@@ -3,8 +3,11 @@ import { Grid } from '@/lib'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBadge } from './WidgetBadge'
 import { useHotkey } from '@/lib/hooks/api/useHotkey'
+import { useEffect, useRef } from 'react'
+import { mapXY } from '@dank-inc/lewps'
 
 export const GameContainer = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const collapsed = useLocalState('game-container-collapsed', true)
   useHotkey({
     keycheck: (e) => e.key === 'g' && (e.ctrlKey || e.metaKey),
@@ -14,6 +17,49 @@ export const GameContainer = () => {
       collapsed.set(true)
     },
   })
+
+  // connect to server, get state
+
+  useEffect(() => {
+    if (!canvasRef.current) return
+
+    const pixels = mapXY(20, 20, (x, y) => {
+      return {
+        x,
+        y,
+        h: Math.random() * 360,
+        s: 60,
+        l: 50,
+      }
+    })
+
+    const update = () => {
+      if (!canvasRef.current) return
+      const ctx = canvasRef.current.getContext('2d')
+      if (!ctx) return
+
+      const width = canvasRef.current.width
+      const height = canvasRef.current.height
+
+      ctx.clearRect(0, 0, width, height)
+
+      const h = Math.random() * 360
+      const s = 60
+      const l = 50
+      ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, 1)`
+
+      for (const pixel of pixels) {
+        pixel.h += Math.random() * 5
+
+        ctx.fillStyle = `hsla(${pixel.h}, ${pixel.s}%, ${pixel.l}%, 1)`
+        ctx.fillRect(pixel.x * width, pixel.y * height, 8, 8)
+      }
+
+      requestAnimationFrame(update)
+    }
+
+    update()
+  }, [])
 
   return (
     <Grid
@@ -30,14 +76,19 @@ export const GameContainer = () => {
       borderWidth={collapsed.state ? '0px' : '2px'}
     >
       <Grid
-        background="var(--trans-black-1)"
+        borderRadius="1rem"
+        background="black"
         width="100%"
         height="100%"
         transition="all 0.3s ease-in-out"
         opacity={collapsed.state ? 0 : 1}
         pointerEvents={collapsed.state ? 'none' : 'auto'}
+        alignItems="center"
+        justifyContent="center"
       >
-        <Box margin="auto"></Box>
+        <Box width="320px" height="320px">
+          <canvas id="game-canvas" width={320} height={320} ref={canvasRef} />
+        </Box>
       </Grid>
       <Box position="absolute" bottom="8rem" left="0" textAlign="right">
         <WidgetBadge
