@@ -158,6 +158,7 @@ export const GameContainer = () => {
               height="100%"
               justifyContent="start"
               alignItems="start"
+              padding="1rem"
             >
               <FlexRow
                 padding="1rem"
@@ -178,9 +179,15 @@ export const GameContainer = () => {
                   + ⛺︎
                 </Button>
               </FlexRow>
-              <Grid>
+              <Grid
+                padding="1rem"
+                gridTemplateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+                borderCollapse="collapse"
+                border="1px solid white"
+              >
                 {xData.data?.map((room: any) => (
                   <Flex
+                    order={room.name}
                     key={room.id}
                     justifyContent="space-between"
                     alignItems="center"
