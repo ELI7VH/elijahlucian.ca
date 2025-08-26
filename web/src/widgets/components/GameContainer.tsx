@@ -1,4 +1,4 @@
-import { Box } from '@/lib'
+import { Box, Button, Flex, FlexCol, FlexRow, useBaseQuery } from '@/lib'
 import { Grid } from '@/lib'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBadge } from './WidgetBadge'
@@ -6,10 +6,30 @@ import { useHotkey } from '@/lib/hooks/api/useHotkey'
 import { useEffect, useRef } from 'react'
 import { mapXY } from '@dank-inc/lewps'
 import { SuperMouse } from '@dank-inc/super-mouse'
+import { fromUnix, toFormat, toHuman, toRelative } from '@/lib/magic'
 
 export const GameContainer = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const collapsed = useLocalState('game-container-collapsed', true)
+  const mode = useLocalState('game-container-mode', 'play')
+
+  const xData = useBaseQuery<any>({
+    path: '/X',
+    queryKey: ['X'],
+    params: {
+      query: { scope: 'game' },
+      sort: { createdAt: -1 },
+    },
+  })
+
+  useHotkey({
+    keycheck: (e) => e.key === 'Tab',
+    callback: () => {
+      mode.set(mode.state === 'play' ? 'build' : 'play')
+    },
+    deps: [mode.state],
+  })
+
   useHotkey({
     keycheck: (e) => e.key === 'g' && (e.ctrlKey || e.metaKey),
     callback: collapsed.toggle,
@@ -67,7 +87,7 @@ export const GameContainer = () => {
     }
 
     update()
-  }, [])
+  }, [mode.state])
 
   return (
     <Grid
@@ -83,6 +103,37 @@ export const GameContainer = () => {
       pointerEvents="none"
       borderWidth={collapsed.state ? '0px' : '2px'}
     >
+      <FlexCol
+        padding={collapsed.state ? '0' : '1rem'}
+        position="absolute"
+        maxHeight="100%"
+        overflowY="auto"
+        // maxWidth="600px"
+
+        transition="all 0.3s ease-in-out"
+        width={collapsed.state ? '1px' : '100%'}
+        height={collapsed.state ? '1px' : '100%'}
+
+        // opacity={collapsed.state ? 0 : 1}
+        // opacity={collapsed.state ? 0 : 1}
+      >
+        <WidgetBadge
+          top="0"
+          left="0"
+          name={mode.state === 'play' ? 'play' : 'p'}
+          backgroundColor={mode.state === 'play' ? 'var(--brand-1)' : 'white'}
+          onClick={() => mode.set('play')}
+          color={mode.state === 'play' ? 'white' : 'var(--brand-1)'}
+        ></WidgetBadge>
+        <WidgetBadge
+          top="2rem"
+          left="0"
+          name={mode.state === 'build' ? 'build' : 'b'}
+          backgroundColor={mode.state === 'build' ? 'var(--brand-1)' : 'white'}
+          onClick={() => mode.set('build')}
+          color={mode.state === 'build' ? 'white' : 'var(--brand-1)'}
+        ></WidgetBadge>
+      </FlexCol>
       <Grid
         borderRadius="1rem"
         background="black"
@@ -94,9 +145,73 @@ export const GameContainer = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Box width="320px" height="320px">
-          <canvas id="game-canvas" width={320} height={320} ref={canvasRef} />
-        </Box>
+        {mode.state === 'play' && (
+          <Box width="320px" height="320px">
+            <canvas id="game-canvas" width={320} height={320} ref={canvasRef} />
+          </Box>
+        )}
+        {mode.state === 'build' && (
+          <FlexCol width="100%" height="100%" gap="1rem" padding="3rem">
+            <Grid
+              border="1px solid white"
+              width="100%"
+              height="100%"
+              justifyContent="start"
+              alignItems="start"
+            >
+              <FlexRow
+                padding="1rem"
+                border="1px solid white"
+                width="100%"
+                justifyContent="end"
+              >
+                <Button
+                  onClick={async () => {
+                    const room = await xData.create.mutateAsync({
+                      type: 'room',
+                      scope: 'game',
+                      name: 0,
+                    })
+                    console.log('room', room)
+                  }}
+                >
+                  + ⛺︎
+                </Button>
+              </FlexRow>
+              <Grid>
+                {xData.data?.map((room: any) => (
+                  <Flex
+                    key={room.id}
+                    justifyContent="space-between"
+                    alignItems="center"
+                    gap="1rem"
+                    width="100%"
+                    height="100%"
+                    padding="1rem"
+                    border="1px solid white"
+                    fontFamily="monospace"
+                  >
+                    {toFormat(room.name)}
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        const unix = Math.random() * 200000000000
+                        console.log('unix', unix)
+
+                        xData.update.mutateAsync({
+                          id: room.id,
+                          name: fromUnix(unix),
+                        })
+                      }}
+                    >
+                      ⛺︎
+                    </Button>
+                  </Flex>
+                ))}
+              </Grid>
+            </Grid>
+          </FlexCol>
+        )}
       </Grid>
       <Box position="absolute" bottom="8rem" left="0" textAlign="right">
         <WidgetBadge

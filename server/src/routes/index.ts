@@ -172,8 +172,8 @@ export default () => {
         test: 'test',
         bucket: process.env.SPACES_BUCKET,
         region: process.env.SPACES_REGION,
-        api_port: process.env.API_PORT,
       },
+      api_port: process.env.API_PORT,
     })
   })
 

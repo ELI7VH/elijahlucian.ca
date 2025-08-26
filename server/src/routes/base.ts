@@ -6,8 +6,41 @@ import { SortOrder } from 'mongoose'
 export default async () => {
   const router = Router()
 
+  const scopes = ['game']
+
+  router.get('/X', async (req, res) => {
+    const query = req.query.query as any
+    if (!scopes.includes(query.scope)) {
+      res.status(400).json({ message: 'Invalid scope' })
+      return
+    }
+    const items = await Metadata.find(query)
+    res.json(items)
+  })
+
+  router.get('/X/:id', async (req, res) => {
+    const item = await Metadata.findById(req.params.id)
+    res.json(item)
+  })
+
+  router.post('/X', isAdmin, async (req, res) => {
+    const item = await Metadata.create(req.body)
+    res.json(item)
+  })
+
+  router.patch('/X/:id', isAdmin, async (req, res) => {
+    const item = await Metadata.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    })
+    res.json(item)
+  })
+
+  router.delete('/X/:id', isAdmin, async (req, res) => {
+    await Metadata.findByIdAndDelete(req.params.id)
+    res.json({ message: 'Item deleted' })
+  })
+
   const resources = [
-    { path: 'resources', type: 'route', scope: 'base' },
     { path: 'songs', type: 'upload', scope: 'music' },
     { path: 'playlists', type: 'playlist', scope: 'music' },
     { path: 'thoughts', type: 'notes', scope: 'thoughts' },

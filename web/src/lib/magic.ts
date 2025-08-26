@@ -24,8 +24,8 @@ export const now = () => new Date()
 
 export const toFormat = (date: Date | string) =>
   format(new Date(date), 'yyyy-MM-dd HH:mm:ss')
-export const toHuman = (date: Date | string) =>
-  format(new Date(date), 'MMM d, yyyy h:mm:ss a')
+export const toHuman = (date?: Date | string) =>
+  date ? format(new Date(date), 'MMM d, yyyy h:mm:ss a') : '-'
 export const to12h = (date: Date | string) =>
   format(new Date(date), 'h:mm:ss a')
 export const to24h = (date: Date | string) => format(new Date(date), 'HH:mm:ss')
@@ -35,6 +35,9 @@ export const toRelative = (date: Date | string) => {
     addSuffix: true,
   })
 }
+
+export const fromISO = (iso: string) => new Date(iso)
+export const fromUnix = (unix: number) => new Date(unix * 1000)
 
 export const cn = (...classes: string[]) => {
   return classes.filter(Boolean).join(' ')
