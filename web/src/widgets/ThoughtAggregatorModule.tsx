@@ -41,7 +41,6 @@ export const ThoughtAggregatorModule = () => {
       />
       <WidgetBody collapsed={collapsed.state}>
         <FlexCol gap="0.5rem">
-          <Divider />
           <Flex justifyContent="space-between">
             <Button
               variant={i === 0 ? 'text' : 'ghost'}
@@ -63,6 +62,8 @@ export const ThoughtAggregatorModule = () => {
               Next
             </Button>
           </Flex>
+          <Divider />
+
           <Grid maxHeight="40vh" overflowY="auto" background="rgba(0,0,0,0.1)">
             {filteredThoughts?.slice(i * 3, (i + 1) * 3)?.map((thought, i) => (
               <FlexRow

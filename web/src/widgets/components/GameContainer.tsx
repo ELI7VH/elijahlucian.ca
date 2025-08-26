@@ -19,8 +19,6 @@ export const GameContainer = () => {
     },
   })
 
-  // connect to server, get state
-
   useEffect(() => {
     if (!canvasRef.current) return
 
