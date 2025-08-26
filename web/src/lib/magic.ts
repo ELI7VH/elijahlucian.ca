@@ -35,6 +35,8 @@ export const toRelative = (date: Date | string) => {
     addSuffix: true,
   })
 }
+export const toUnix = (date: Date | string) =>
+  Math.floor(new Date(date).getTime() / 1000)
 
 export const fromISO = (iso: string) => new Date(iso)
 export const fromUnix = (unix: number) => new Date(unix * 1000)

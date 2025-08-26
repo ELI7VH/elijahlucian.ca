@@ -6,7 +6,9 @@ import { useHotkey } from '@/lib/hooks/api/useHotkey'
 import { useEffect, useRef } from 'react'
 import { mapXY } from '@dank-inc/lewps'
 import { SuperMouse } from '@dank-inc/super-mouse'
-import { fromUnix, toFormat, toHuman, toRelative } from '@/lib/magic'
+import { fromUnix, toFormat, toHuman, toRelative, toUnix } from '@/lib/magic'
+
+const magicNumber = 200000000000
 
 export const GameContainer = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -52,8 +54,19 @@ export const GameContainer = () => {
       }
     })
 
+    const rooms = xData.data?.map((room: any) => ({
+      x: toUnix(room.name) / magicNumber,
+      y: toUnix(room.name) / magicNumber,
+    }))
+
+    console.log('rooms', rooms)
+
     const mouse = new SuperMouse({
       element: canvasRef.current,
+      onScroll(e) {
+        e.preventDefault()
+        e.stopPropagation()
+      },
     })
 
     const update = () => {
@@ -80,14 +93,26 @@ export const GameContainer = () => {
 
       if (mouse.onElement) {
         ctx.fillStyle = `hsla(${mouse.scrollY}, 50%, 50%, 1)`
-        ctx.fillRect(mouse.u * width - 8, mouse.v * height - 8, 16, 16)
+        const s = 16 + mouse.inertia * 100
+
+        ctx.fillRect(mouse.u * width - s / 2, mouse.v * height - s / 2, s, s)
+      }
+
+      mouse.update()
+
+      for (const room of rooms || []) {
+        ctx.fillStyle = `#fff`
+        ctx.font = '16px monospace'
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(`⛺︎`, room.x * width, room.y * height)
       }
 
       requestAnimationFrame(update)
     }
 
     update()
-  }, [mode.state])
+  }, [mode.state, xData.data])
 
   return (
     <Grid
@@ -202,7 +227,7 @@ export const GameContainer = () => {
                     <Button
                       variant="ghost"
                       onClick={() => {
-                        const unix = Math.random() * 200000000000
+                        const unix = Math.random() * magicNumber
                         console.log('unix', unix)
 
                         xData.update.mutateAsync({
