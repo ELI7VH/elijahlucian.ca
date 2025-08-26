@@ -59,8 +59,6 @@ export const GameContainer = () => {
       y: toUnix(room.name) / magicNumber,
     }))
 
-    console.log('rooms', rooms)
-
     const mouse = new SuperMouse({
       element: canvasRef.current,
       onScroll(e) {
@@ -92,13 +90,12 @@ export const GameContainer = () => {
       }
 
       if (mouse.onElement) {
-        ctx.fillStyle = `hsla(${mouse.scrollY}, 50%, 50%, 1)`
+        ctx.fillStyle = `hsla(${80 + mouse.scrollY}, 50%, 50%, 1)`
         const s = 16 + mouse.inertia * 100
-
         ctx.fillRect(mouse.u * width - s / 2, mouse.v * height - s / 2, s, s)
       }
 
-      mouse.update()
+      mouse?.update?.()
 
       for (const room of rooms || []) {
         ctx.fillStyle = `#fff`
@@ -172,7 +169,15 @@ export const GameContainer = () => {
       >
         {mode.state === 'play' && (
           <Box width="320px" height="320px">
-            <canvas id="game-canvas" width={320} height={320} ref={canvasRef} />
+            <canvas
+              id="game-canvas"
+              width={320}
+              height={320}
+              ref={canvasRef}
+              style={{
+                imageRendering: 'pixelated',
+              }}
+            />
           </Box>
         )}
         {mode.state === 'build' && (
