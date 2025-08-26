@@ -1,0 +1,3 @@
+[submodule ".references/creative-journal-web"]
+	path = .references/creative-journal-web
+	url = https://github.com/dank-inc/creative-journal-web.git
