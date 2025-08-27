@@ -1,3 +1,6 @@
 [submodule ".references/creative-journal-web"]
 	path = .references/creative-journal-web
 	url = https://github.com/dank-inc/creative-journal-web.git
+[submodule ".references/a-mud-for-the-people"]
+	path = .references/a-mud-for-the-people
+	url = https://github.com/ELI7VH/a-mud-for-the-people
