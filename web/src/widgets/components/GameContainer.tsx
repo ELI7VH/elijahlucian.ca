@@ -16,6 +16,7 @@ export const GameContainer = () => {
   const mode = useLocalState('game-container-mode', 'play')
   const [userInput, setUserInput] = useState<string>('')
   const userInputRef = useRef<HTMLInputElement>(null)
+  const [message, setMessage] = useState<string>('')
 
   const xData = useBaseQuery<any>({
     path: '/X',
@@ -142,10 +143,7 @@ export const GameContainer = () => {
   const handleSubmit = (input: string) => {
     const trimmed = input.trim()
     if (!trimmed) return
-    // Placeholder for command handling
-    // Integrate with game logic or server here if desired
-    // For now, just log the command
-    console.log('[game] command:', trimmed)
+    setMessage(trimmed)
   }
 
   return (
@@ -267,6 +265,20 @@ export const GameContainer = () => {
                 █
               </span>
             </Box>
+            <Grid
+              gridArea="1/1/1/1"
+              textAlign="right"
+              justifyContent="end"
+              alignItems="end"
+              padding="1ch"
+              fontFamily="'Josefin Sans', monospace"
+              key={message}
+              animation="fade-in 0.3s ease-in"
+              width="100%"
+              height="100%"
+            >
+              {message}
+            </Grid>
           </Grid>
         )}
         {mode.state === 'build' && (
