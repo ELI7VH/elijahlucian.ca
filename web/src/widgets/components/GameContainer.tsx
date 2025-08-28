@@ -46,18 +46,6 @@ export const GameContainer = () => {
   useEffect(() => {
     if (!canvasRef.current) return
 
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d', { alpha: false })
-    if (!ctx) return
-
-    const cssWidth = canvas.clientWidth || 320
-    const cssHeight = canvas.clientHeight || 320
-    const dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1))
-    canvas.width = Math.round(cssWidth * dpr)
-    canvas.height = Math.round(cssHeight * dpr)
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    ctx.imageSmoothingEnabled = false
-
     const pixels = mapXY(40, 40, (x, y) => {
       return {
         x,
@@ -100,10 +88,17 @@ export const GameContainer = () => {
       }
     }
 
-    canvasRef.current?.addEventListener('pointermove', handleMouseMove, { passive: true })
+    canvasRef.current?.addEventListener('mousemove', handleMouseMove)
 
     const update = () => {
-      if (!canvasRef.current || collapsed.state || mode.state !== 'play') return
+      if (!canvasRef.current) return
+      const ctx = canvasRef.current.getContext('2d')
+
+      if (!ctx) return
+
+      // update game time delta, but do not render
+
+      if (collapsed.state) return
 
       const width = canvasRef.current.width
       const height = canvasRef.current.height
@@ -149,19 +144,15 @@ export const GameContainer = () => {
         ctx.fillText(`⛺︎`, room.x * width, room.y * height)
       }
 
-      animationFrameId.current = requestAnimationFrame(update)
+      requestAnimationFrame(update)
     }
 
-    const animationFrameId = { current: 0 as number }
-    if (!collapsed.state && mode.state === 'play') {
-      animationFrameId.current = requestAnimationFrame(update)
-    }
+    update()
 
     return () => {
-      canvasRef.current?.removeEventListener('pointermove', handleMouseMove)
-      if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current)
+      canvasRef.current?.removeEventListener('mousemove', handleMouseMove)
     }
-  }, [mode.state, collapsed.state, xData.data])
+  }, [mode.state, xData.data])
 
   useEffect(() => {
     if (!userInputRef.current) return
@@ -222,7 +213,7 @@ export const GameContainer = () => {
       </FlexCol>
       <Grid
         borderRadius="1rem"
-        background="rgba(0, 0, 0, 0.9)"
+        background="rgba(0, 0, 0, 0.9)" /* MUD html background */
         width="100%"
         height="100%"
         transition="all 0.3s ease-in-out"
