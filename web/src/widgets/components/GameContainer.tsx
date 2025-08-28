@@ -61,12 +61,33 @@ export const GameContainer = () => {
       y: toUnix(room.name) / magicNumber,
     }))
 
-    const mouse = new SuperMouse({
-      element: canvasRef.current,
-      onScroll(e) {
-        e.preventDefault()
-        e.stopPropagation()
-      },
+    const mouse = {
+      onElement: false,
+      u: 0,
+      v: 0,
+      inertia: 0,
+      update: () => {},
+    }
+
+    canvasRef.current?.addEventListener('mousemove', (e) => {
+      if (!canvasRef.current) return
+
+      console.log('mousemove', e.layerX, e.layerY)
+
+      const width = canvasRef.current.width
+      const height = canvasRef.current.height
+
+      const mu = Math.abs(e.movementX) / width
+      const mv = Math.abs(e.movementY) / height
+
+      mouse.inertia += mu + mv
+
+      mouse.onElement = true
+      mouse.u = e.layerX / width
+      mouse.v = e.layerY / height
+      mouse.update = () => {
+        mouse.inertia *= 0.9
+      }
     })
 
     const update = () => {
@@ -77,22 +98,23 @@ export const GameContainer = () => {
       const width = canvasRef.current.width
       const height = canvasRef.current.height
 
-      ctx.clearRect(0, 0, width, height)
+      ctx.fillStyle = `hsla(0, 0%, 0%, 1)`
+      ctx.fillRect(0, 0, width, height)
 
       const h = Math.random() * 360
-      const s = 60
-      const l = 50
-      ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, 1)`
+      const s = 70
+      const l = 20
+      ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, 0.2)`
 
       for (const pixel of pixels) {
         pixel.h += Math.random() * 5
 
-        ctx.fillStyle = `hsla(${pixel.h}, ${pixel.s}%, ${pixel.l}%, 1)`
+        ctx.fillStyle = `hsla(${pixel.h}, ${pixel.s}%, ${pixel.l}%, 0.2)`
         ctx.fillRect(pixel.x * width - 4, pixel.y * height - 4, 8, 8)
       }
 
       if (mouse.onElement) {
-        ctx.fillStyle = `hsla(${80 + mouse.scrollY}, 50%, 50%, 1)`
+        ctx.fillStyle = `hsla(${80 + mouse.inertia * 100}, 50%, 50%, 0.4)`
         const s = 16 + mouse.inertia * 100
         ctx.fillRect(mouse.u * width - s / 2, mouse.v * height - s / 2, s, s)
       }
@@ -138,6 +160,7 @@ export const GameContainer = () => {
       borderRadius="1rem"
       borderStyle="dashed"
       pointerEvents="none"
+      className="game-container"
       borderWidth={collapsed.state ? '0px' : '2px'}
     >
       <FlexCol
@@ -172,7 +195,7 @@ export const GameContainer = () => {
       </FlexCol>
       <Grid
         borderRadius="1rem"
-        background="#342e37" /* MUD html background */
+        background="rgba(0, 0, 0, 0.9)" /* MUD html background */
         width="100%"
         height="100%"
         transition="all 0.3s ease-in-out"
@@ -187,6 +210,7 @@ export const GameContainer = () => {
             height="320px"
             color="#fafffd"
             position="relative"
+            className="interface-container"
           >
             <input
               ref={userInputRef}
@@ -233,8 +257,12 @@ export const GameContainer = () => {
               fontFamily="'Josefin Sans', monospace"
               fontSize="14px"
               pointerEvents="none"
+              padding="1ch"
             >
-              <span style={{ color: '#3c91e6' }}>&gt;</span> {userInput}
+              <span className="interface-caret" style={{ color: '#3c91e6' }}>
+                &gt;
+              </span>
+              <span className="interface-text">{userInput}</span>
               <span className="cursor" style={{ marginLeft: '2px' }}>
                 █
               </span>

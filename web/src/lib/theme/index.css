@@ -135,6 +135,21 @@ input {
   }
 }
 
+.interface-container {
+  cursor: none;
+  border: 1px solid var(--brand-1);
+  /* border-radius: 0.5rem; */
+  overflow: hidden;
+}
+
+.interface-text {
+  text-shadow: 0 0 1px var(--brand-1);
+}
+
+.interface-caret {
+  color: #3c91e6;
+}
+
 .cursor {
   color: #3c91e6;
   animation: cursor-blink 1s linear infinite;
