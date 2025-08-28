@@ -21,6 +21,7 @@ export const DesktopContainer = ({ children }: PropsWithChildren) => {
 
   // GRID VIEW
   // MAP THINGS TO DIFFERENT AREAS... DUH
+  // when open, register sub hotkeys.
 
   return (
     <Grid

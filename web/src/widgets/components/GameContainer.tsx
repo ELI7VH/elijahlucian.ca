@@ -5,8 +5,7 @@ import { WidgetBadge } from './WidgetBadge'
 import { useHotkey } from '@/lib/hooks/api/useHotkey'
 import { useEffect, useRef, useState } from 'react'
 import { mapXY } from '@dank-inc/lewps'
-import { SuperMouse } from '@dank-inc/super-mouse'
-import { fromUnix, toFormat, toHuman, toRelative, toUnix } from '@/lib/magic'
+import { fromUnix, toFormat, toUnix } from '@/lib/magic'
 
 const magicNumber = 200000000000
 
@@ -94,7 +93,12 @@ export const GameContainer = () => {
     const update = () => {
       if (!canvasRef.current) return
       const ctx = canvasRef.current.getContext('2d')
+
       if (!ctx) return
+
+      // update game time delta, but do not render
+
+      if (collapsed.state) return
 
       const width = canvasRef.current.width
       const height = canvasRef.current.height
@@ -137,8 +141,14 @@ export const GameContainer = () => {
   }, [mode.state, xData.data])
 
   useEffect(() => {
-    if (userInputRef.current) userInputRef.current.focus()
-  })
+    if (!userInputRef.current) return
+
+    if (collapsed.state) {
+      userInputRef.current.blur()
+    } else {
+      userInputRef.current.focus()
+    }
+  }, [collapsed.state])
 
   const handleSubmit = (input: string) => {
     const trimmed = input.trim()
@@ -202,7 +212,7 @@ export const GameContainer = () => {
         alignItems="center"
         justifyContent="center"
       >
-        {mode.state === 'play' && (
+        {!collapsed.state && mode.state === 'play' && (
           <Grid
             width="320px"
             height="320px"
