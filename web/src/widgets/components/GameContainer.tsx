@@ -143,7 +143,7 @@ export const GameContainer = () => {
       <FlexCol
         padding={collapsed.state ? '0' : '1rem'}
         position="absolute"
-        maxHeight="100%"
+        border="1px solid white"
         overflowY="auto"
         // maxWidth="600px"
 
@@ -208,7 +208,7 @@ export const GameContainer = () => {
                 }
               }}
               style={{
-                gridArea: '1/2/1/2',
+                gridArea: '1/1/1/1',
                 opacity: 0,
                 pointerEvents: 'none',
                 width: 0,
@@ -222,12 +222,12 @@ export const GameContainer = () => {
               ref={canvasRef}
               style={{
                 imageRendering: 'pixelated',
-                gridArea: '1/2/1/2',
+                gridArea: '1/1/1/1',
               }}
             />
             {/* Visible echo for the current input with caret */}
             <Box
-              gridArea="1/2/1/2"
+              gridArea="1/1/1/1"
               position="absolute"
               bottom="-2rem"
               left="0"
@@ -237,7 +237,7 @@ export const GameContainer = () => {
               fontSize="14px"
             >
               <span style={{ color: '#3c91e6' }}>&gt;</span> {userInput}
-              <span style={{ marginLeft: '2px', color: '#3c91e6' }}>█</span>
+              <span className="cursor" style={{ marginLeft: '2px' }}>█</span>
             </Box>
           </Grid>
         )}
