@@ -46,7 +46,19 @@ export const GameContainer = () => {
   useEffect(() => {
     if (!canvasRef.current) return
 
-    const pixels = mapXY(20, 20, (x, y) => {
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext('2d', { alpha: false })
+    if (!ctx) return
+
+    const cssWidth = canvas.clientWidth || 320
+    const cssHeight = canvas.clientHeight || 320
+    const dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1))
+    canvas.width = Math.round(cssWidth * dpr)
+    canvas.height = Math.round(cssHeight * dpr)
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    ctx.imageSmoothingEnabled = false
+
+    const pixels = mapXY(40, 40, (x, y) => {
       return {
         x,
         y,
@@ -69,16 +81,14 @@ export const GameContainer = () => {
       update: () => {},
     }
 
-    canvasRef.current?.addEventListener('mousemove', (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (!canvasRef.current) return
-
-      console.log('mousemove', e.layerX, e.layerY)
 
       const width = canvasRef.current.width
       const height = canvasRef.current.height
 
-      const mu = Math.abs(e.movementX) / width
-      const mv = Math.abs(e.movementY) / height
+      const mu = (Math.abs(e.movementX) / width) * 0.2
+      const mv = (Math.abs(e.movementY) / height) * 0.2
 
       mouse.inertia += mu + mv
 
@@ -88,17 +98,12 @@ export const GameContainer = () => {
       mouse.update = () => {
         mouse.inertia *= 0.9
       }
-    })
+    }
+
+    canvasRef.current?.addEventListener('pointermove', handleMouseMove, { passive: true })
 
     const update = () => {
-      if (!canvasRef.current) return
-      const ctx = canvasRef.current.getContext('2d')
-
-      if (!ctx) return
-
-      // update game time delta, but do not render
-
-      if (collapsed.state) return
+      if (!canvasRef.current || collapsed.state || mode.state !== 'play') return
 
       const width = canvasRef.current.width
       const height = canvasRef.current.height
@@ -114,14 +119,24 @@ export const GameContainer = () => {
       for (const pixel of pixels) {
         pixel.h += Math.random() * 5
 
+        const s = 7
+
         ctx.fillStyle = `hsla(${pixel.h}, ${pixel.s}%, ${pixel.l}%, 0.2)`
-        ctx.fillRect(pixel.x * width - 4, pixel.y * height - 4, 8, 8)
+        ctx.fillRect(pixel.x * width - s / 2, pixel.y * height - s / 2, s, s)
       }
 
       if (mouse.onElement) {
-        ctx.fillStyle = `hsla(${80 + mouse.inertia * 100}, 50%, 50%, 0.4)`
-        const s = 16 + mouse.inertia * 100
-        ctx.fillRect(mouse.u * width - s / 2, mouse.v * height - s / 2, s, s)
+        ctx.fillStyle = `hsla(${80 + mouse.inertia * 100}, 50%, 50%, 1)`
+
+        const x = mouse.u * width
+        const y = mouse.v * height
+
+        ctx.beginPath()
+        ctx.moveTo(x, y)
+        ctx.lineTo(x + 15, y + 15)
+        ctx.lineTo(x, y + 20)
+        ctx.closePath()
+        ctx.fill()
       }
 
       mouse?.update?.()
@@ -134,20 +149,24 @@ export const GameContainer = () => {
         ctx.fillText(`⛺︎`, room.x * width, room.y * height)
       }
 
-      requestAnimationFrame(update)
+      animationFrameId.current = requestAnimationFrame(update)
     }
 
-    update()
-  }, [mode.state, xData.data])
+    const animationFrameId = { current: 0 as number }
+    if (!collapsed.state && mode.state === 'play') {
+      animationFrameId.current = requestAnimationFrame(update)
+    }
+
+    return () => {
+      canvasRef.current?.removeEventListener('pointermove', handleMouseMove)
+      if (animationFrameId.current) cancelAnimationFrame(animationFrameId.current)
+    }
+  }, [mode.state, collapsed.state, xData.data])
 
   useEffect(() => {
     if (!userInputRef.current) return
 
-    if (collapsed.state) {
-      userInputRef.current.blur()
-    } else {
-      userInputRef.current.focus()
-    }
+    userInputRef.current.focus()
   }, [collapsed.state])
 
   const handleSubmit = (input: string) => {
@@ -203,7 +222,7 @@ export const GameContainer = () => {
       </FlexCol>
       <Grid
         borderRadius="1rem"
-        background="rgba(0, 0, 0, 0.9)" /* MUD html background */
+        background="rgba(0, 0, 0, 0.9)"
         width="100%"
         height="100%"
         transition="all 0.3s ease-in-out"
@@ -253,6 +272,7 @@ export const GameContainer = () => {
               style={{
                 imageRendering: 'pixelated',
                 gridArea: '1/1/1/1',
+                pointerEvents: 'all',
               }}
             />
             <Box
@@ -283,6 +303,7 @@ export const GameContainer = () => {
               padding="1ch"
               fontFamily="'Josefin Sans', monospace"
               key={message}
+              pointerEvents="none"
               animation="fade-in 0.3s ease-in"
               width="100%"
               height="100%"
