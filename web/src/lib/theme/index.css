@@ -17,8 +17,8 @@
   --brand-1: #ff0080;
   --brand-1-dark: #cc0066;
   --brand-1-light: #ff33af;
-  --brand-2: #7928ca;
-  --brand-3: #6b9fa5;
+  --brand-2: #8d3fdc;
+  --brand-3: #3c91e6;
   --brand-6: #1d3557;
 
   --gray-0: #ffffff;
@@ -42,6 +42,19 @@
     var(--brand-4) 100%,
     transparent 100%,
     var(--brand-3)
+  );
+
+  --gold-1: #ffd700;
+  --gold-2: #ffc400;
+  --gold-3: #ffb100;
+  --gold-4: #ff9e00;
+
+  --gold-gradient: linear-gradient(
+    to right,
+    var(--gold-1),
+    var(--gold-2),
+    var(--gold-3),
+    var(--gold-4),
   );
 
   /* https://heropatterns.com/ */

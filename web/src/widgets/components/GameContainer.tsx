@@ -355,10 +355,10 @@ export const GameContainer = () => {
         <WidgetBadge
           name={collapsed.state ? 'g' : 'game'}
           onClick={() => collapsed.toggle()}
-          backgroundColor="white"
+          backgroundColor="var(--gold-3)"
           // variant vs abstracted component
           textStyle={{
-            color: collapsed.state ? 'white' : 'white',
+            color: collapsed.state ? 'var(--gold-4)' : 'white',
           }}
         />
       </Box>
