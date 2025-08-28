@@ -143,7 +143,6 @@ export const GameContainer = () => {
       <FlexCol
         padding={collapsed.state ? '0' : '1rem'}
         position="absolute"
-        border="1px solid white"
         overflowY="auto"
         // maxWidth="600px"
 
@@ -187,7 +186,7 @@ export const GameContainer = () => {
             width="320px"
             height="320px"
             color="#fafffd"
-            fontFamily="'Josefin Sans', 'Open Sans', sans-serif"
+            position="relative"
           >
             <input
               ref={userInputRef}
@@ -226,13 +225,14 @@ export const GameContainer = () => {
             />
             <Box
               gridArea="1/1/1/1"
-              position="absolute"
-              bottom="-2rem"
+              bottom="0"
               left="0"
               width="100%"
+              height="100%"
               color="#fafffd"
               fontFamily="'Josefin Sans', monospace"
               fontSize="14px"
+              pointerEvents="none"
             >
               <span style={{ color: '#3c91e6' }}>&gt;</span> {userInput}
               <span className="cursor" style={{ marginLeft: '2px' }}>
