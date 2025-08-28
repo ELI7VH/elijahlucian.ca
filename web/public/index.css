@@ -15,23 +15,4 @@
 }
 
 
-body {
-  background-color: #342e37; /* MUD background */
-  color: #fafffd; /* MUD foreground */
-  font-family: 'Josefin Sans', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-}
-
-.cursor {
-  color: #3c91e6;
-  animation: cursor-blink 1s linear infinite;
-}
-
-@keyframes cursor-blink {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
+/* moved app-level colors, font-family, and cursor-blink to theme/index.css */
