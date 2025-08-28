@@ -189,7 +189,6 @@ export const GameContainer = () => {
             color="#fafffd"
             fontFamily="'Josefin Sans', 'Open Sans', sans-serif"
           >
-            {/* Hidden input to capture keyboard input similar to MUD project */}
             <input
               ref={userInputRef}
               onBlur={() =>
@@ -225,7 +224,6 @@ export const GameContainer = () => {
                 gridArea: '1/1/1/1',
               }}
             />
-            {/* Visible echo for the current input with caret */}
             <Box
               gridArea="1/1/1/1"
               position="absolute"
@@ -237,7 +235,9 @@ export const GameContainer = () => {
               fontSize="14px"
             >
               <span style={{ color: '#3c91e6' }}>&gt;</span> {userInput}
-              <span className="cursor" style={{ marginLeft: '2px' }}>█</span>
+              <span className="cursor" style={{ marginLeft: '2px' }}>
+                █
+              </span>
             </Box>
           </Grid>
         )}
