@@ -38,6 +38,21 @@ Created a new `HotkeyButton` component that combines the existing `Button` compo
 - Replaced regular `Button` components with `HotkeyButton` where hotkey functionality was needed
 - Added size control hotkeys to `Bub3` component (shift + +, shift + \_, =)
 
+### GameContainer Cursor Input (2025-01-08)
+
+- Added `a-mud-for-the-people` as a submodule under `.references/`
+- Implemented hidden input cursor-driven text entry in `web/src/widgets/components/GameContainer.tsx`
+- Behavior mirrors MUD-style UI: input is captured via an invisible field, echoed on screen with a block cursor, submits on Enter
+- Ready to wire to game command handling or backend as needed
+- Adopted MUD visual style (colors, font) for the GameContainer play mode
+- Colors: background `#342e37`, foreground `#fafffd`, accent `#3c91e6`
+- Font: `Josefin Sans` with system fallbacks
+- Applied in `web/index.html` (font link) and `web/public/index.css` (body styles)
+
+**Locations**:
+- `.references/a-mud-for-the-people`
+- `web/src/widgets/components/GameContainer.tsx`
+
 ## Database Schema
 
 ### User Model (`server/src/db/models/User.ts`)

@@ -16,6 +16,8 @@
 
 
 body {
-  background-color: #000;
-  color: #fff;
+  background-color: #342e37; /* MUD background */
+  color: #fafffd; /* MUD foreground */
+  font-family: 'Josefin Sans', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }

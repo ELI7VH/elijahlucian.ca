@@ -3,7 +3,7 @@ import { Grid } from '@/lib'
 import { useLocalState } from '@/lib/hooks/useLocalState'
 import { WidgetBadge } from './WidgetBadge'
 import { useHotkey } from '@/lib/hooks/api/useHotkey'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { mapXY } from '@dank-inc/lewps'
 import { SuperMouse } from '@dank-inc/super-mouse'
 import { fromUnix, toFormat, toHuman, toRelative, toUnix } from '@/lib/magic'
@@ -14,6 +14,8 @@ export const GameContainer = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const collapsed = useLocalState('game-container-collapsed', true)
   const mode = useLocalState('game-container-mode', 'play')
+  const [userInput, setUserInput] = useState<string>('')
+  const userInputRef = useRef<HTMLInputElement>(null)
 
   const xData = useBaseQuery<any>({
     path: '/X',
@@ -111,6 +113,19 @@ export const GameContainer = () => {
     update()
   }, [mode.state, xData.data])
 
+  useEffect(() => {
+    if (userInputRef.current) userInputRef.current.focus()
+  })
+
+  const handleSubmit = (input: string) => {
+    const trimmed = input.trim()
+    if (!trimmed) return
+    // Placeholder for command handling
+    // Integrate with game logic or server here if desired
+    // For now, just log the command
+    console.log('[game] command:', trimmed)
+  }
+
   return (
     <Grid
       position="absolute"
@@ -158,7 +173,7 @@ export const GameContainer = () => {
       </FlexCol>
       <Grid
         borderRadius="1rem"
-        background="black"
+        background="#342e37" /* MUD html background */
         width="100%"
         height="100%"
         transition="all 0.3s ease-in-out"
@@ -168,7 +183,38 @@ export const GameContainer = () => {
         justifyContent="center"
       >
         {mode.state === 'play' && (
-          <Box width="320px" height="320px">
+          <Grid
+            width="320px"
+            height="320px"
+            color="#fafffd"
+            fontFamily="'Josefin Sans', 'Open Sans', sans-serif"
+          >
+            {/* Hidden input to capture keyboard input similar to MUD project */}
+            <input
+              ref={userInputRef}
+              onBlur={() =>
+                userInputRef.current && userInputRef.current.focus()
+              }
+              autoFocus
+              autoComplete="off"
+              type="text"
+              required
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSubmit(userInput)
+                  setUserInput('')
+                }
+              }}
+              style={{
+                gridArea: '1/2/1/2',
+                opacity: 0,
+                pointerEvents: 'none',
+                width: 0,
+                height: 0,
+              }}
+            />
             <canvas
               id="game-canvas"
               width={320}
@@ -176,9 +222,24 @@ export const GameContainer = () => {
               ref={canvasRef}
               style={{
                 imageRendering: 'pixelated',
+                gridArea: '1/2/1/2',
               }}
             />
-          </Box>
+            {/* Visible echo for the current input with caret */}
+            <Box
+              gridArea="1/2/1/2"
+              position="absolute"
+              bottom="-2rem"
+              left="0"
+              width="100%"
+              color="#fafffd"
+              fontFamily="'Josefin Sans', monospace"
+              fontSize="14px"
+            >
+              <span style={{ color: '#3c91e6' }}>&gt;</span> {userInput}
+              <span style={{ marginLeft: '2px', color: '#3c91e6' }}>█</span>
+            </Box>
+          </Grid>
         )}
         {mode.state === 'build' && (
           <FlexCol width="100%" height="100%" gap="1rem" padding="3rem">
