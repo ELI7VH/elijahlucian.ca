@@ -17,6 +17,7 @@ export const GameContainer = () => {
   const [userInput, setUserInput] = useState<string>('')
   const userInputRef = useRef<HTMLInputElement>(null)
   const [message, setMessage] = useState<string>('')
+  const time = useLocalState('game-container-time', 0)
 
   const actions = ['look', 'listen']
 
@@ -68,7 +69,9 @@ export const GameContainer = () => {
       return {
         x,
         y,
-        h: Math.random() * 360,
+        h: Math.random() * 70 + 250,
+        sat: Math.random() * 20 + 80,
+        lum: Math.random() * 20 + 20,
         s: 60,
         l: 50,
       }
@@ -124,17 +127,12 @@ export const GameContainer = () => {
       ctx.fillStyle = `hsla(0, 0%, 0%, 1)`
       ctx.fillRect(0, 0, width, height)
 
-      const h = Math.random() * 360
-      const s = 70
-      const l = 20
-      ctx.fillStyle = `hsla(${h}, ${s}%, ${l}%, 0.2)`
-
       for (const pixel of pixels) {
-        pixel.h += Math.random() * 5
-
+        // pixel.h += Math.random() * 5
         const s = 7
+        const l = 70
 
-        ctx.fillStyle = `hsla(${pixel.h}, ${pixel.s}%, ${pixel.l}%, 0.2)`
+        ctx.fillStyle = `hsla(${pixel.h}, ${pixel.sat}%, ${pixel.lum}%, 0.2)`
         ctx.fillRect(pixel.x * width - s / 2, pixel.y * height - s / 2, s, s)
       }
 
