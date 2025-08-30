@@ -13,9 +13,12 @@ export const GameContainer = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const collapsed = useLocalState('game-container-collapsed', true)
   const mode = useLocalState('game-container-mode', 'play')
+  const action = useLocalState('game-container-action', 'look')
   const [userInput, setUserInput] = useState<string>('')
   const userInputRef = useRef<HTMLInputElement>(null)
   const [message, setMessage] = useState<string>('')
+
+  const actions = ['look', 'listen']
 
   const xData = useBaseQuery<any>({
     path: '/X',
@@ -25,6 +28,21 @@ export const GameContainer = () => {
       sort: { createdAt: -1 },
     },
   })
+
+  useEffect(() => {
+    const trimmed = message.trim()
+
+    switch (trimmed) {
+      case 'look':
+        action.set('look')
+        break
+      case 'listen':
+        action.set('listen')
+        break
+      default:
+        action.set('')
+    }
+  }, [message])
 
   useHotkey({
     keycheck: (e) => e.key === 'Tab',
@@ -136,12 +154,14 @@ export const GameContainer = () => {
 
       mouse?.update?.()
 
-      for (const room of rooms || []) {
-        ctx.fillStyle = `#fff`
-        ctx.font = '16px monospace'
-        ctx.textAlign = 'center'
-        ctx.textBaseline = 'middle'
-        ctx.fillText(`⛺︎`, room.x * width, room.y * height)
+      if (action.state === 'look') {
+        for (const room of rooms || []) {
+          ctx.fillStyle = `#fff`
+          ctx.font = '16px monospace'
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText(`⛺︎`, room.x * width, room.y * height)
+        }
       }
 
       requestAnimationFrame(update)
@@ -295,10 +315,12 @@ export const GameContainer = () => {
               fontFamily="'Josefin Sans', monospace"
               key={message}
               pointerEvents="none"
+              color={actions.includes(action.state) ? 'var(--brand-1)' : 'gray'}
               animation="fade-in 0.3s ease-in"
               width="100%"
               height="100%"
             >
+              {actions.includes(action.state) ? ':' : ''}
               {message}
             </Grid>
           </Grid>
