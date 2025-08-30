@@ -17,7 +17,6 @@ export const GameContainer = () => {
   const [userInput, setUserInput] = useState<string>('')
   const userInputRef = useRef<HTMLInputElement>(null)
   const [message, setMessage] = useState<string>('')
-  const time = useLocalState('game-container-time', 0)
 
   const actions = ['look', 'listen']
 
