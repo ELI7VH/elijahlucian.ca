@@ -85,7 +85,7 @@ export const Filez = () => {
         onClick={() => collapsed.toggle()}
       />
       <WidgetBody collapsed={collapsed.state} background="background-image-2">
-        <FileGrabbr onSubmit={handleUpload}></FileGrabbr>
+        {!collapsed.state && <FileGrabbr onSubmit={handleUpload}></FileGrabbr>}
         <Divider />
         <Table
           header={
