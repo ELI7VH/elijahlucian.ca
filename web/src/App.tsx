@@ -13,7 +13,6 @@ import {
   Page,
   useUserContext,
 } from './lib'
-import { useEffect } from 'react'
 import { useState } from 'react'
 import { Home } from './routes/home'
 import { Bub3 } from './widgets/components/Bub3'
@@ -23,7 +22,6 @@ import { useToast } from './lib/hooks/useToast'
 import { useBangerz } from './lib/hooks/useBangerz'
 
 export const App = () => {
-  const [started, setStarted] = useState(false)
   const thoughts = useThoughts({ params: { sort: { createdAt: 1 } } })
   const user = useUserContext()
   const [hideSite, setHideSite] = useState(false)
@@ -32,12 +30,6 @@ export const App = () => {
 
   const index = useLocalState('thoughts-index', 0)
   const { toast } = useToast()
-
-  useEffect(() => {
-    setTimeout(() => {
-      setStarted(true)
-    }, 1000)
-  }, [])
 
   // todo: ui sound effects, because we're making a fucking banger here.
   const thought = hiddenThoughts.state ? null : thoughts.data?.[index.state]
