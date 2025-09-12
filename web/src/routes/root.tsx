@@ -1,7 +1,6 @@
 import { App } from '@/App'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AdminDashboard } from './admin'
-import { DesktopContainer } from '@/widgets/components/DesktopContainer'
 import { Radio } from '@/widgets/Radio'
 import { PlaylistWidget } from '@/widgets/PlaylistWidget'
 import { SongInfo } from '@/widgets/SongInfo'
@@ -15,6 +14,7 @@ import { Scan } from './tools/scan'
 import { UserContainer } from '@/widgets/components/UserContainer'
 import { Layerz } from '@/widgets/components/Layerz'
 import { GameContainer } from '@/widgets/components/GameContainer'
+import { BaseLayer } from '@/widgets/BaseLayer'
 
 export const RootRouter = () => {
   const user = useUserContext()
@@ -38,7 +38,7 @@ export const RootRouter = () => {
         <GameContainer />
         <UserContainer />
         <PinContainer />
-        <DesktopContainer>
+        <BaseLayer name="Desktop" color="var(--brand-1)" hotkey="d" i={1}>
           <Radio />
           <PlaylistWidget />
           <SongInfo />
@@ -47,7 +47,7 @@ export const RootRouter = () => {
           <DankVision />
           {/* <PublicationManager />  */}
           <Filez />
-        </DesktopContainer>
+        </BaseLayer>
       </Layerz>
     </>
   )

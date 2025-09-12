@@ -1,0 +1,7 @@
+- name: wrap desktop containers in a component that has collapsable functionalty, un-mounts children when collapsed, but keeps the wraper div that handles expanding lagic, borders.
+- name: create post entity
+  sub-items:
+    - voice note -> post
+    - image -> post
+    - song -> post
+- name: create agents for various domains, per package, etc.

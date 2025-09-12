@@ -1,5 +1,11 @@
 ## Recent Updates
 
+### Sister-Package Submodules (2025-09-11)
+
+- Added `@dank-inc/banger`, `@dank-inc/lewps`, `@dank-inc/numbaz`, `@dank-inc/sketchy`, `@dank-inc/super-mouse` as git submodules
+- Location: `.sister-packages/<package>`
+- Goal: single workspace to develop all related tools
+
 ### HotkeyButton Component (2024-12-19)
 
 Created a new `HotkeyButton` component that combines the existing `Button` component with hotkey functionality using the `useHotkey` hook. This component:
@@ -50,6 +56,7 @@ Created a new `HotkeyButton` component that combines the existing `Button` compo
 - Applied in `web/index.html` (font link) and `web/public/index.css` (body styles)
 
 **Locations**:
+
 - `.references/a-mud-for-the-people`
 - `web/src/widgets/components/GameContainer.tsx`
 

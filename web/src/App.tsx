@@ -22,7 +22,7 @@ import { useToast } from './lib/hooks/useToast'
 import { useBangerz } from './lib/hooks/useBangerz'
 
 export const App = () => {
-  const thoughts = useThoughts({ params: { sort: { createdAt: 1 } } })
+  const thoughts = useThoughts({ params: { sort: { createdAt: -1 } } })
   const user = useUserContext()
   const [hideSite, setHideSite] = useState(false)
   const hiddenThoughts = useLocalState('hidden-thoughts', false)

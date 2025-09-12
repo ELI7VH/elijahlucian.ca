@@ -4,3 +4,18 @@
 [submodule ".references/a-mud-for-the-people"]
 	path = .references/a-mud-for-the-people
 	url = https://github.com/ELI7VH/a-mud-for-the-people
+[submodule ".sister-packages/banger"]
+	path = .sister-packages/banger
+	url = git@github.com:dank-inc/banger.git
+[submodule ".sister-packages/lewps"]
+	path = .sister-packages/lewps
+	url = git@github.com:dank-inc/lewps.git
+[submodule ".sister-packages/numbaz"]
+	path = .sister-packages/numbaz
+	url = git@github.com:dank-inc/numbaz.git
+[submodule ".sister-packages/sketchy"]
+	path = .sister-packages/sketchy
+	url = git@github.com:dank-inc/sketchy.git
+[submodule ".sister-packages/super-mouse"]
+	path = .sister-packages/super-mouse
+	url = git@github.com:dank-inc/super-mouse.git
